@@ -23,10 +23,52 @@
             </div>
         </div>
 
+        <div class="app-page host-login-page" data-page="host-login">
+            <div class="app-topbar red">
+                <div class="app-title">Host Login</div>
+                <div class="app-button left" data-back></div>
+            </div>
+            <div class="app-content">
+                <div class="app-section">
+                    <input placeholder="Party Name" class="app-input">
+                    <input placeholder="Password" class="app-input">
+                    <div class="app-button green submit">Submit</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-page guest-login-page" data-page="guest-login">
+            <div class="app-topbar dark-blue">
+                <div class="app-title">Guest Login</div>
+                <div class="app-button left" data-back></div>
+            </div>
+            <div class="app-content">
+                <div class="app-section">
+                    <input placeholder="Enter Guest Key" class="app-input" maxlength="6">
+                    <div class="app-button green submit">Submit</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-page party-page" data-page="party">
+            <div class="app-topbar red">
+                <div class="app-title">Party Page</div>
+                <div class="app-button left" data-back></div>
+            </div>
+            <div class="app-content">
+                <div class="app-section">
+                    <!-- TODO -->
+                </div>
+            </div>
+        </div>
+
         <!-- Scripts -->
         <script src="/zerver/API.js"></script>
         <script src="//cdn.kik.com/app/2.0.1/app.min.js"></script>
         <script src="/controller/home.js"></script>
+        <script src="/controller/guest-login.js"></script>
+        <script src="/controller/host-login.js"></script>
+        <script src="/controller/party.js"></script>
         <script src="/main.js"></script>
     </body>
 </html>

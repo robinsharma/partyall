@@ -1,0 +1,7 @@
+App.controller('guest-login', function ($page) {
+    var $submitButton = $page.querySelector('.app-button.green.submit');
+    $submitButton.addEventListener('click', function () {
+        //TODO VERIFY
+        App.load('party');
+    });
+});
