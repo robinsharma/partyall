@@ -54,11 +54,22 @@
             <div class="app-topbar red">
                 <div class="app-title">Party Page</div>
                 <div class="app-button left" data-back></div>
+                <div class="app-button right" data-target="search">Search</div>
             </div>
             <div class="app-content">
                 <div class="app-section">
                     <!-- TODO -->
                 </div>
+            </div>
+        </div>
+
+        <div class="app-page search-page" data-page="search">
+            <div class="app-topbar red">
+                <div class="app-title">Search</div>
+                <div class="app-button left" data-back></div>
+            </div>
+            <div class="app-content">
+                <input type="search" class="app-input" placeholder="Search...">
             </div>
         </div>
 
@@ -69,6 +80,7 @@
         <script src="/controller/guest-login.js"></script>
         <script src="/controller/host-login.js"></script>
         <script src="/controller/party.js"></script>
+        <script src="/controller/search.js"></script>
         <script src="/main.js"></script>
     </body>
 </html>
