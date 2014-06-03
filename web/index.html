@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html manifest="manifest.appcache">
+    <head>
+        <title>PartyAll</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <!-- Styles -->
+        <link rel="stylesheet" href="//cdn.kik.com/app/2.0.1/app.min.css">
+        <link rel="stylesheet" href="/css/styles.css">
+        <link rel="stylesheet" href="/css/home.css">
+    </head>
+
+    <body>
+        <!-- Pages -->
+        <div class="app-page home-page" data-page="home">
+            <div class="app-content landing">
+                <div class="logo"></div>
+                <div class="description">Welcome to PartyAll!</div>
+                    <div class="half-circle host-button">Host</div>
+                    <div class="description">CHOOSE</div>
+                    <div class="half-circle guest-button">Guest</div>
+            </div>
+        </div>
+
+        <!-- Scripts -->
+        <script src="/zerver/API.js"></script>
+        <script src="//cdn.kik.com/app/2.0.1/app.min.js"></script>
+        <script src="/controller/home.js"></script>
+        <script src="/main.js"></script>
+    </body>
+</html>
