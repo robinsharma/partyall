@@ -1,0 +1,70 @@
+.party-page .header {
+    color: #474747;
+    font-size: 14px;
+    height: 26px;
+    line-height: 26px;
+    padding-top: 12px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.party-page .app-button.right.search {
+    background-image: url(/img/search.png);
+    background-size: 25px 25px;
+    background-repeat: no-repeat;
+    background-position-y: 50%;
+}
+
+.party-page .songs-section {
+    background-color: white;
+}
+
+.party-page .songs-section .song {
+    height: 70px;
+    width: 100%;
+    border-bottom: 1px solid #D9D9D9;
+}
+.party-page .songs-section .song.active {
+    background-color: gainsboro;
+}
+
+.party-page .songs-section .song .rank {
+    float: left;
+    height: 100%;
+    line-height: 70px;
+    width: 32px;
+    text-align: center;
+    color: #474747;
+}
+
+.party-page .songs-section .song .thumbnail {
+    background-image: url(https://i1.ytimg.com/vi_webp/egNKlUHZqOY/mqdefault.webp);
+    height: 70px;
+    width: 70px;
+    float: left;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: 50%;
+}
+
+.party-page .songs-section .text {
+    height: 70px;
+    vertical-align: middle;
+    display: table-cell;
+    padding-left: 16px;
+}
+
+.party-page .songs-section .song .text .description {
+    color: rgb(151, 151, 151);
+    font-size: 14px;
+}
+
+.party-page .songs-section .song .icon {
+    float: right;
+    height: 16px;
+    width: 16px;
+    margin: 4px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url(/img/un-vote.png);
+}

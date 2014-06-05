@@ -4,6 +4,6 @@
     // } catch (err) {
     //     App.load('home');
     // }
-    App.load('home');
-
+    App.enableDragTransition();
+    App.load('party');
 })(App);

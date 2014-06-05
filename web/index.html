@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="//cdn.kik.com/app/2.0.1/app.min.css">
         <link rel="stylesheet" href="/css/styles.css">
         <link rel="stylesheet" href="/css/home.css">
+        <link rel="stylesheet" href="/css/party-page.css">
     </head>
 
     <body>
@@ -54,11 +55,21 @@
             <div class="app-topbar red">
                 <div class="app-title">Party Page</div>
                 <div class="app-button left" data-back></div>
-                <div class="app-button right" data-target="search">Search</div>
+                <div class="app-button right search" data-target="search"></div>
             </div>
             <div class="app-content">
-                <div class="app-section">
-                    <!-- TODO -->
+                <div class="header">Song Queue</div>
+                <div class="songs-section">
+                    <div class="song">
+                        <div class="rank">1</div>
+                        <div class="thumbnail"></div>
+                        <div class="icon"></div>
+                        <div class="text">
+                            <div class="title">Title of Song - By Yolo</div>
+                            <div class="description">This is a sample description</div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -79,6 +90,7 @@
         <script src="/controller/home.js"></script>
         <script src="/controller/guest-login.js"></script>
         <script src="/controller/host-login.js"></script>
+        <script src="/controller/sampleData.js"></script>
         <script src="/controller/party.js"></script>
         <script src="/controller/search.js"></script>
         <script src="/main.js"></script>

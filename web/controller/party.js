@@ -1,3 +1,3 @@
-App.controller('party', function ($page) {
-    //TODO
+App.controller('party', function ($page, data) {
+
 });
