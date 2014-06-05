@@ -61,10 +61,11 @@
 
 .party-page .songs-section .song .icon {
     float: right;
-    height: 16px;
+    height: 70px;
     width: 16px;
-    margin: 4px;
+    margin: 0 10px;
     background-size: 100%;
     background-repeat: no-repeat;
     background-image: url(/img/un-vote.png);
+    background-position-y: 50%;
 }

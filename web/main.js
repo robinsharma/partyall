@@ -5,5 +5,5 @@
     //     App.load('home');
     // }
     App.enableDragTransition();
-    App.load('party');
+    App.load('home');
 })(App);
