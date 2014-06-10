@@ -4,6 +4,7 @@ App.controller('party', function ($page, data) {
     //TODO grab party data from server
     //TODO render UI
     //TODO spinners!!!
+    //EVENT LISTENERS FOR NEW DATA! :)
     if (!data || !data.party_id || !data.session_token) {
         unauthorizedDialog();
         return;

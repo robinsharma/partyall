@@ -16,7 +16,7 @@ var partyData    = {
             title     : 'Yolo',
             artist    : 'Drake',
             votes     : 13,
-            thumbnail : 'https://i1.ytimg.com/vi_webp/egNKlUHZqOY/mqdefault.webp',
+            thumbnail : 'https://i1.ytimg.com/vi/Co0tTeuUVhU/mqdefault.jpg',
             status    : 'queued'
         },
         {
@@ -32,7 +32,7 @@ var partyData    = {
             title     : 'Yolo',
             artist    : 'Drake',
             votes     : 13,
-            thumbnail : 'https://i1.ytimg.com/vi_webp/egNKlUHZqOY/mqdefault.webp',
+            thumbnail : 'https://i1.ytimg.com/vi/i2VrxrGcWl8/mqdefault.jpg',
             status    : 'queued'
         },
         {
@@ -40,7 +40,7 @@ var partyData    = {
             title     : 'Yolo',
             artist    : 'Drake',
             votes     : 13,
-            thumbnail : 'https://i1.ytimg.com/vi_webp/egNKlUHZqOY/mqdefault.webp',
+            thumbnail : 'https://i1.ytimg.com/vi_webp/0imtmZLmQGc/mqdefault.webp',
             status    : 'queued'
         },
         {
@@ -72,7 +72,7 @@ var partyData    = {
             title     : 'Yolo',
             artist    : 'Drake',
             votes     : 15,
-            thumbnail : 'https://i1.ytimg.com/vi_webp/egNKlUHZqOY/mqdefault.webp',
+            thumbnail : 'https://i1.ytimg.com/vi/Co0tTeuUVhU/mqdefault.jpg',
             status    : 'queued'
         },
         {
@@ -80,7 +80,7 @@ var partyData    = {
             title     : 'Yolo',
             artist    : 'Drake',
             votes     : 5,
-            thumbnail : 'https://i1.ytimg.com/vi_webp/egNKlUHZqOY/mqdefault.webp',
+            thumbnail : 'https://i1.ytimg.com/vi/-wfpg5lRZzw/mqdefault.jpg',
             status    : 'queued'
         },
     ]
