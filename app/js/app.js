@@ -10,7 +10,10 @@ angular.module('partyAll', [
   'partyAll.controllers'
 ]).
 config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/view1', {templateUrl: 'partials/partial1.html', controller: 'MyCtrl1'});
-  $routeProvider.when('/view2', {templateUrl: 'partials/partial2.html', controller: 'MyCtrl2'});
-  $routeProvider.otherwise({redirectTo: '/view1'});
+  $routeProvider.when('/', {templateUrl: 'partials/home.html', controller: 'HomeCtrl'});
+  $routeProvider.when('/login/host', {templateUrl: 'partials/login-host.html', controller: 'LoginHostCtrl'});
+  $routeProvider.when('/login/guest', {templateUrl: 'partials/login-guest.html', controller: 'LoginGuestCtrl'});
+  // $routeProvider.when('/party/:userType/:partyId', {templateUrl: 'partials/party.html', controller: 'PartyCtrl'});
+  // $routeProvider.when('/party/:userType/:partyId/search', {templateUrl: 'partials/search.html', controller: 'SearchCtrl'});
+  $routeProvider.otherwise({redirectTo: '/'});
 }]);

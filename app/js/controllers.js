@@ -2,10 +2,13 @@
 
 /* Controllers */
 
-angular.module('myApp.controllers', [])
-  .controller('MyCtrl1', ['$scope', function($scope) {
+angular.module('partyAll.controllers', [])
+  .controller('HomeCtrl', ['$scope', function($scope) {
 
   }])
-  .controller('MyCtrl2', ['$scope', function($scope) {
+  .controller('LoginHostCtrl', ['$scope', function($scope) {
+
+  }])
+  .controller('LoginGuestCtrl', ['$scope', function($scope) {
 
   }]);
