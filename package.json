@@ -1,9 +1,9 @@
 {
-  "name": "angular-seed",
+  "name": "partyall",
   "private": true,
   "version": "0.0.0",
-  "description": "A starter project for AngularJS",
-  "repository": "https://github.com/angular/angular-seed",
+  "description": "CP317 Project",
+  "repository": "https://github.com/robinsharma/partyall",
   "license": "MIT",
   "devDependencies": {
     "karma": "~0.10",
