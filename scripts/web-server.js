@@ -6,7 +6,7 @@ var util = require('util'),
     url = require('url'),
     events = require('events');
 
-var DEFAULT_PORT = process.env.PORT || 8000;
+var DEFAULT_PORT = process.env.PORT || 5000;
 
 function main(argv) {
   new HttpServer({
@@ -95,10 +95,10 @@ StaticServlet.prototype.handleRequest = function(req, res) {
     return self.sendForbidden_(req, res, path);
   fs.stat(path, function(err, stat) {
     if (err) {
-      return self.sendMissing_(req, res, '/app/index.html');
+      return self.sendRedirect_(req, res, '/app/index.html');
     }
     if (stat.isDirectory()) {
-      return self.sendDirectory_(req, res, '/app/index.html');
+      return self.sendRedirect_(req, res, '/app/index.html');
     }
     return self.sendFile_(req, res, path);
   });
