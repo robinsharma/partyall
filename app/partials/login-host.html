@@ -1,6 +1,6 @@
-<div ng-controller="LoginHostCtrl">
+<div>
     <h1>Sign Into Existing Party</h1>
-    <form novalidate class="form-horizontal" role="form">
+    <form ng-controller="LoginHostCtrl as login" novalidate class="form-horizontal" role="form">
         <div class="form-group">
             <label for="partyKey" class="col-sm-2 control-label">Party Key</label>
             <div class="col-sm-10">
@@ -20,11 +20,11 @@
         </div>
     </form>
     <h1>Create a Party</h1>
-    <form novalidate class="form-horizontal" role="form">
+    <form ng-controller="CreatePartyCtrl as create" ng-submit="formData.createParty()" novalidate class="form-horizontal" role="form">
         <div class="form-group">
             <label for="partyName" class="col-sm-2 control-label">Party Name</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" placeholder="Party Name">
+                <input ng-model="formData.partyName" type="text" class="form-control" placeholder="Party Name">
             </div>
         </div>
 
@@ -32,15 +32,13 @@
             <label for="password" class="col-sm-2 control-label">Party Password</label>
             <div class="col-sm-10">
                 <input type="password" class="form-control" placeholder="Password">
-            </div>
-            <div class="col-sm-12">
-                <p class="help-block">As a host, this is the password you will use to log into...</p>
+                <p class="help-block">As a host, this is the password you will use to log into {{ (formData.partyName || "your party") + "."}}</p>
             </div>
         </div>
         <div class="form-group">
             <label for="password" class="col-sm-2 control-label">Confirm Party Password</label>
             <div class="col-sm-10">
-                <input type="password" class="form-control" placeholder="Comfirm Password">
+                <input ng-model="formData.partyPassword" type="password" class="form-control" placeholder="Comfirm Password">
             </div>
         </div>
         <div class="form-group">
@@ -48,5 +46,7 @@
                 <button type="submit" class="btn btn-primary">Create</button>
             </div>
         </div>
+        Party Name: {{formData.partyName}}
+        Password: {{formData.partyPassword}}
     </form>
 </div>
