@@ -1,26 +1,6 @@
 <div>
-  <h1>Sign Into Existing Party</h1>
-  <form ng-controller="LoginHostCtrl as login" novalidate class="form-horizontal" role="form">
-      <div class="form-group">
-          <label for="partyKey" class="col-sm-2 control-label">Party Key</label>
-          <div class="col-sm-10">
-              <input type="text" class="form-control" placeholder="Party Key">
-          </div>
-      </div>
-      <div class="form-group">
-          <label for="password" class="col-sm-2 control-label">Password</label>
-          <div class="col-sm-10">
-              <input type="password" class="form-control" placeholder="Password">
-          </div>
-      </div>
-      <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-              <button type="submit" class="btn btn-default">Sign in</button>
-          </div>
-      </div>
-  </form>
   <h1>Create a Party</h1>
-  <form ng-controller="CreatePartyCtrl as create" ng-submit="formData.createParty()" novalidate class="form-horizontal" role="form">
+  <form ng-controller="CreatePartyCtrl as createParty" ng-submit="formData.createParty()" novalidate class="form-horizontal" role="form">
       <div class="form-group">
           <label for="partyName" class="col-sm-2 control-label">Party Name</label>
           <div class="col-sm-10">
@@ -48,5 +28,25 @@
       </div>
       Party Name: {{formData.partyName}}
       Password: {{formData.partyPassword}}
+  </form>
+  <h1>Sign Into Existing Party</h1>
+  <form ng-controller="HostLoginCtrl as hostLogin" novalidate class="form-horizontal" role="form">
+      <div class="form-group">
+          <label for="partyKey" class="col-sm-2 control-label">Party Key</label>
+          <div class="col-sm-10">
+              <input type="text" class="form-control" placeholder="Party Key">
+          </div>
+      </div>
+      <div class="form-group">
+          <label for="password" class="col-sm-2 control-label">Password</label>
+          <div class="col-sm-10">
+              <input type="password" class="form-control" placeholder="Password">
+          </div>
+      </div>
+      <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-default">Sign in</button>
+          </div>
+      </div>
   </form>
 </div>

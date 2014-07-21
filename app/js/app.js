@@ -15,15 +15,13 @@ config(['$routeProvider', function($routeProvider) {
     controller: 'HomeCtrl'
   });
   $routeProvider.when('/login/host', {
-    templateUrl: 'partials/login-host.html', 
-    controller: 'LoginHostCtrl'
+    templateUrl: 'partials/login-host.html'
   });
   $routeProvider.when('/login/guest', {
-    templateUrl: 'partials/login-guest.html', 
-    controller: 'LoginGuestCtrl'
+    templateUrl: 'partials/login-guest.html'
   });
-  $routeProvider.when('/login/success', {
-    templateUrl: 'partials/login-success.html', 
+  $routeProvider.when('/create/success', {
+    templateUrl: 'partials/create-success.html', 
     controller: 'LoginSuccessCtrl'
   });
   // $routeProvider.when('/party/:userType/:partyId', {templateUrl: 'partials/party.html', controller: 'PartyCtrl'});
