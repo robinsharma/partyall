@@ -1,7 +1,7 @@
 {
   "name": "partyAll",
   "description": "CP317 Project",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "homepage": "http://partyall.herokuapp.com",
   "license": "MIT",
   "private": true,
