@@ -96,10 +96,10 @@ StaticServlet.prototype.handleRequest = function(req, res) {
   fs.stat(path, function(err, stat) {
     if (path === './') {
       console.log('CWD AKSDJ: ' + process.cwd());
-      if (process.cwd().indexOf('app') === -1) {
+      if (process.cwd().indexOf('/app/') === -1) {
         process.chdir('app'); //Only cd if not already in app folder.
       }
-      return self.sendFile_(req, res, '/app/index.html');
+      return self.sendFile_(req, res, 'index.html');
     }
     if (err) {
       return self.sendRedirect_(req, res, '/app/index.html');
