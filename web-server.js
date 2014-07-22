@@ -95,7 +95,9 @@ StaticServlet.prototype.handleRequest = function(req, res) {
     return self.sendForbidden_(req, res, path);
   fs.stat(path, function(err, stat) {
     if (path === './') {
+      console.log('CWD AKSDJ: ' + process.cwd());
       process.chdir(__dirname + '/app');
+      console.log('CWD AKSDJ: ' + process.cwd());
       return self.sendFile_(req, res, 'index.html');
     }
     if (err) {
