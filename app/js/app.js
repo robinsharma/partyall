@@ -7,6 +7,7 @@ angular.module('partyAll', [
   'partyAll.filters',
   'partyAll.services',
   'partyAll.directives',
+  'partyAll.constants',
   'partyAll.controllers'
 ]).
 config(['$routeProvider', function($routeProvider) {
@@ -22,7 +23,7 @@ config(['$routeProvider', function($routeProvider) {
   });
   $routeProvider.when('/create/success', {
     templateUrl: 'partials/create-success.html', 
-    controller: 'LoginSuccessCtrl'
+    controller: 'CreateSuccessCtrl'
   });
   // $routeProvider.when('/party/:userType/:partyId', {templateUrl: 'partials/party.html', controller: 'PartyCtrl'});
   // $routeProvider.when('/party/:userType/:partyId/search', {templateUrl: 'partials/search.html', controller: 'SearchCtrl'});

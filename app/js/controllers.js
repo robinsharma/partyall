@@ -7,24 +7,32 @@ angular.module('partyAll.controllers', [])
     function($scope) {
 
   }])
-  .controller('LoginHostCtrl', ['$scope', '$http', 
-    function($scope, $http) {
-      $scope.formData = {};
+
+  .controller('HostLoginCtrl', ['$scope', '$rootScope', 
+    function($scope, $rootScope) {
 
   }])  
-  .controller('CreatePartyCtrl', ['$scope', '$http', 
-    function($scope, $http) {
-      $scope.formData = {};
-      this.createParty = function() {
-        console.log('TODO make request');
-      };
 
+  .controller('CreatePartyCtrl', ['$scope', '$rootScope', 'AUTH_EVENTS', 'AuthService',
+    function($scope, $rootScope, AUTH_EVENTS, AuthService) {
+      $scope.credentials = {
+        partyName: '',
+        password: '',
+        confirmedPassword: ''
+      };
+      //TODO validate passwords, provide visual feedback
+      $scope.createParty = function(credentials) {
+        console.log(credentials);
+        console.log(AuthService.create(credentials));
+      }
   }])
-  .controller('LoginGuestCtrl', ['$scope', 
+
+  .controller('GuestLoginCtrl', ['$scope', 
     function($scope) {
 
   }])
-  .controller('LoginSuccessCtrl', ['$scope', 
+
+  .controller('CreateSuccessCtrl', ['$scope', 
     function($scope) {
 
   }]);

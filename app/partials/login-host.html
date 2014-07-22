@@ -1,24 +1,24 @@
 <div>
   <h1>Create a Party</h1>
-  <form ng-controller="CreatePartyCtrl as createParty" ng-submit="formData.createParty()" novalidate class="form-horizontal" role="form">
+  <form ng-controller="CreatePartyCtrl" ng-submit="createParty(credentials)" novalidate class="form-horizontal" role="form">
       <div class="form-group">
-          <label for="partyName" class="col-sm-2 control-label">Party Name</label>
+          <label class="col-sm-2 control-label">Party Name</label>
           <div class="col-sm-10">
-              <input ng-model="formData.partyName" type="text" class="form-control" placeholder="Party Name">
+              <input ng-model="credentials.partyName" type="text" class="form-control" placeholder="Party Name">
           </div>
       </div>
 
       <div class="form-group">
-          <label for="password" class="col-sm-2 control-label">Party Password</label>
+          <label class="col-sm-2 control-label">Party Password</label>
           <div class="col-sm-10">
-              <input type="password" class="form-control" placeholder="Password">
-              <p class="help-block">As a host, this is the password you will use to log into {{ (formData.partyName || "your party") + "." }}</p>
+              <input ng-model="credentials.password" type="password" class="form-control" placeholder="Password">
           </div>
       </div>
       <div class="form-group">
-          <label for="password" class="col-sm-2 control-label">Confirm Party Password</label>
+          <label class="col-sm-2 control-label">Confirm Party Password</label>
           <div class="col-sm-10">
-              <input ng-model="formData.partyPassword" type="password" class="form-control" placeholder="Comfirm Password">
+              <input ng-model="credentials.confirmedPassword" type="password" class="form-control" placeholder="Comfirm Password">
+              <p class="help-block">As a host, this is the password you will use to log into {{ (formData.partyName || "your party") + "." }}</p>
           </div>
       </div>
       <div class="form-group">
@@ -26,21 +26,22 @@
               <button type="submit" class="btn btn-primary">Create</button>
           </div>
       </div>
-      Party Name: {{formData.partyName}}
-      Password: {{formData.partyPassword}}
+      Party Name: {{credentials.partyName}}
+      Password: {{credentials.password == credentials.confirmedPassword}}
   </form>
+
   <h1>Sign Into Existing Party</h1>
-  <form ng-controller="HostLoginCtrl as hostLogin" novalidate class="form-horizontal" role="form">
+  <form ng-controller="HostLoginCtrl" ng-submit="login(credentials)" novalidate class="form-horizontal" role="form">
       <div class="form-group">
-          <label for="partyKey" class="col-sm-2 control-label">Party Key</label>
+          <label class="col-sm-2 control-label">Party Key</label>
           <div class="col-sm-10">
-              <input type="text" class="form-control" placeholder="Party Key">
+              <input ng-model="credentials.partyKey" type="text" class="form-control" placeholder="Party Key">
           </div>
       </div>
       <div class="form-group">
-          <label for="password" class="col-sm-2 control-label">Password</label>
+          <label class="col-sm-2 control-label">Password</label>
           <div class="col-sm-10">
-              <input type="password" class="form-control" placeholder="Password">
+              <input ng-model="credentials.password" type="password" class="form-control" placeholder="Password">
           </div>
       </div>
       <div class="form-group">
