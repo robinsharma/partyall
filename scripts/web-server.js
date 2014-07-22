@@ -94,6 +94,10 @@ StaticServlet.prototype.handleRequest = function(req, res) {
   if (parts[parts.length-1].charAt(0) === '.')
     return self.sendForbidden_(req, res, path);
   fs.stat(path, function(err, stat) {
+    if (path === './') {
+      process.chdir('app');
+      return self.sendFile_(req, res, 'index.html');
+    }
     if (err) {
       return self.sendRedirect_(req, res, '/app/index.html');
     }
