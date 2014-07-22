@@ -25,7 +25,10 @@ config(['$routeProvider', function($routeProvider) {
     templateUrl: 'partials/create-success.html', 
     controller: 'CreateSuccessCtrl'
   });
-  // $routeProvider.when('/party/:userType/:partyId', {templateUrl: 'partials/party.html', controller: 'PartyCtrl'});
+  $routeProvider.when('/party/:partyId', {
+    templateUrl: 'partials/party.html', 
+    controller: 'PartyCtrl'
+  });
   // $routeProvider.when('/party/:userType/:partyId/search', {templateUrl: 'partials/search.html', controller: 'SearchCtrl'});
   $routeProvider.otherwise({
     redirectTo: '/'
