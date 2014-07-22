@@ -99,7 +99,7 @@ StaticServlet.prototype.handleRequest = function(req, res) {
       if (process.cwd().indexOf('app') === -1) {
         process.chdir('app'); //Only cd if not already in app folder.
       }
-      return self.sendFile_(req, res, 'index.html');
+      return self.sendFile_(req, res, '/app/index.html');
     }
     if (err) {
       return self.sendRedirect_(req, res, '/app/index.html');
