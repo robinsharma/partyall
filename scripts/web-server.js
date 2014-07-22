@@ -95,7 +95,9 @@ StaticServlet.prototype.handleRequest = function(req, res) {
     return self.sendForbidden_(req, res, path);
   fs.stat(path, function(err, stat) {
     if (path === './') {
-      process.chdir('app');
+      if (process.cwd().indexOf('partyall/app') === -1) {
+        process.chdir('app'); //Only cd if not already in app folder.
+      }
       return self.sendFile_(req, res, 'index.html');
     }
     if (err) {
