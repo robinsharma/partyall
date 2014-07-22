@@ -14,10 +14,11 @@ angular.module('partyAll.services', [])
 
     authService.create = function(credentials) {
       return $http
-        .post('//TODO', credentials)
-        .then(function(response) {
-          Session.create(response.party_key, response.user.user_id, response.user.user_type);
-          return response;
+        .get('sample_data/sample_create_data.json', credentials) //TODO sign requests, change to post and response.data to reponse
+        .then( function (response) {
+          console.log(response);
+          Session.create(response.data.party_key, response.data.user.user_id, response.data.user.user_type);
+          return response.data;
         });
     };
     authService.hasAuth = function () {

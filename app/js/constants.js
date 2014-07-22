@@ -10,7 +10,7 @@ angular.module('partyAll.constants', [])
     guestLoginFailed: 'guest-login-failed'
   })
 
-  .constant('USER_ROLES', {
+  .constant('USER_TYPES', {
     host: 'host',
     guest: 'guest'
   });
