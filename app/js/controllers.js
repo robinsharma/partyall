@@ -25,28 +25,29 @@ angular.module('partyAll.controllers', [])
 
   }])  
 
-  .controller('CreatePartyCtrl', ['$scope', '$rootScope', '$location', 'AUTH_EVENTS', 'AuthService',
-    function($scope, $rootScope, $location, AUTH_EVENTS, AuthService) {
+  .controller('CreatePartyCtrl', ['$scope', '$rootScope', '$location', 'PARTY_EVENTS', 'PartyService',
+    function($scope, $rootScope, $location, PARTY_EVENTS, PartyService) {
       $scope.credentials = {
         partyName: '',
         password: '',
         confirmedPassword: ''
       };
       //TODO validate passwords, provide visual feedback
-      $rootScope.$on(AUTH_EVENTS.hostLoginSuccess, function (event) { //this is how we will listen for certain events
       
+      $rootScope.$on(PARTY_EVENTS.partyCreateSuccess, function (event) { //this is how we will listen for certain events
+        $location.path('/create/success');
+      });
+
+      $rootScope.$on(PARTY_EVENTS.partyCreateFailure, function (event) {
+        console.log("Party create fail event");
+        // to-do handle failure
       });
 
       $scope.createParty = function(credentials) {
         console.log(credentials);
-        AuthService.create(credentials).then(function (data) { // success
-          $scope.setCurrentUserData(data);
-          $location.path('/create/success');
-          $rootScope.$broadcast(AUTH_EVENTS.hostLoginSuccess);
-        }, function () { //if auth failed
-          $rootScope.$broadcast(AUTH_EVENTS.hostLoginFailed);
-        });
+        PartyService.create(credentials);
       };
+
   }])
 
   .controller('GuestLoginCtrl', ['$scope', 
@@ -54,12 +55,12 @@ angular.module('partyAll.controllers', [])
 
   }])
 
-  .controller('CreateSuccessCtrl', ['$scope', 
-    function($scope) {
-
+  .controller('CreateSuccessCtrl', ['$scope', 'PartyService',
+    function($scope, PartyService) {
+      $scope.party = PartyService.party;
   }])
 
-  .controller('PartyCtrl', ['$scope',
-      function($scope){
-        //TODO
+  .controller('PartyCtrl', ['$scope', 'PartyService',
+    function($scope, PartyService){
+      $scope.party = PartyService.party;
   }]);

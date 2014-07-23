@@ -10,6 +10,11 @@ angular.module('partyAll.constants', [])
     guestLoginFailed: 'guest-login-failed'
   })
 
+  .constant('PARTY_EVENTS', {
+    partyCreateSuccess: 'party-create-success',
+    partyCreateFailure: 'party-create-failure'
+  })
+
   .constant('USER_TYPES', {
     host: 'host',
     guest: 'guest'
