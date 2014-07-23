@@ -9,15 +9,15 @@ angular.module('partyAll.services', [])
   This service responsible for retrieving authentication information, and verifying if a user
   has already authorized and/or has certain permission.
   */
-  .factory('AuthService', ['$http', 'Session', function($http, Session) {
+  .factory('AuthService', ['$http', 'Session', 'USER_TYPES', function($http, Session, USER_TYPES) {
     var authService = {};
 
     authService.create = function(credentials) {
       return $http
-        .get('sample_data/sample_create_data.json', credentials) //TODO sign requests, change to post and response.data to reponse
+        .post('https://partyall-service.appspot.com/party/create', { name: credentials.partyName, password: credentials.password }) //TODO sign requests, change to post and response.data to reponse
         .then( function (response) {
           console.log(response);
-          Session.create(response.data.party_key, response.data.user.user_id, response.data.user.user_type);
+          Session.create(response.data.party_key, response.data.host.id, USER_TYPES.host);
           return response.data;
         });
     };
