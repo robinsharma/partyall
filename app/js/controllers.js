@@ -25,8 +25,8 @@ angular.module('partyAll.controllers', [])
 
   }])  
 
-  .controller('CreatePartyCtrl', ['$scope', '$rootScope', 'AUTH_EVENTS', 'AuthService',
-    function($scope, $rootScope, AUTH_EVENTS, AuthService) {
+  .controller('CreatePartyCtrl', ['$scope', '$rootScope', '$location', 'AUTH_EVENTS', 'AuthService',
+    function($scope, $rootScope, $location, AUTH_EVENTS, AuthService) {
       $scope.credentials = {
         partyName: '',
         password: '',
@@ -34,12 +34,14 @@ angular.module('partyAll.controllers', [])
       };
       //TODO validate passwords, provide visual feedback
       $rootScope.$on(AUTH_EVENTS.hostLoginSuccess, function (event) { //this is how we will listen for certain events
-        alert('login success ' + JSON.stringify($scope.currentUserData));
+      
       });
+
       $scope.createParty = function(credentials) {
         console.log(credentials);
-        AuthService.create(credentials).then(function (data) {
+        AuthService.create(credentials).then(function (data) { // success
           $scope.setCurrentUserData(data);
+          $location.path('/party/' + data.partyKey);
           $rootScope.$broadcast(AUTH_EVENTS.hostLoginSuccess);
         }, function () { //if auth failed
           $rootScope.$broadcast(AUTH_EVENTS.hostLoginFailed);
