@@ -18,11 +18,13 @@ angular.module('partyAll', [
   });
   $routeProvider.when('/login/host', {
     templateUrl: 'partials/login-host.html',
-    authRequired: false
+    authRequired: false,
+    denyLoggedInUsers: true
   });
   $routeProvider.when('/login/guest', {
     templateUrl: 'partials/login-guest.html',
-    authRequired: false
+    authRequired: false,
+    denyLoggedInUsers: true
   });
   $routeProvider.when('/create/success', {
     templateUrl: 'partials/create-success.html', 
@@ -39,22 +41,22 @@ angular.module('partyAll', [
     redirectTo: '/'
   });
 }])
-.run(['$rootScope', '$location', 'AuthService', function ($rootScope, $location, AuthService) {
+.run(['$rootScope', '$location', 'AuthService', 'Session', function ($rootScope, $location, AuthService, Session) {
   $rootScope.$on('$routeChangeStart', function (event, next) {
 
     // does page require auth?
-    if (next.authRequired) {
-      if (!AuthService.hasAuth()) {
-        console.log("DISALLOW: not logged in");
+    if (next.authRequired && !AuthService.hasAuth()) {
+        console.log("DISALLOW: auth required but not logged in");
         event.preventDefault();
         $location.path('/');
-      } else {
-        console.log("Allow: logged in");
-      }
       
-    } else {
-      console.log("ALLOW: don't need auth");
+    } else if (next.denyLoggedInUsers && AuthService.hasAuth()) {
+      console.log("DISALLOW: users logged in are denied")
+      event.preventDefault();
+      $location.path('/party/' + Session.partyKey);
     }
+    
+    console.log("ALLOW: don't need auth");
 
   });
 }]);
