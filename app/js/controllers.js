@@ -33,7 +33,7 @@ angular.module('partyAll.controllers', [])
         confirmedPassword: ''
       };
       //TODO validate passwords, provide visual feedback
-      $rootScope.$on('host-login-success', function (event) { //this is how we will listen for certain events
+      $rootScope.$on(AUTH_EVENTS.hostLoginSuccess, function (event) { //this is how we will listen for certain events
         alert('login success ' + JSON.stringify($scope.currentUserData));
       });
       $scope.createParty = function(credentials) {
