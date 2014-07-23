@@ -41,7 +41,7 @@ angular.module('partyAll.controllers', [])
         console.log(credentials);
         AuthService.create(credentials).then(function (data) { // success
           $scope.setCurrentUserData(data);
-          $location.path('/party/' + data.party_key);
+          $location.path('/create/success');
           $rootScope.$broadcast(AUTH_EVENTS.hostLoginSuccess);
         }, function () { //if auth failed
           $rootScope.$broadcast(AUTH_EVENTS.hostLoginFailed);
