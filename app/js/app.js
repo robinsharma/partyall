@@ -9,28 +9,52 @@ angular.module('partyAll', [
   'partyAll.directives',
   'partyAll.constants',
   'partyAll.controllers'
-]).
-config(['$routeProvider', function($routeProvider) {
+])
+.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/', {
     templateUrl: 'partials/home.html', 
-    controller: 'HomeCtrl'
+    controller: 'HomeCtrl',
+    authRequired: false
   });
   $routeProvider.when('/login/host', {
-    templateUrl: 'partials/login-host.html'
+    templateUrl: 'partials/login-host.html',
+    authRequired: false
   });
   $routeProvider.when('/login/guest', {
-    templateUrl: 'partials/login-guest.html'
+    templateUrl: 'partials/login-guest.html',
+    authRequired: false
   });
   $routeProvider.when('/create/success', {
     templateUrl: 'partials/create-success.html', 
-    controller: 'CreateSuccessCtrl'
+    controller: 'CreateSuccessCtrl',
+    authRequired: true
   });
   $routeProvider.when('/party/:partyId', {
     templateUrl: 'partials/party.html', 
-    controller: 'PartyCtrl'
+    controller: 'PartyCtrl',
+    authRequired: true
   });
   // $routeProvider.when('/party/:userType/:partyId/search', {templateUrl: 'partials/search.html', controller: 'SearchCtrl'});
   $routeProvider.otherwise({
     redirectTo: '/'
+  });
+}])
+.run(['$rootScope', '$location', 'AuthService', function ($rootScope, $location, AuthService) {
+  $rootScope.$on('$routeChangeStart', function (event, next) {
+
+    // does page require auth?
+    if (next.authRequired) {
+      if (!AuthService.hasAuth()) {
+        console.log("DISALLOW: not logged in");
+        event.preventDefault();
+        $location.path('/');
+      } else {
+        console.log("Allow: logged in");
+      }
+      
+    } else {
+      console.log("ALLOW: don't need auth");
+    }
+
   });
 }]);
