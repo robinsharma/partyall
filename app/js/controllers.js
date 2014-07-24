@@ -60,7 +60,12 @@ angular.module('partyAll.controllers', [])
       $scope.party = PartyService.party;
   }])
 
-  .controller('PartyCtrl', ['$scope', 'PartyService',
-    function($scope, PartyService){
+  .controller('PartyCtrl', ['$scope', 'PartyService', 'Session', 'USER_TYPES',
+    function($scope, PartyService, Session, USER_TYPES){
       $scope.party = PartyService.party;
+      $scope.user = { type: Session.userType, id: Session.userId };
+      $scope.isHost = function() {
+        return Session.userType === USER_TYPES.host;
+      }
+      
   }]);

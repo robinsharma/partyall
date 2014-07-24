@@ -1,1 +1,11 @@
-<p>This is a test</p>
+<div>
+	<div class="navbar navbar-inverse navbar-static-top">
+		<div class="container">
+		<div class="navbar-brand">{{ party.name }}</div>
+		</div>
+	</div>
+	<div class="container">
+		<div ng-show="isHost()">I am a host :)</div>
+		<div ng-show="!isHost()">I am a guest :)</div>
+	</div>
+</div>
