@@ -28,3 +28,30 @@
   content: "";
   padding: 0;
 }
+
+.player {
+  width: 100%;
+}
+
+.artwork {
+  display: inline-block;
+}
+
+.info {
+  display: inline-block;
+  padding-left: 10px;
+}
+
+.time {
+  display: inline-block;
+  vertical-align: top;
+  width: 100%;
+  height: 3px;
+  background-color: #CCC;
+}
+
+.time > span {
+  display: block;
+  height: 100%;
+  background-color: #00ADFF;
+}

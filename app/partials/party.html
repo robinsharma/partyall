@@ -1,11 +1,41 @@
 <div>
 	<div class="navbar navbar-inverse navbar-static-top">
 		<div class="container">
-		<div class="navbar-brand">{{ party.name }}</div>
+			<div class="navbar-brand">{{ party.name || "Party" }}</div>
 		</div>
 	</div>
+
 	<div class="container">
-		<div ng-show="isHost()">I am a host :)</div>
-		<div ng-show="!isHost()">I am a guest :)</div>
+		<div ng-if="songPlaying()">
+			
+			<h5>Now Playing</h5>
+			
+			<div ng-if="isHost()">
+				<div ng-controller="PlayerCtrl">
+					<audio id="player"></audio>
+
+					<div class="player">
+						<img class="artwork" ng-src="{{artwork}}"></img>
+						<div class="info">
+							<div>{{ artist }}</div>
+							<div>{{ title }}</div>
+							<div class="time"><span ng-style="{ width: timeWidth }"></span></div>
+						</div>
+
+					</div>
+					
+					<span ng-click="playerControl()" ng-show="isPlaying">Playing</span>
+					<span ng-click="playerControl()" ng-hide="isPlaying">Paused</span>
+					<span ng-click="nextSong()">Next</span>
+
+				</div>
+
+				<div ng-if="!isHost()">
+					<!-- song icon and title and artists -->
+				</div>	
+			</div>
+
+
+		</div>
 	</div>
 </div>
