@@ -20,33 +20,57 @@ angular.module('partyAll.controllers', [])
 
   }])
 
-  .controller('HostLoginCtrl', ['$scope', '$rootScope', 
-    function($scope, $rootScope) {
+  .controller('HostLoginCtrl', ['$scope', '$http', '$location', 'PartyService', 'Session', 'USER_TYPES',
+    function($scope, $http, $location, PartyService, Session, USER_TYPES) {
+      $scope.credentials = {
+        partyKey: '',
+        password: ''
+      };
+
+      $scope.login = function(credentials) {
+        
+        $http
+        .post('https://partyall-service.appspot.com/party/login', { party_key: credentials.partyKey, password: credentials.password }) //TODO sign requests, change to post and response.data to reponse)
+        .success(function (response) {
+          console.log('response');
+          console.log(response); 
+          PartyService.init(response.party);
+          Session.create(response.party.party_key, response.user, USER_TYPES.host);
+          $location.path('/party/'+response.party.party_key);
+        })
+        .error(function (error) {
+          // todo
+        });
+
+      };
 
   }])  
 
-  .controller('CreatePartyCtrl', ['$scope', '$rootScope', '$location', 'PARTY_EVENTS', 'PartyService', 'Session', 'USER_TYPES',
-    function($scope, $rootScope, $location, PARTY_EVENTS, PartyService, Session, USER_TYPES) {
+  .controller('CreatePartyCtrl', ['$scope', '$http', '$location', 'PartyService', 'Session', 'USER_TYPES',
+    function($scope, $http, $location, PartyService, Session, USER_TYPES) {
       $scope.credentials = {
         partyName: '',
         password: '',
         confirmedPassword: ''
       };
       //TODO validate passwords, provide visual feedback
-      
-      $rootScope.$on(PARTY_EVENTS.partyCreateSuccess, function (event, partyKey, userId, userType) { //this is how we will listen for certain events
-        Session.create(partyKey, userId, userType);
-        $location.path('/create/success');
-      });
-
-      $rootScope.$on(PARTY_EVENTS.partyCreateFailure, function (event) {
-        console.log("Party create fail event");
-        // to-do handle failure
-      });
 
       $scope.createParty = function(credentials) {
         console.log(credentials);
-        PartyService.create(credentials);
+        
+        $http
+        .post('https://partyall-service.appspot.com/party/create', { name: credentials.partyName, password: credentials.password }) //TODO sign requests, change to post and response.data to reponse)
+        .success(function (response) {
+          console.log('response');
+          console.log(response);
+          PartyService.init(response.party);
+          Session.create(response.party.party_key, response.user, USER_TYPES.host);
+          $location.path('/create/success');
+        })
+        .error(function (error) {
+          // todo
+        });
+
       };
 
   }])
@@ -67,6 +91,16 @@ angular.module('partyAll.controllers', [])
       $scope.user = { type: Session.userType, id: Session.userId };
       $scope.queue = PartyService.getQueue();
 
+      //init
+      $rootScope.$on(PARTY_EVENTS.partyQueueInit, function (event, tracks) {
+        $scope.queue = tracks;
+      });
+
+      //update
+      $rootScope.$on(PARTY_EVENTS.partyQueueUpdate, function (event, tracks) {
+        $scope.queue = tracks;
+      });
+
       $scope.isHost = function() {
         return true;
         // return Session.userType === USER_TYPES.host;
@@ -79,13 +113,8 @@ angular.module('partyAll.controllers', [])
       
   }])
 
-.controller('PlayerCtrl', ['$scope', '$http', '$document', '$interval', 'PartyService',
-  function($scope, $http, $document, $interval, PartyService) {
-
-    var init = function(callback) {
-      song = PartyService.nextSong();
-      callback();  
-    };
+.controller('PlayerCtrl', ['$scope', '$rootScope', '$http', '$document', '$interval', 'PartyService', 'PARTY_EVENTS',
+  function($scope, $rootScope, $http, $document, $interval, PartyService, PARTY_EVENTS) {
 
     $scope.playerControl = function () {
       if (!$scope.isPlaying) {
@@ -128,12 +157,14 @@ angular.module('partyAll.controllers', [])
     $scope.artist = null;
     $scope.isPlaying = false;
     $scope.timeWidth = null;
-    var song = null;
+    var song = PartyService.nextSong();
     var audio = $document[0].querySelector('#player');
     var timer;
 
     //init
-    init(function() {
+    if (song) $scope.playerControl(); 
+    $rootScope.$on(PARTY_EVENTS.partyQueueInit, function (event) {
+      song = PartyService.nextSong();
       $scope.playerControl();
     });
 

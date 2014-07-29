@@ -22,34 +22,20 @@ angular.module('partyAll.services', [])
     return authService;
   }])
 
-  .service('PartyService', ['$http', '$rootScope', 'USER_TYPES', 'PARTY_EVENTS', function($http, $rootScope, USER_TYPES, PARTY_EVENTS) {    
-    this.create = function (credentials) {
-      var partyService = this;
-      $http
-      .post('https://partyall-service.appspot.com/party/create', { name: credentials.partyName, password: credentials.password }) //TODO sign requests, change to post and response.data to reponse)
-      .then(function (response) {
-        console.log('response');
-        console.log(response);
+  .service('PartyService', ['$http', '$rootScope', 'PARTY_EVENTS', function($http, $rootScope, PARTY_EVENTS) {    
+    this.init = function(party) {
+      this.party = party;
+      this.queue = [];
+      console.log('INIT');
 
-        if (response.status === 200) {
-          partyService.party = response.data.party;
-          console.log(response.data);
-          $rootScope.$broadcast(PARTY_EVENTS.partyCreateSuccess, partyService.party.party_key, response.data.user, USER_TYPES.host);
-        } else {
-          $rootScope.$broadcast(PARTY_EVENTS.partyCreateFailure);
-        }  
-
-      });
-    };
-
-    this.init = function() {
       var partyService = this;
       // init with soundcloud sounds for testing
       $http
       .get('http://api.soundcloud.com' + '/tracks' + '?client_id=11c11021d4d8721cf1970667907f45d6' + '&q=kygo')
       .success(function (tracks) {
+        console.log('success get tracks');
         partyService.queue = tracks;
-        $rootScope.$broadcast(PARTY_EVENTS.partyQueueUpdate);
+        $rootScope.$broadcast(PARTY_EVENTS.partyQueueInit, tracks);
         // tracks.forEach(function (track) {
         //   console.log(track);
         //   $http
@@ -83,10 +69,8 @@ angular.module('partyAll.services', [])
   Service used for managing user sessions and initiating user variables that will be used
   to determine type and permissions of users.
   */
-  .service('Session', ['$rootScope', 'PartyService', 'AUTH_EVENTS', 'USER_TYPES', function($rootScope, PartyService, AUTH_EVENTS, USER_TYPES) {
+  .service('Session', ['$rootScope', 'AUTH_EVENTS', 'USER_TYPES', function($rootScope, AUTH_EVENTS, USER_TYPES) {
     this.create = function(partyKey, userId, userType) {
-      PartyService.init();
-
       this.partyKey = partyKey;
       this.userId   = userId;
       this.userType = userType;
