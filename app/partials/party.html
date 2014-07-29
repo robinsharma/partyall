@@ -33,18 +33,18 @@
 			<div ng-if="!isHost()">
 				<img class="artwork" ng-src="{{ queue[queue.length - 1].artwork_url }}"></img>
 				<div class="info">
-					<div>{{ queue[queue.length - 1].user.username }}</div>
-					<div>{{ queue[queue.length - 1].title }}</div>
+					<div>{{ queue[queue.length - 1].data.user.username }}</div>
+					<div>{{ queue[queue.length - 1].data.title }}</div>
 				</div>
 			</div>
 
 			<h5>Up Next</h5>
 
 			<div ng-repeat="song in queue.slice().reverse()" ng-hide="$first" class="player queue">
-				<img class="artwork" ng-src="{{ song.artwork_url }}"></img>
+				<img class="artwork" ng-src="{{ song.data.artwork_url }}"></img>
 				<div class="info">
-					<div>{{ song.user.username }}</div>
-					<div>{{ song.title }}</div>
+					<div>{{ song.data.user.username }}</div>
+					<div>{{ song.data.title }}</div>
 				</div>
 			</div>
 

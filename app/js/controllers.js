@@ -34,8 +34,8 @@ angular.module('partyAll.controllers', [])
         .success(function (response) {
           console.log('response');
           console.log(response); 
-          PartyService.init(response.party);
           Session.create(response.party.party_key, response.user, USER_TYPES.host);
+          PartyService.init(response.party);
           $location.path('/party/'+response.party.party_key);
         })
         .error(function (error) {
@@ -63,9 +63,14 @@ angular.module('partyAll.controllers', [])
         .success(function (response) {
           console.log('response');
           console.log(response);
-          PartyService.init(response.party);
           Session.create(response.party.party_key, response.user, USER_TYPES.host);
-          $location.path('/create/success');
+
+          // prepopulate party with soundcloud songs for testing
+          PartyService.populateParty(response.party, function() {
+            PartyService.init(response.party);
+            $location.path('/create/success');
+          });
+
         })
         .error(function (error) {
           // todo
@@ -88,8 +93,8 @@ angular.module('partyAll.controllers', [])
         .success(function (response) {
           console.log('response');
           console.log(response); 
-          PartyService.init(response.party);
           Session.create(response.party.party_key, response.user, USER_TYPES.guest);
+          PartyService.init(response.party);
           $location.path('/party/'+response.party.party_key);
         })
         .error(function (error) {
@@ -160,10 +165,10 @@ angular.module('partyAll.controllers', [])
 
     var setPlayer = function () {
       $scope.timeWidth = "0%";
-      $scope.artwork = song.artwork_url;
-      $scope.title = song.title;
-      $scope.artist = song.user.username;
-      audio.src = song.stream_url + '?client_id=11c11021d4d8721cf1970667907f45d6';
+      $scope.artwork = song.data.artwork_url;
+      $scope.title = song.data.title;
+      $scope.artist = song.data.user.username;
+      audio.src = song.data.stream_url + '?client_id=11c11021d4d8721cf1970667907f45d6';
     };
 
     var updateTime = function() {
