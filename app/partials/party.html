@@ -10,31 +10,25 @@
 			
 			<h5>Now Playing</h5>
 			
-			<div ng-if="isHost()">
-				<div ng-controller="PlayerCtrl">
-					<audio id="player"></audio>
+			<div ng-if="isHost()" ng-controller="PlayerCtrl">
+				<audio id="player"></audio>
 
-					<div class="player">
-						<img class="artwork" ng-src="{{artwork}}"></img>
-						<div class="info">
-							<div>{{ artist }}</div>
-							<div>{{ title }}</div>
-							<div class="time"><span ng-style="{ width: timeWidth }"></span></div>
+				<div class="player">
+					<img class="artwork" ng-src="{{artwork}}"></img>
+					<div class="info">
+						<div>{{ artist }}</div>
+						<div>{{ title }}</div>
+						<div class="time"><span ng-style="{ width: timeWidth }"></span></div>
+
+						<div class="controls">
+							<div ng-click="playerControl()" ng-show="isPlaying" class="btn btn-default">Pause</div>
+							<div ng-click="playerControl()" ng-hide="isPlaying" class="btn btn-default">Play</div>
+							<div ng-click="nextSong()" class="btn btn-default">Next</div>
 						</div>
-
 					</div>
-					
-					<span ng-click="playerControl()" ng-show="isPlaying">Playing</span>
-					<span ng-click="playerControl()" ng-hide="isPlaying">Paused</span>
-					<span ng-click="nextSong()">Next</span>
 
 				</div>
-
-				<div ng-if="!isHost()">
-					<!-- song icon and title and artists -->
-				</div>	
 			</div>
-
 
 		</div>
 	</div>
