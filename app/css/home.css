@@ -1,0 +1,49 @@
+/*Alright so I hate applying css to the body tag, 
+but in this case it could not be avoided...
+*/
+body {
+    background: url(../img/background.png) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.home-page {
+    text-align: center;
+    margin: 0 auto;
+    color: white;
+}
+
+.home-page .logo {
+    margin: 20px auto;
+    height: 250px;
+    width: 250px;
+    background-image: url(../img/PartyAll-gradient.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.home-page .logo-font {
+    font-family: 'Pacifico', cursive;
+}
+
+.home-page .title {
+    padding: 20px 0;
+}
+
+.home-page .intro-text {
+    margin: 0 auto;
+    font-weight: 200;
+    max-width: 500px;
+    border-left: 1px solid white;
+    padding: 10px;
+}
+
+.home-page .options {
+    padding-bottom: 50px;
+}
+
+.home-page .options .option {
+    width : 80px;
+}
