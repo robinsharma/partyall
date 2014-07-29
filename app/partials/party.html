@@ -6,7 +6,7 @@
 	</div>
 
 	<div class="container">
-		<div ng-if="songPlaying()">
+		<div ng-show="nowPlaying()">
 			
 			<h5>Now Playing</h5>
 			
@@ -30,9 +30,17 @@
 				</div>
 			</div>
 
+			<div ng-if="!isHost()">
+				<img class="artwork" ng-src="{{ queue[queue.length - 1].artwork_url }}"></img>
+				<div class="info">
+					<div>{{ queue[queue.length - 1].user.username }}</div>
+					<div>{{ queue[queue.length - 1].title }}</div>
+				</div>
+			</div>
+
 			<h5>Up Next</h5>
 
-			<div ng-repeat="song in queue.slice().reverse()" ng-hide="first" class="player queue">
+			<div ng-repeat="song in queue.slice().reverse()" ng-hide="$first" class="player queue">
 				<img class="artwork" ng-src="{{ song.artwork_url }}"></img>
 				<div class="info">
 					<div>{{ song.user.username }}</div>
@@ -40,6 +48,10 @@
 				</div>
 			</div>
 
+		</div>
+
+		<div ng-hide="nowPlaying()">
+			<h5>Nothing playing</h5>
 		</div>
 	</div>
 </div>

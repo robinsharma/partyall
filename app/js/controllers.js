@@ -122,13 +122,11 @@ angular.module('partyAll.controllers', [])
       });
 
       $scope.isHost = function() {
-        return true;
-        // return Session.userType === USER_TYPES.host;
+        return Session.userType === USER_TYPES.host;
       };
 
-      $scope.songPlaying = function() {
-        return true;
-        // return $scope.party.now_playing;
+      $scope.nowPlaying = function() {
+        return $scope.queue.length > 0;
       };
       
   }])
@@ -185,7 +183,9 @@ angular.module('partyAll.controllers', [])
     if (song) $scope.playerControl(); 
     $rootScope.$on(PARTY_EVENTS.partyQueueInit, function (event) {
       song = PartyService.nextSong();
-      $scope.playerControl();
+      if (song) {
+        $scope.playerControl();  
+      } 
     });
 
     audio.addEventListener('ended', function () {
