@@ -13,6 +13,7 @@
 			<div ng-if="isHost()" ng-controller="PlayerCtrl">
 				<audio id="player"></audio>
 
+				
 				<div class="player">
 					<img class="artwork" ng-src="{{artwork}}"></img>
 					<div class="info">
@@ -26,7 +27,16 @@
 							<div ng-click="nextSong()" class="btn btn-default">Next</div>
 						</div>
 					</div>
+				</div>
+			</div>
 
+			<h5>Up Next</h5>
+
+			<div ng-repeat="song in queue.slice().reverse()" ng-hide="first" class="player queue">
+				<img class="artwork" ng-src="{{ song.artwork_url }}"></img>
+				<div class="info">
+					<div>{{ song.user.username }}</div>
+					<div>{{ song.title }}</div>
 				</div>
 			</div>
 

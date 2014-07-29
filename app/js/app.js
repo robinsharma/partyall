@@ -45,16 +45,16 @@ angular.module('partyAll', [
   $rootScope.$on('$routeChangeStart', function (event, next) {
 
     // does page require auth?
-    if (next.authRequired && !AuthService.hasAuth()) {
-        console.log("DISALLOW: auth required but not logged in");
-        event.preventDefault();
-        $location.path('/');
+    // if (next.authRequired && !AuthService.hasAuth()) {
+    //     console.log("DISALLOW: auth required but not logged in");
+    //     event.preventDefault();
+    //     $location.path('/');
       
-    } else if (next.denyLoggedInUsers && AuthService.hasAuth()) {
-      console.log("DISALLOW: users logged in are denied")
-      event.preventDefault();
-      $location.path('/party/' + Session.partyKey);
-    }
+    // } else if (next.denyLoggedInUsers && AuthService.hasAuth()) {
+    //   console.log("DISALLOW: users logged in are denied")
+    //   event.preventDefault();
+    //   $location.path('/party/' + Session.partyKey);
+    // }
     
     console.log("ALLOW: don't need auth");
 

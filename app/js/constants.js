@@ -12,7 +12,8 @@ angular.module('partyAll.constants', [])
 
   .constant('PARTY_EVENTS', {
     partyCreateSuccess: 'party-create-success',
-    partyCreateFailure: 'party-create-failure'
+    partyCreateFailure: 'party-create-failure',
+    partyQueueUpdate:   'party-queue-update'
   })
 
   .constant('USER_TYPES', {

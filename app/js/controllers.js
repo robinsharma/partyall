@@ -25,8 +25,8 @@ angular.module('partyAll.controllers', [])
 
   }])  
 
-  .controller('CreatePartyCtrl', ['$scope', '$rootScope', '$location', 'PARTY_EVENTS', 'PartyService',
-    function($scope, $rootScope, $location, PARTY_EVENTS, PartyService) {
+  .controller('CreatePartyCtrl', ['$scope', '$rootScope', '$location', 'PARTY_EVENTS', 'PartyService', 'Session', 'USER_TYPES',
+    function($scope, $rootScope, $location, PARTY_EVENTS, PartyService, Session, USER_TYPES) {
       $scope.credentials = {
         partyName: '',
         password: '',
@@ -34,7 +34,8 @@ angular.module('partyAll.controllers', [])
       };
       //TODO validate passwords, provide visual feedback
       
-      $rootScope.$on(PARTY_EVENTS.partyCreateSuccess, function (event) { //this is how we will listen for certain events
+      $rootScope.$on(PARTY_EVENTS.partyCreateSuccess, function (event, partyKey, userId, userType) { //this is how we will listen for certain events
+        Session.create(partyKey, userId, userType);
         $location.path('/create/success');
       });
 
@@ -60,15 +61,15 @@ angular.module('partyAll.controllers', [])
       $scope.party = PartyService.party;
   }])
 
-  .controller('PartyCtrl', ['$scope', 'PartyService', 'Session', 'USER_TYPES',
-    function($scope, PartyService, Session, USER_TYPES){
+  .controller('PartyCtrl', ['$scope', '$rootScope', 'PartyService', 'Session', 'USER_TYPES', 'PARTY_EVENTS',
+    function($scope, $rootScope, PartyService, Session, USER_TYPES, PARTY_EVENTS){
       $scope.party = PartyService.party;
       $scope.user = { type: Session.userType, id: Session.userId };
+      $scope.queue = PartyService.getQueue();
 
-      
       $scope.isHost = function() {
-        // return true;
-        return Session.userType === USER_TYPES.host;
+        return true;
+        // return Session.userType === USER_TYPES.host;
       };
 
       $scope.songPlaying = function() {
@@ -78,20 +79,12 @@ angular.module('partyAll.controllers', [])
       
   }])
 
-.controller('PlayerCtrl', ['$scope', '$http', '$document', '$interval', 
-  function($scope, $http, $document, $interval) {
-    var soundcloudBaseUrl = 'http://api.soundcloud.com',
-        soundcloudClientIdParam = '?client_id=11c11021d4d8721cf1970667907f45d6';
+.controller('PlayerCtrl', ['$scope', '$http', '$document', '$interval', 'PartyService',
+  function($scope, $http, $document, $interval, PartyService) {
 
-    var getPlaylist = function(callback) {
-      $http
-      .get(soundcloudBaseUrl + '/tracks' + soundcloudClientIdParam + '&q=problem')
-      .success(function (tracks) {
-        console.log(tracks);
-        queue = tracks;
-        callback();
-      });
-
+    var init = function(callback) {
+      song = PartyService.nextSong();
+      callback();  
     };
 
     $scope.playerControl = function () {
@@ -110,20 +103,20 @@ angular.module('partyAll.controllers', [])
     };
 
     $scope.nextSong = function () {
+      song = PartyService.nextSong();
       $interval.cancel(timer);
-      currentSongIdx++;
       setPlayer();
       audio.play();
       $scope.isPlaying = true;
-      timer = $interval(updateTime, 1000);
+      timer = $interval(updateTime, 1000);  
     };
 
     var setPlayer = function () {
       $scope.timeWidth = "0%";
-      $scope.artwork = queue[currentSongIdx].artwork_url;
-      $scope.title = queue[currentSongIdx].title;
-      $scope.artist = queue[currentSongIdx].user.username;
-      audio.src = queue[currentSongIdx].stream_url + '?client_id=11c11021d4d8721cf1970667907f45d6';
+      $scope.artwork = song.artwork_url;
+      $scope.title = song.title;
+      $scope.artist = song.user.username;
+      audio.src = song.stream_url + '?client_id=11c11021d4d8721cf1970667907f45d6';
     };
 
     var updateTime = function() {
@@ -135,14 +128,12 @@ angular.module('partyAll.controllers', [])
     $scope.artist = null;
     $scope.isPlaying = false;
     $scope.timeWidth = null;
-    var currentSongIdx = 0;
-    var queue = [];
-    var song = {};
+    var song = null;
     var audio = $document[0].querySelector('#player');
     var timer;
 
     //init
-    getPlaylist(function() {
+    init(function() {
       $scope.playerControl();
     });
 

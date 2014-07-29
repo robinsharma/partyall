@@ -35,6 +35,9 @@
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
+  padding-bottom: 6px;
+  border-bottom: solid 1px #ccc;
+  margin-bottom: 12px;
 }
 
 .artwork {
