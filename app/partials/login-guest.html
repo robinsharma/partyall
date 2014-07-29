@@ -1,11 +1,11 @@
 <link rel="stylesheet" href="../css/guest-login.css">
 <div class="guest-login-page container-fluid">
     <h1>Access Party</h1>
-    <form ng-controller="GuestLoginCtrl" novalidate class="form-horizontal" role="form">
+    <form ng-controller="GuestLoginCtrl" ng-submit="login(credentials)" novalidate class="form-horizontal" role="form">
         <div class="form-group">
-            <label for="partyKey" class="col-sm-2 control-label">Enter Party Key</label>
+            <label class="col-sm-2 control-label">Enter Party Key</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" placeholder="Party Key">
+                <input ng-model="credentials.partyKey" type="text" class="form-control" placeholder="Party Key">
             </div>
         </div>
         <div class="form-group">
@@ -13,5 +13,6 @@
                 <button type="submit" class="btn btn-primary">Access</button>
             </div>
         </div>
+        {{ credentials.partyKet }}
     </form>
 </div>

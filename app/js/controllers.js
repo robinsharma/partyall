@@ -75,8 +75,28 @@ angular.module('partyAll.controllers', [])
 
   }])
 
-  .controller('GuestLoginCtrl', ['$scope', 
-    function($scope) {
+  .controller('GuestLoginCtrl', ['$scope', '$http', '$location', 'PartyService', 'Session', 'USER_TYPES',
+    function($scope, $http, $location, PartyService, Session, USER_TYPES) {
+      $scope.credentials = {
+        partyKey: ''
+      };
+
+      $scope.login = function(credentials) {
+        
+        $http
+        .post('https://partyall-service.appspot.com/party/access', { party_key: credentials.partyKey }) //TODO sign requests, change to post and response.data to reponse)
+        .success(function (response) {
+          console.log('response');
+          console.log(response); 
+          PartyService.init(response.party);
+          Session.create(response.party.party_key, response.user, USER_TYPES.guest);
+          $location.path('/party/'+response.party.party_key);
+        })
+        .error(function (error) {
+          // todo
+        });
+
+      };
 
   }])
 
