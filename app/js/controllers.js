@@ -48,18 +48,18 @@ angular.module('partyAll.controllers', [])
 
   .controller('CreatePartyCtrl', ['$scope', '$http', '$location', 'PartyService', 'Session', 'USER_TYPES',
     function($scope, $http, $location, PartyService, Session, USER_TYPES) {
-      $scope.credentials = {
+      $scope.formData = {
         partyName: '',
         password: '',
         confirmedPassword: ''
       };
       //TODO validate passwords, provide visual feedback
 
-      $scope.createParty = function(credentials) {
-        console.log(credentials);
+      $scope.createParty = function(formData) {
+        console.log(formData);
         
         $http
-        .post('https://partyall-service.appspot.com/party/create', { name: credentials.partyName, password: credentials.password }) //TODO sign requests, change to post and response.data to reponse)
+        .post('https://partyall-service.appspot.com/party/create', { name: formData.partyName, password: formData.password }) //TODO sign requests, change to post and response.data to reponse)
         .success(function (response) {
           console.log('response');
           console.log(response);
