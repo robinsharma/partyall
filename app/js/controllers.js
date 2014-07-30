@@ -19,131 +19,116 @@ angular.module('partyAll.controllers', [])
     function($scope) {
 
   }])
+  
+  .controller('CreatePartyCtrl', ['$scope', '$location', 'BackendService',
+    function($scope, $location, BackendService) {
+      $scope.formData = {
+        partyName: '',
+        password: '',
+        confirmedPassword: ''
+      };
+      
+      //TODO validate passwords, provide visual feedback
 
-  .controller('HostLoginCtrl', ['$scope', '$http', '$location', 'PartyService', 'Session', 'USER_TYPES',
-    function($scope, $http, $location, PartyService, Session, USER_TYPES) {
+      $scope.createParty = function(formData) {
+        BackendService.createParty(formData, function (response) {
+          if (response.success) {
+            $location.path('/create/success');
+          } else {
+            // todo
+          }
+        });
+      };
+  }])
+
+  .controller('HostLoginCtrl', ['$scope', '$location', 'BackendService',
+    function($scope, $location, BackendService) {
       $scope.credentials = {
         partyKey: '',
         password: ''
       };
 
       $scope.login = function(credentials) {
-        
-        $http
-        .post('https://partyall-service.appspot.com/party/login', { party_key: credentials.partyKey, password: credentials.password }) //TODO sign requests, change to post and response.data to reponse)
-        .success(function (response) {
-          console.log('response');
-          console.log(response); 
-          Session.create(response.party.party_key, response.user, USER_TYPES.host);
-          PartyService.init(response.party);
-          $location.path('/party/'+response.party.party_key);
-        })
-        .error(function (error) {
-          // todo
+        BackendService.hostLogin(credentials, function (response) {
+          if (response.success) {
+            $location.path('/party/'+response.partyKey);
+          } else {
+            // todo
+          }
         });
-
       };
-
-  }])  
-
-  .controller('CreatePartyCtrl', ['$scope', '$http', '$location', 'PartyService', 'Session', 'USER_TYPES',
-    function($scope, $http, $location, PartyService, Session, USER_TYPES) {
-      $scope.formData = {
-        partyName: '',
-        password: '',
-        confirmedPassword: ''
-      };
-      //TODO validate passwords, provide visual feedback
-
-      $scope.createParty = function(formData) {
-        console.log(formData);
-        
-        $http
-        .post('https://partyall-service.appspot.com/party/create', { name: formData.partyName, password: formData.password }) //TODO sign requests, change to post and response.data to reponse)
-        .success(function (response) {
-          console.log('response');
-          console.log(response);
-          Session.create(response.party.party_key, response.user, USER_TYPES.host);
-
-          // prepopulate party with soundcloud songs for testing
-          PartyService.populateParty(response.party, function() {
-            PartyService.init(response.party);
-            $location.path('/create/success');
-          });
-
-        })
-        .error(function (error) {
-          // todo
-        });
-
-      };
-
   }])
 
-  .controller('GuestLoginCtrl', ['$scope', '$http', '$location', 'PartyService', 'Session', 'USER_TYPES',
-    function($scope, $http, $location, PartyService, Session, USER_TYPES) {
+  .controller('GuestLoginCtrl', ['$scope', '$location', 'BackendService',
+    function($scope, $location, BackendService) {
       $scope.credentials = {
         partyKey: ''
       };
 
       $scope.login = function(credentials) {
-        
-        $http
-        .post('https://partyall-service.appspot.com/party/access', { party_key: credentials.partyKey }) //TODO sign requests, change to post and response.data to reponse)
-        .success(function (response) {
-          console.log('response');
-          console.log(response); 
-          Session.create(response.party.party_key, response.user, USER_TYPES.guest);
-          PartyService.init(response.party);
-          $location.path('/party/'+response.party.party_key);
-        })
-        .error(function (error) {
-          // todo
+        BackendService.guestLogin(credentials, function (response) {
+          if (response.success) {
+            $location.path('/party/'+response.partyKey);
+          } else {
+            // todo
+          }
         });
-
       };
-
   }])
 
-  .controller('CreateSuccessCtrl', ['$scope', 'PartyService',
-    function($scope, PartyService) {
-      $scope.party = PartyService.party;
+  .controller('CreateSuccessCtrl', ['$scope', 'Session',
+    function($scope, Session) {
+      $scope.partyName = Session.partyName;
+      $scope.partyKey = Session.partyKey;
   }])
 
-  .controller('PartyCtrl', ['$scope', '$rootScope', 'PartyService', 'Session', 'USER_TYPES', 'PARTY_EVENTS',
-    function($scope, $rootScope, PartyService, Session, USER_TYPES, PARTY_EVENTS){
-      $scope.party = PartyService.party;
-      $scope.user = { type: Session.userType, id: Session.userId };
-      $scope.queue = PartyService.getQueue();
+  .controller('PartyCtrl', ['$scope', '$rootScope', 'QueueService', 'Session', 'USER_TYPES', 'PARTY_EVENTS',
+    function($scope, $rootScope, QueueService, Session, USER_TYPES, PARTY_EVENTS){
+      $scope.partyName = Session.partyName;
+      $scope.queue = null;
+      $scope.nowPlaying = null;
+      $scope.staticSongs = null;
 
       //init
-      $rootScope.$on(PARTY_EVENTS.partyQueueInit, function (event, tracks) {
-        $scope.queue = tracks;
+      $rootScope.$on(PARTY_EVENTS.partyQueueInit, function (event, queue) {
+        console.log('queue init');
+        $scope.queue = queue.slice(1);
+        $scope.nowPlaying = queue[0];
       });
 
       //update
-      $rootScope.$on(PARTY_EVENTS.partyQueueUpdate, function (event, tracks) {
-        $scope.queue = tracks;
+      $rootScope.$on(PARTY_EVENTS.partyQueueUpdate, function (event, queue) {
+        console.log('update event in party ctrl');
+        console.log(queue);
+        $scope.queue = queue.slice(1);
+        $scope.nowPlaying = queue[0];
       });
 
       $scope.isHost = function() {
         return Session.userType === USER_TYPES.host;
       };
 
-      $scope.nowPlaying = function() {
-        return $scope.queue.length > 0;
+      $scope.addSong = function(song) {
+        console.log(song);
+        QueueService.addSong(song);
       };
+
+      //dev
+      $rootScope.$on(PARTY_EVENTS.staticSongs, function (event, staticSongs) {
+        $scope.staticSongs = staticSongs;
+      });
+
+      QueueService.getStaticSongs();
       
   }])
 
-.controller('PlayerCtrl', ['$scope', '$rootScope', '$http', '$document', '$interval', 'PartyService', 'PARTY_EVENTS',
-  function($scope, $rootScope, $http, $document, $interval, PartyService, PARTY_EVENTS) {
+.controller('PlayerCtrl', ['$scope', '$rootScope', '$document', '$interval', '$sce', 'QueueService', 'BackendService', 'PARTY_EVENTS',
+  function($scope, $rootScope, $document, $interval, $sce, QueueService, BackendService, PARTY_EVENTS) {
+
+    var clientIdParam = '?client_id=11c11021d4d8721cf1970667907f45d6';
 
     $scope.playerControl = function () {
       if (!$scope.isPlaying) {
-        if (audio.getAttribute('src') === null) {
-          setPlayer();
-        }
         audio.play();
         $scope.isPlaying = true;
         timer = $interval(updateTime, 1000);
@@ -155,46 +140,43 @@ angular.module('partyAll.controllers', [])
     };
 
     $scope.nextSong = function () {
-      song = PartyService.nextSong();
       $interval.cancel(timer);
-      setPlayer();
-      audio.play();
-      $scope.isPlaying = true;
-      timer = $interval(updateTime, 1000);  
+      BackendService.nextSong();
     };
 
     var setPlayer = function () {
-      $scope.timeWidth = "0%";
-      $scope.artwork = song.data.artwork_url;
-      $scope.title = song.data.title;
-      $scope.artist = song.data.user.username;
-      audio.src = song.data.stream_url + '?client_id=11c11021d4d8721cf1970667907f45d6';
+      if ($scope.song = QueueService.nowPlaying()) {
+        $scope.timeWidth = "0%";
+        $scope.streamUrl = $sce.trustAsResourceUrl($scope.song.url + clientIdParam);
+        $scope.timeWidth = "0%";
+        $scope.isPlaying = true;
+        timer = $interval(updateTime, 1000);        
+      }
     };
 
     var updateTime = function() {
       $scope.timeWidth = parseInt(audio.currentTime * 100 / audio.duration) + "%";
     };
 
-    $scope.artwork = null;
-    $scope.title = null;
-    $scope.artist = null;
     $scope.isPlaying = false;
-    $scope.timeWidth = null;
-    var song = PartyService.nextSong();
+    $scope.timeWidth = "0%";
+    $scope.disableNext = true;
+    $scope.song = null;
+    $scope.streamUrl = null;
     var audio = $document[0].querySelector('#player');
     var timer;
 
-    //init
-    if (song) $scope.playerControl(); 
     $rootScope.$on(PARTY_EVENTS.partyQueueInit, function (event) {
-      song = PartyService.nextSong();
-      if (song) {
-        $scope.playerControl();  
-      } 
+      setPlayer();
+    });
+
+    $rootScope.$on(PARTY_EVENTS.nowPlayingChanged, function (event, queue) {
+      console.log('now playing changed event');
+      setPlayer();  
     });
 
     audio.addEventListener('ended', function () {
-      $scope.$apply($scope.nextSong());
+      $scope.nextSong();
     });
 
 }]);

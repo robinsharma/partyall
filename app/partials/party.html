@@ -6,19 +6,18 @@
 	</div>
 
 	<div class="container">
-		<div ng-show="nowPlaying()">
+		<div ng-show="!!nowPlaying">
 			
 			<h5>Now Playing</h5>
 			
 			<div ng-if="isHost()" ng-controller="PlayerCtrl">
-				<audio id="player"></audio>
-
+				<audio id="player" ng-src="{{ streamUrl }}" autoplay></audio>
 				
 				<div class="player">
-					<img class="artwork" ng-src="{{artwork}}"></img>
+					<img class="artwork" ng-src="{{ song.artwork }}"></img>
 					<div class="info">
-						<div>{{ artist }}</div>
-						<div>{{ title }}</div>
+						<div>{{ song.artist }}</div>
+						<div>{{ song.title }}</div>
 						<div class="time"><span ng-style="{ width: timeWidth }"></span></div>
 
 						<div class="controls">
@@ -31,27 +30,42 @@
 			</div>
 
 			<div ng-if="!isHost()">
-				<img class="artwork" ng-src="{{ queue[queue.length - 1].artwork_url }}"></img>
+				<img class="artwork" ng-src="{{ nowPlaying.artwork }}"></img>
 				<div class="info">
-					<div>{{ queue[queue.length - 1].data.user.username }}</div>
-					<div>{{ queue[queue.length - 1].data.title }}</div>
+					<div>{{ nowPlaying.artist }}</div>
+					<div>{{ nowPlaying.title }}</div>
 				</div>
 			</div>
 
 			<h5>Up Next</h5>
 
-			<div ng-repeat="song in queue.slice().reverse()" ng-hide="$first" class="player queue">
-				<img class="artwork" ng-src="{{ song.data.artwork_url }}"></img>
+			<div ng-repeat="song in queue" class="player queue">
+				<img class="artwork" ng-src="{{ song.artwork }}"></img>
 				<div class="info">
-					<div>{{ song.data.user.username }}</div>
-					<div>{{ song.data.title }}</div>
+					<div>{{ song.artist }}</div>
+					<div>{{ song.title }}</div>
 				</div>
 			</div>
 
 		</div>
 
-		<div ng-hide="nowPlaying()">
+		<div ng-hide="!!nowPlaying">
 			<h5>Nothing playing</h5>
+		</div>
+
+		<div>
+			<h5>Add me</h5>
+			<div ng-repeat="static in staticSongs" class="player queue">
+				<img class="artwork" ng-src="{{ static.artwork }}"></img>
+				<div class="info">
+					<div>{{ static.artist }}</div>
+					<div>{{ static.title }}</div>
+					<div class="controls">
+						<div ng-click="addSong(static)" class="btn btn-default">Add</div>
+					</div>
+				</div>
+
+			</div>
 		</div>
 	</div>
 </div>

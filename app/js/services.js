@@ -22,63 +22,134 @@ angular.module('partyAll.services', [])
     return authService;
   }])
 
-  .service('PartyService', ['$http', '$rootScope', 'Session', 'PARTY_EVENTS', function($http, $rootScope, Session, PARTY_EVENTS) {    
-    this.init = function(party) {
-      var partyService = this;
-      this.party = party;
-      this.queue = [];
-      console.log('INIT');
+  .factory('BackendService', ['$http', 'Session', 'USER_TYPES', function($http, Session, USER_TYPES) {
+    var backendService = {};
+    var baseUrl = 'https://partyall-service.appspot.com';
+
+    backendService.login = function (path, userType, data, callback) {
+      var params = {
+        party_key : data.partyKey,
+        name      : data.partyName || "",
+        password  : data.password || ""
+      };
 
       $http
-      .get('https://partyall-service.appspot.com/party/queue/?party_key=' + party.party_key)
-      .success(function (queue) {
-        partyService.queue = queue;
-        $rootScope.$broadcast(PARTY_EVENTS.partyQueueInit, queue);
+      .post(baseUrl + path, params) //TODO sign requests, change to post and response.data to reponse)
+      .success(function (response) {
+        Session.create(response.party.party_key, response.user, userType, response.party.name, response.token);
+        callback({success: true, partyKey: response.party.party_key});
+      })
+      .error(function (error) {
+        callback({success: false, error: error});
       });
-              
     };
 
-    this.populateParty = function(party, callback) {
-      var partyService = this;
+    backendService.guestLogin = function (credentials, callback) {
+      backendService.login('/party/access', USER_TYPES.guest, credentials, callback);
+    };
 
+    backendService.hostLogin = function (credentials, callback) {
+      backendService.login('/party/login', USER_TYPES.host, credentials, callback);
+    };
+
+    backendService.createParty = function (formData, callback) {
+      backendService.login('/party/create', USER_TYPES.host, formData, callback);
+    };
+
+
+    backendService.nextSong = function() {
+      var params = {
+        party_key   : Session.partyKey,
+        user_id     : Session.userId
+      };
+      
       $http
-      .get('http://api.soundcloud.com' + '/tracks' + '?client_id=11c11021d4d8721cf1970667907f45d6' + '&q=kygo')
-      .success(function (tracks) {
-        console.log('success get tracks');
-
-        tracks.forEach(function (track) {
-
-          var params = {
-            data      : track,
-            party_key : party.party_key,
-            url       : track.stream_url,
-            user_id   : Session.userId,
-          };
-
-          console.log(track);
-          $http
-          .post('https://partyall-service.appspot.com/party/song/add/', params)
-          .success(function (data) {
-            console.log('successfully added: ');
-            console.log(data);
-          });
-        });
-        callback();
+      .post(baseUrl+'/party/song/next/', params)
+      .success(function (song) {
+        console.log('Next Song API: success');
+      })
+      .error(function (error) {
+        console.log('Next Song API: failure');
+        console.log(error);
       });
-
     };
 
-    this.getQueue = function() {
-      return this.queue;
+    return backendService;
+  }])
+
+  .factory('QueueService', ['$http', '$rootScope', 'Session', 'PARTY_EVENTS', function($http, $rootScope, Session, PARTY_EVENTS) {
+    var queueService = {};
+    queueService.queue = null;
+
+    queueService.nowPlaying = function() {
+      if (!queueService.queue) return;
+
+      return queueService.queue[0];
     };
 
-    this.nextSong = function() {
-      return this.queue.pop();
+    queueService.nextSong = function() {
+      var params = {
+        party_key   : Session.partyKey,
+        user_id     : Session.userId
+      };
+      
+      $http
+      .post('https://partyall-service.appspot.com/party/song/next/', params)
+      .success(function (song) {
+        console.log('next song success');
+      });
+    };
+
+    queueService.getStaticSongs = function() {
+      $http
+      .get('/sample_data/queue.json')
+      .success(function (songs) {
+        console.log('static songs');
+        console.log(songs);
+        $rootScope.$broadcast(PARTY_EVENTS.staticSongs, songs);
+      });
+    };
+
+    // initialize queue
+    $http
+    .get('https://partyall-service.appspot.com/party/queue/?party_key=' + Session.partyKey)
+    .success(function (queue) {
+      console.log('sucessfully get queue');
+      queueService.queue = queue;
+      $rootScope.$broadcast(PARTY_EVENTS.partyQueueInit, queueService.queue);
+    });
+
+    var channel = new goog.appengine.Channel(Session.channelToken);
+    var socket = channel.open();
+
+    socket.onopen = function() {
+      console.log('socket onopen');
+    };
+
+    socket.onmessage = function (message) {
+      console.log('socket onmessage');
+      var msg = JSON.parse(message.data);
+      console.log(msg);
+      queueService.queue = msg.queue;
+      if (msg.now_playing_changed) {
+        $rootScope.$broadcast(PARTY_EVENTS.nowPlayingChanged, queueService.queue);
+      }
+      $rootScope.$broadcast(PARTY_EVENTS.partyQueueUpdate, queueService.queue);
+    };
+
+    socket.onerror = function (error) {
+      console.log('socket onerror:' + error);
+      //todo
+    };
+
+    socket.onclose = function () {
+      console.log('socket onclose');
+      // todo -- open a new socket / reopen
     };
 
 
-    // todo - persistent connection to party service to update party
-    return this;
+
+    return queueService;
   }])
 
   /*
@@ -86,10 +157,12 @@ angular.module('partyAll.services', [])
   to determine type and permissions of users.
   */
   .service('Session', ['$rootScope', 'AUTH_EVENTS', 'USER_TYPES', function($rootScope, AUTH_EVENTS, USER_TYPES) {
-    this.create = function(partyKey, userId, userType) {
+    this.create = function(partyKey, userId, userType, partyName, channelToken) {
       this.partyKey = partyKey;
       this.userId   = userId;
       this.userType = userType;
+      this.partyName = partyName;
+      this.channelToken = channelToken;
 
       // Broadcast login success event (since session created)
       if (userType === USER_TYPES.host) {
@@ -103,10 +176,11 @@ angular.module('partyAll.services', [])
       this.partyKey = null;
       this.userId   = null;
       this.userType = null;
+      this.partyName = null;
+      this.channelToken = null;
 
       // todo- broadcast logout events
     };
 
     return this;
   }]);
-

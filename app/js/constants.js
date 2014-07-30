@@ -14,7 +14,9 @@ angular.module('partyAll.constants', [])
     partyCreateSuccess: 'party-create-success',
     partyCreateFailure: 'party-create-failure',
     partyQueueUpdate:   'party-queue-update',
-    partyQueueInit:   'party-queue-init'
+    partyQueueInit:   'party-queue-init',
+    staticSongs: 'static-songs',
+    nowPlayingChanged: 'nowplaying-changed'
   })
 
   .constant('USER_TYPES', {
