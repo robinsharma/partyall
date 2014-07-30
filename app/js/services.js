@@ -28,9 +28,9 @@ angular.module('partyAll.services', [])
 
     backendService.login = function (path, userType, data, callback) {
       var params = {
-        party_key : data.partyKey,
-        name      : data.partyName || "",
-        password  : data.password || ""
+        party_key  : data.partyKey,
+        party_name : data.partyName || "",
+        password   : data.password || ""
       };
 
       $http
