@@ -56,7 +56,6 @@ angular.module('partyAll.services', [])
       backendService.login('/party/create', USER_TYPES.host, formData, callback);
     };
 
-
     backendService.nextSong = function() {
       var params = {
         party_key   : Session.partyKey,
@@ -72,6 +71,28 @@ angular.module('partyAll.services', [])
         console.log('Next Song API: failure');
         console.log(error);
       });
+    };
+
+    backendService.addSong = function (url, title, description, artist, artwork) {
+      var params = {
+        party_key   : Session.partyKey,
+        user_id     : Session.userId,
+        url         : url,
+        title       : title,
+        description : description,
+        artist      : artist,
+        artwork     : artwork
+      };
+
+      $http
+      .post(baseUrl+'/party/song/add/', params)
+      .success(function (song) {
+        console.log('Add Song API: success');
+      })
+      .error(function (error) {
+        console.log('Add Song API: failure');
+        console.log(error);
+      });     
     };
 
     return backendService;

@@ -82,8 +82,8 @@ angular.module('partyAll.controllers', [])
       $scope.partyKey = Session.partyKey;
   }])
 
-  .controller('PartyCtrl', ['$scope', '$rootScope', 'QueueService', 'Session', 'USER_TYPES', 'PARTY_EVENTS',
-    function($scope, $rootScope, QueueService, Session, USER_TYPES, PARTY_EVENTS){
+  .controller('PartyCtrl', ['$scope', '$rootScope', 'QueueService', 'Session', 'USER_TYPES', 'PARTY_EVENTS', 'BackendService',
+    function($scope, $rootScope, QueueService, Session, USER_TYPES, PARTY_EVENTS, BackendService){
       $scope.partyName = Session.partyName;
       $scope.queue = null;
       $scope.nowPlaying = null;
@@ -110,7 +110,7 @@ angular.module('partyAll.controllers', [])
 
       $scope.addSong = function(song) {
         console.log(song);
-        QueueService.addSong(song);
+        BackendService.addSong(song.url, song.title, song.description, song.artist, song.artwork);
       };
 
       //dev
