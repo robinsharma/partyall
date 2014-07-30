@@ -108,19 +108,6 @@ angular.module('partyAll.services', [])
       return queueService.queue[0];
     };
 
-    queueService.nextSong = function() {
-      var params = {
-        party_key   : Session.partyKey,
-        user_id     : Session.userId
-      };
-      
-      $http
-      .post('https://partyall-service.appspot.com/party/song/next/', params)
-      .success(function (song) {
-        console.log('next song success');
-      });
-    };
-
     queueService.getStaticSongs = function() {
       $http
       .get('/sample_data/queue.json')
