@@ -7,6 +7,7 @@ body {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    background-color: black;
 }
 
 .home-page {
@@ -24,10 +25,6 @@ body {
     background-repeat: no-repeat;
 }
 
-.home-page .logo-font {
-    font-family: 'Pacifico', cursive;
-}
-
 .home-page .title {
     padding: 20px 0;
 }
@@ -41,9 +38,19 @@ body {
 }
 
 .home-page .options {
-    padding-bottom: 50px;
+    padding-bottom: 20px;
 }
 
 .home-page .options .option {
     width : 80px;
+}
+
+@media (max-width: 481px) {
+    .home-page .logo {
+        height: 150px;
+        width: 150px;
+    }
+    h1 {
+        font-size: 32px;
+    }
 }
