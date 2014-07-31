@@ -1,0 +1,20 @@
+body {
+    background: #F3F4F7
+}
+
+.guest-login-page {
+    max-width: 600px;
+}
+
+.guest-login-page .form {
+    padding: 10px;
+    border-bottom: 4px solid rgb(197, 197, 197);
+    border-right: 4px solid rgb(197, 197, 197);
+    background: white;
+    margin: 20px 0;
+    border-radius: 10px;
+}
+
+.guest-login-page h1 {
+    padding-bottom: 10px;
+}
