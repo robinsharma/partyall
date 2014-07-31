@@ -110,12 +110,7 @@ angular.module('partyAll.services', [])
   .factory('QueueService', ['$http', '$rootScope', 'Session', 'BackendService', 'PARTY_EVENTS', function($http, $rootScope, Session, BackendService, PARTY_EVENTS) {
     var queueService = {};
     queueService.queue = null;
-
-    queueService.nowPlaying = function() {
-      if (!queueService.queue) return;
-
-      return queueService.queue[0];
-    };
+    queueService.nowPlaying = null;
 
     queueService.getStaticSongs = function() {
       $http
@@ -129,8 +124,9 @@ angular.module('partyAll.services', [])
 
     // initialize queue
     BackendService.getQueue(function (queue) {
-      queueService.queue = queue;
-      $rootScope.$broadcast(PARTY_EVENTS.partyQueueInit, queueService.queue);
+      queueService.queue = queue.slice(1);
+      queueService.nowPlaying = queue[0];
+      $rootScope.$broadcast(PARTY_EVENTS.partyQueueInit, queueService.queue, queueService.nowPlaying);
     });
 
     var channel = new goog.appengine.Channel(Session.channelToken);
@@ -144,11 +140,10 @@ angular.module('partyAll.services', [])
       console.log('socket onmessage');
       var msg = JSON.parse(message.data);
       console.log(msg);
-      queueService.queue = msg.queue;
-      if (msg.now_playing_changed) {
-        $rootScope.$broadcast(PARTY_EVENTS.nowPlayingChanged, queueService.queue);
-      }
-      $rootScope.$broadcast(PARTY_EVENTS.partyQueueUpdate, queueService.queue);
+      queueService.queue = msg.queue.slice(1);
+      queueService.nowPlaying = msg.queue[0];
+      if (msg.now_playing_changed) $rootScope.$broadcast(PARTY_EVENTS.nowPlayingChanged, queueService.queue, queueService.nowPlaying);
+      $rootScope.$broadcast(PARTY_EVENTS.partyQueueUpdate, queueService.queue, queueService.nowPlaying);
     };
 
     socket.onerror = function (error) {
@@ -160,8 +155,6 @@ angular.module('partyAll.services', [])
       console.log('socket onclose');
       // todo -- open a new socket / reopen
     };
-
-
 
     return queueService;
   }])

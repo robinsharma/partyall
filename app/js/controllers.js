@@ -90,18 +90,19 @@ angular.module('partyAll.controllers', [])
       $scope.staticSongs = null;
 
       //init
-      $rootScope.$on(PARTY_EVENTS.partyQueueInit, function (event, queue) {
+      $rootScope.$on(PARTY_EVENTS.partyQueueInit, function (event, queue, nowPlaying) {
         console.log('queue init');
-        $scope.queue = queue.slice(1);
-        $scope.nowPlaying = queue[0];
+        $scope.queue = queue;
+        $scope.nowPlaying = nowPlaying;
       });
 
       //update
-      $rootScope.$on(PARTY_EVENTS.partyQueueUpdate, function (event, queue) {
+      $rootScope.$on(PARTY_EVENTS.partyQueueUpdate, function (event, queue, nowPlaying) {
         console.log('update event in party ctrl');
         console.log(queue);
-        $scope.queue = queue.slice(1);
-        $scope.nowPlaying = queue[0];
+        $scope.queue = queue;
+        $scope.nowPlaying = nowPlaying;
+        $scope.$apply();
       });
 
       $scope.isHost = function() {
@@ -145,7 +146,7 @@ angular.module('partyAll.controllers', [])
     };
 
     var setPlayer = function () {
-      if ($scope.song = QueueService.nowPlaying()) {
+      if ($scope.song = QueueService.nowPlaying) {
         $scope.timeWidth = "0%";
         $scope.streamUrl = $sce.trustAsResourceUrl($scope.song.url + clientIdParam);
         $scope.timeWidth = "0%";
