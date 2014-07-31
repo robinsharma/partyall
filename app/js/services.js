@@ -189,5 +189,9 @@ angular.module('partyAll.services', [])
       // todo- broadcast logout events
     };
 
+    this.isHost = function () {
+      return this.userType === USER_TYPES.host;
+    };
+
     return this;
   }]);

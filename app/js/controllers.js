@@ -82,12 +82,13 @@ angular.module('partyAll.controllers', [])
       $scope.partyKey = Session.partyKey;
   }])
 
-  .controller('PartyCtrl', ['$scope', '$rootScope', 'QueueService', 'Session', 'USER_TYPES', 'PARTY_EVENTS', 'BackendService',
-    function($scope, $rootScope, QueueService, Session, USER_TYPES, PARTY_EVENTS, BackendService){
+  .controller('PartyCtrl', ['$scope', '$rootScope', 'QueueService', 'Session', 'PARTY_EVENTS', 'BackendService',
+    function($scope, $rootScope, QueueService, Session, PARTY_EVENTS, BackendService){
       $scope.partyName = Session.partyName;
       $scope.queue = null;
       $scope.nowPlaying = null;
       $scope.staticSongs = null;
+      $scope.isHost = Session.isHost();
 
       //init
       $rootScope.$on(PARTY_EVENTS.partyQueueInit, function (event, queue, nowPlaying) {
@@ -104,10 +105,6 @@ angular.module('partyAll.controllers', [])
         $scope.nowPlaying = nowPlaying;
         $scope.$apply();
       });
-
-      $scope.isHost = function() {
-        return Session.userType === USER_TYPES.host;
-      };
 
       $scope.addSong = function(song) {
         console.log(song);

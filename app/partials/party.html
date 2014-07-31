@@ -10,7 +10,7 @@
 			
 			<h5>Now Playing</h5>
 			
-			<div ng-if="isHost()" ng-controller="PlayerCtrl">
+			<div ng-if="isHost" ng-controller="PlayerCtrl">
 				<audio id="player" ng-src="{{ streamUrl }}" autoplay></audio>
 				
 				<div class="player">
@@ -29,7 +29,7 @@
 				</div>
 			</div>
 
-			<div ng-if="!isHost()">
+			<div ng-if="!isHost">
 				<img class="artwork" ng-src="{{ nowPlaying.artwork }}"></img>
 				<div class="info">
 					<div>{{ nowPlaying.artist }}</div>
