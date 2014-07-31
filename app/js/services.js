@@ -73,6 +73,15 @@ angular.module('partyAll.services', [])
       });
     };
 
+    backendService.getQueue = function(callback) {
+      $http
+      .get(baseUrl+'/party/queue/?party_key='+Session.partyKey)
+      .success(function (queue) {
+        console.log('sucessfully get queue');
+        callback(queue);
+      });
+    };
+
     backendService.addSong = function (url, title, description, artist, artwork) {
       var params = {
         party_key   : Session.partyKey,
@@ -98,7 +107,7 @@ angular.module('partyAll.services', [])
     return backendService;
   }])
 
-  .factory('QueueService', ['$http', '$rootScope', 'Session', 'PARTY_EVENTS', function($http, $rootScope, Session, PARTY_EVENTS) {
+  .factory('QueueService', ['$http', '$rootScope', 'Session', 'BackendService', 'PARTY_EVENTS', function($http, $rootScope, Session, BackendService, PARTY_EVENTS) {
     var queueService = {};
     queueService.queue = null;
 
@@ -119,10 +128,7 @@ angular.module('partyAll.services', [])
     };
 
     // initialize queue
-    $http
-    .get('https://partyall-service.appspot.com/party/queue/?party_key=' + Session.partyKey)
-    .success(function (queue) {
-      console.log('sucessfully get queue');
+    BackendService.getQueue(function (queue) {
       queueService.queue = queue;
       $rootScope.$broadcast(PARTY_EVENTS.partyQueueInit, queueService.queue);
     });
