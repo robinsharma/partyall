@@ -2,7 +2,7 @@
 but in this case it could not be avoided...
 */
 body {
-    background: url(../img/background.png) no-repeat center center fixed; 
+    background: url(../img/background.jpg) no-repeat center center fixed; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -52,5 +52,21 @@ body {
     }
     h1 {
         font-size: 32px;
+    }
+}
+
+@media (min-height: 900px) {
+    .home-page {
+        margin-top: 75px;
+    }
+}
+@media (min-height: 1000px) {
+    .home-page {
+        margin-top: 150px;
+    }
+}
+@media (min-height: 1500px) {
+    .home-page {
+        margin-top: 300px;
     }
 }
