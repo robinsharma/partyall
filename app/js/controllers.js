@@ -88,9 +88,26 @@ angular.module('partyAll.controllers', [])
       $scope.partyKey = Session.partyKey;
   }])
 
-  .controller('SearchCtrl', ['$scope',
-    function($scope) {
-      console.log('search controller!!!');
+  .controller('SearchCtrl', ['$scope', '$rootScope', '$window', 'BackendService', 'SearchService', 'SEARCH_EVENTS',
+    function($scope, $rootScope, $window, BackendService, SearchService, SEARCH_EVENTS) {
+      $scope.query = "";
+      $scope.results = null;
+
+      $scope.search = function(query) {
+        SearchService.search(query);
+      };
+
+      $scope.requestSong = function (song) {
+        console.log(song);
+        BackendService.addSong(song.stream_url, song.title, song.description, song.user.username, song.artwork_url);
+        $window.history.back();
+      };
+
+      $rootScope.$on(SEARCH_EVENTS.searchSuccess, function (event, tracks) {
+        console.log("RESULTS SUCCESS");
+        console.log(tracks);
+        $scope.results = tracks;
+      });
   }])
 
   .controller('PartyCtrl', ['$scope', '$rootScope', '$location', 'QueueService', 'Session', 'PARTY_EVENTS', 'BackendService',

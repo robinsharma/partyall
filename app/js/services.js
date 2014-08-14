@@ -22,6 +22,26 @@ angular.module('partyAll.services', [])
     return authService;
   }])
 
+  .factory('SearchService', ['$http', '$rootScope', 'SEARCH_EVENTS', function($http, $rootScope, SEARCH_EVENTS) {
+    var searchService = {};
+    var baseUrl = 'http://api.soundcloud.com/tracks/';
+
+    searchService.search = function (query) {
+      $http
+      .get(baseUrl+"?client_id=11c11021d4d8721cf1970667907f45d6&q="+query)
+      .success(function (tracks) {
+        $rootScope.$broadcast(SEARCH_EVENTS.searchSuccess, tracks);
+      })
+      .error(function (error) {
+        console.log('Search API error');
+        console.log(error);
+      });
+    };
+
+    return searchService;
+  }])
+
+
   .factory('BackendService', ['$http', 'Session', 'USER_TYPES', function($http, Session, USER_TYPES) {
     var backendService = {};
     var baseUrl = 'https://partyall-service.appspot.com';

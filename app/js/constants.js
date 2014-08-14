@@ -19,6 +19,10 @@ angular.module('partyAll.constants', [])
     nowPlayingChanged: 'nowplaying-changed'
   })
 
+  .constant('SEARCH_EVENTS', {
+    searchSuccess: 'search-success'
+  })
+
   .constant('USER_TYPES', {
     host: 'host',
     guest: 'guest'
