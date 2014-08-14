@@ -73,3 +73,18 @@
   position: absolute;
   bottom: 0;
 }
+
+.heart {
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 16px;
+  height: 16px;
+}
+
+.heart.active {
+  background-image: url(/img/vote.png);
+}
+
+.heart.inactive {
+  background-image: url(/img/un-vote.png);
+}

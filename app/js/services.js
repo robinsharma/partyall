@@ -76,6 +76,7 @@ angular.module('partyAll.services', [])
     backendService.getQueue = function(callback) {
       $http
       .get(baseUrl+'/party/queue/?party_key='+Session.partyKey)
+      // .get('/sample_data/queue.json')
       .success(function (queue) {
         console.log('sucessfully get queue');
         callback(queue);
@@ -100,6 +101,24 @@ angular.module('partyAll.services', [])
       })
       .error(function (error) {
         console.log('Add Song API: failure');
+        console.log(error);
+      });     
+    };
+
+    backendService.vote = function (songId) {
+      var params = {
+        party_key   : Session.partyKey,
+        user_id     : Session.userId,
+        song_id     : songId
+      };
+
+      $http
+      .post(baseUrl+'/party/song/vote/', params)
+      .success(function (song) {
+        console.log('Vote Song API: success');
+      })
+      .error(function (error) {
+        console.log('Vote Song API: failure');
         console.log(error);
       });     
     };
