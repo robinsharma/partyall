@@ -1,7 +1,14 @@
 <div>
 	<div class="navbar navbar-inverse navbar-static-top">
 		<div class="container">
-			<div class="navbar-brand">{{ party.name || "Party" }}</div>
+			<div class="navbar-header pull-left">
+				<div class="navbar-brand">{{ party.name || "Party" }}</div>
+			</div>
+			<div class="navbar-header pull-right">
+				<div ng-click="navToSearch()" class="btn navbar-btn">
+					<div class="icon search"></div>
+				</div>
+			</div>
 		</div>
 	</div>
 
@@ -11,7 +18,7 @@
 			<h5>Now Playing</h5>
 			
 			<div ng-if="isHost" ng-controller="PlayerCtrl">
-				<audio id="player" ng-src="{{ streamUrl }}" autoplay></audio>
+				
 				
 				<div class="player">
 					<img class="artwork" ng-src="{{ song.artwork }}"></img>

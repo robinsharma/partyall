@@ -3,8 +3,8 @@
 /* Controllers */
 
 angular.module('partyAll.controllers', [])
-  .controller('MainAppCtrl', ['$scope', 'USER_TYPES', 'AuthService',
-    function($scope, USER_TYPES, AuthService) {
+  .controller('MainAppCtrl', ['$scope', '$sce', 'USER_TYPES', 'AuthService', 'Session',
+    function($scope, $sce, USER_TYPES, AuthService, Session) {
       $scope.currentUserData = null;
       //following two are for providing easy access to USER_TYPES and isAuthorized
       $scope.userTypes = USER_TYPES;
@@ -12,6 +12,12 @@ angular.module('partyAll.controllers', [])
 
       $scope.setCurrentUserData = function (user) {
         $scope.currentUserData = user;
+      };
+      $scope.streamUrl = null;
+
+      $scope.setStreamUrl = function(url) {
+        console.log('set stream url');
+        $scope.streamUrl = $sce.trustAsResourceUrl(url);
       };
   }])
 
@@ -82,15 +88,25 @@ angular.module('partyAll.controllers', [])
       $scope.partyKey = Session.partyKey;
   }])
 
-  .controller('PartyCtrl', ['$scope', '$rootScope', 'QueueService', 'Session', 'PARTY_EVENTS', 'BackendService',
-    function($scope, $rootScope, QueueService, Session, PARTY_EVENTS, BackendService){
+  .controller('SearchCtrl', ['$scope',
+    function($scope) {
+      console.log('search controller!!!');
+  }])
+
+  .controller('PartyCtrl', ['$scope', '$rootScope', '$location', 'QueueService', 'Session', 'PARTY_EVENTS', 'BackendService',
+    function($scope, $rootScope, $location, QueueService, Session, PARTY_EVENTS, BackendService){
+      console.log("party controller");
       $scope.partyName = Session.partyName;
-      $scope.queue = null;
-      $scope.nowPlaying = null;
+      $scope.queue = QueueService.queue;
+      $scope.nowPlaying = QueueService.nowPlaying;
       $scope.staticSongs = null;
       $scope.isHost = Session.isHost();
 
       //init
+      console.log('QUEUE SERVICE VARS');
+      console.log(QueueService.queue);
+      console.log(QueueService.nowPlaying);
+
       $rootScope.$on(PARTY_EVENTS.partyQueueInit, function (event, queue, nowPlaying) {
         console.log('queue init');
         $scope.queue = queue;
@@ -115,6 +131,10 @@ angular.module('partyAll.controllers', [])
       $scope.toggleVote = function(song) {
         console.log('vote/unvote');
         BackendService.vote(song.id);
+      };
+
+      $scope.navToSearch = function() {
+        $location.path('/party/'+Session.partyKey+'/search');
       };
 
       $scope.hasVote = function(song) {
@@ -143,10 +163,12 @@ angular.module('partyAll.controllers', [])
       if (!$scope.isPlaying) {
         audio.play();
         $scope.isPlaying = true;
+        QueueService.isPlaying = true;
         timer = $interval(updateTime, 1000);
       } else {
         audio.pause();
         $scope.isPlaying = false;
+        QueueService.isPlaying = false;
         $interval.cancel(timer);
       }
     };
@@ -159,9 +181,10 @@ angular.module('partyAll.controllers', [])
     var setPlayer = function () {
       if ($scope.song = QueueService.nowPlaying) {
         $scope.timeWidth = "0%";
-        $scope.streamUrl = $sce.trustAsResourceUrl($scope.song.url + clientIdParam);
+        $scope.setStreamUrl($scope.song.url + clientIdParam);
         $scope.timeWidth = "0%";
         $scope.isPlaying = true;
+        QueueService.isPlaying = true;
         timer = $interval(updateTime, 1000);        
       }
     };
@@ -170,12 +193,11 @@ angular.module('partyAll.controllers', [])
       $scope.timeWidth = parseInt(audio.currentTime * 100 / audio.duration) + "%";
     };
 
-    $scope.isPlaying = false;
+    $scope.isPlaying = QueueService.isPlaying;
     $scope.timeWidth = "0%";
     $scope.disableNext = true;
-    $scope.song = null;
-    $scope.streamUrl = null;
-    var audio = $document[0].querySelector('#player');
+    $scope.song = QueueService.nowPlaying;
+    var audio = $document[0].querySelector('#audio');
     var timer;
 
     $rootScope.$on(PARTY_EVENTS.partyQueueInit, function (event) {
@@ -190,5 +212,7 @@ angular.module('partyAll.controllers', [])
     audio.addEventListener('ended', function () {
       $scope.nextSong();
     });
+
+    setPlayer();
 
 }]);

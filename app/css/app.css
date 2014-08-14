@@ -74,6 +74,17 @@
   bottom: 0;
 }
 
+.icon {
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 16px;
+  height: 16px;
+}
+
+.icon.search {
+  background-image: url(/img/search.png);
+}
+
 .heart {
   background-repeat: no-repeat;
   background-size: contain;

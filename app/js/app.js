@@ -36,7 +36,11 @@ angular.module('partyAll', [
     controller: 'PartyCtrl',
     authRequired: true
   });
-  // $routeProvider.when('/party/:userType/:partyId/search', {templateUrl: 'partials/search.html', controller: 'SearchCtrl'});
+  $routeProvider.when('/party/:partyId/search', {
+    templateUrl: 'partials/search.html',
+    controller: 'SearchCtrl',
+    authRequired: true
+  });
   $routeProvider.otherwise({
     redirectTo: '/'
   });

@@ -76,7 +76,6 @@ angular.module('partyAll.services', [])
     backendService.getQueue = function(callback) {
       $http
       .get(baseUrl+'/party/queue/?party_key='+Session.partyKey)
-      // .get('/sample_data/queue.json')
       .success(function (queue) {
         console.log('sucessfully get queue');
         callback(queue);
@@ -130,6 +129,7 @@ angular.module('partyAll.services', [])
     var queueService = {};
     queueService.queue = null;
     queueService.nowPlaying = null;
+    queueService.isPlaying = false;
 
     queueService.getStaticSongs = function() {
       $http
