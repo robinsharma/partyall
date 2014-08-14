@@ -103,12 +103,26 @@ angular.module('partyAll.controllers', [])
         console.log(queue);
         $scope.queue = queue;
         $scope.nowPlaying = nowPlaying;
+        console.log(nowPlaying);
         $scope.$apply();
       });
 
       $scope.addSong = function(song) {
         console.log(song);
         BackendService.addSong(song.url, song.title, song.description, song.artist, song.artwork);
+      };
+
+      $scope.toggleVote = function(song) {
+        console.log('vote/unvote');
+        BackendService.vote(song.id);
+      };
+
+      $scope.hasVote = function(song) {
+        if (song.voters.indexOf(Session.userId) > -1) {
+          return true;
+        } else {
+          return false;
+        }
       };
 
       //dev
