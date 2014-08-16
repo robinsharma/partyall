@@ -56,8 +56,8 @@ angular.module('partyAll.services', [])
       $http
       .post(baseUrl + path, params) //TODO sign requests, change to post and response.data to reponse)
       .success(function (response) {
-        Session.create(response.party.party_key, response.user, userType, response.party.name, response.token);
-        callback({success: true, partyKey: response.party.party_key});
+        Session.create(response.party.id, response.user, userType, response.party.name, response.token);
+        callback({success: true, partyKey: response.party.id});
       })
       .error(function (error) {
         callback({success: false, error: error});
