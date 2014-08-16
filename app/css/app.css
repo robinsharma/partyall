@@ -99,3 +99,7 @@
 .heart.inactive {
   background-image: url(/img/un-vote.png);
 }
+
+.icon.exit {
+  background-image: url(/img/exit.svg);
+}
