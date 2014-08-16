@@ -169,16 +169,6 @@ angular.module('partyAll.services', [])
     queueService.nowPlaying = null;
     queueService.isPlaying = false;
 
-    queueService.getStaticSongs = function() {
-      $http
-      .get('/sample_data/queue.json')
-      .success(function (songs) {
-        console.log('static songs');
-        console.log(songs);
-        $rootScope.$broadcast(PARTY_EVENTS.staticSongs, songs);
-      });
-    };
-
     // initialize queue
     BackendService.getQueue(function (queue) {
       queueService.queue = queue.slice(1);

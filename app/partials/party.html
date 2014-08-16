@@ -64,20 +64,5 @@
 		<div ng-hide="!!nowPlaying">
 			<h5>Nothing playing</h5>
 		</div>
-
-		<div>
-			<h5>Add me</h5>
-			<div ng-repeat="static in staticSongs" class="player queue">
-				<img class="artwork" ng-src="{{ static.artwork }}"></img>
-				<div class="info">
-					<div>{{ static.artist }}</div>
-					<div>{{ static.title }}</div>
-					<div class="controls">
-						<div ng-click="addSong(static)" class="btn btn-default">Add</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
 	</div>
 </div>
