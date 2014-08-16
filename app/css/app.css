@@ -1,7 +1,7 @@
 /* app css stylesheet */
 
-.logo-font {
-    font-family: 'Pacifico', cursive;
+.pad {
+  padding: 12px 0;
 }
 
 .menu {
@@ -98,4 +98,11 @@
 
 .heart.inactive {
   background-image: url(/img/un-vote.png);
+}
+
+
+@media (max-width: 500px) {
+  .pad {
+    padding: 6px 0;
+  }
 }

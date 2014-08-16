@@ -1,72 +1,81 @@
-/*Alright so I hate applying css to the body tag, 
-but in this case it could not be avoided...
-*/
-body {
-    background: url(../img/background.jpg) no-repeat center center fixed; 
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    background-color: black;
-}
-
-.home-page {
+body, .home-page {
     text-align: center;
     margin: 0 auto;
-    color: white;
+    background-color: #F3F4F7;
 }
 
-.home-page .logo {
-    margin: 20px auto;
+.home-page .container-fluid {
+    max-width: 720px;
+}
+
+.home-page .logo-container {
+    background-color: #d9534f;
+    /*background-color: white;*/
+    width: 100%;
     height: 250px;
-    width: 250px;
-    background-image: url(../img/PartyAll-black-gradient.png);
+    -webkit-box-shadow: 0px 1px 8px #D1D1D1;
+       -moz-box-shadow: 0px 1px 8px #D1D1D1;
+            box-shadow: 0px 1px 8px #D1D1D1;
+}
+.home-page .logo-container .logo {
+    margin: 0px auto;
+    height: 100%;
+    width: 500px;
+    background-image: url(../img/party-all-text-logo-white.png);
+    /*background-image: url(../img/party-all-text-logo-red.png);*/
     background-size: 100%;
     background-repeat: no-repeat;
+    background-position: center;
 }
 
-.home-page .title {
-    padding: 20px 0;
+.home-page .subtitle {
+    font-weight: 200;
 }
 
 .home-page .intro-text {
     margin: 0 auto;
     font-weight: 200;
     max-width: 500px;
-    border-left: 1px solid white;
+    border-left: 3px solid #d9534f;
     padding: 10px;
+    font-size: 18px;
 }
 
-.home-page .options {
-    padding-bottom: 20px;
+.home-page .option {
+    width: 100px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+}
+.home-page .option.guest {   
+    background-color: #d9534f;
+    color: white;
+}
+.home-page .option.host {   
+    color: #d9534f;
 }
 
-.home-page .options .option {
-    width : 80px;
+.home-page .description {
+    max-width: 350px;
+    margin: 0 auto;
 }
 
-@media (max-width: 481px) {
-    .home-page .logo {
-        height: 150px;
-        width: 150px;
+
+@media (max-width: 500px) {
+    .home-page .logo-container {
+    height: 100px;
+    }
+    .home-page .logo-container .logo {
+        width: 300px;
     }
     h1 {
-        font-size: 32px;
+        font-size: 24px;
     }
-}
+    h3 {
+        font-size: 20px;
+    }
+    .home-page .intro-text {
+        font-size: 14px;
+    }
 
-@media (min-height: 900px) {
-    .home-page {
-        margin-top: 75px;
-    }
-}
-@media (min-height: 1000px) {
-    .home-page {
-        margin-top: 150px;
-    }
-}
-@media (min-height: 1500px) {
-    .home-page {
-        margin-top: 300px;
-    }
 }

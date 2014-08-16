@@ -1,15 +1,21 @@
 <link rel="stylesheet" href="../css/home.css">
-<div class="home-page container-fluid">
-    <div class="logo"></div>
-    <h1 class="logo-font title">Welcome to PartyAll</h1>
-    <div class="intro-text">PartyAll is an web app that allows users to collectively curate a playlist of songs. PartyAll will automatically play songs that have been requested and voted by users.</div>
-    <h4 class="logo-font title">What type of user are you?</h4>
-    <div class="options logo-font">
-        <a class="btn btn-default option" href="#/login/host">
-            <div>Host</div>
-        </a>
-        <a class="btn btn-default option" href="#/login/guest">
-            <div>Guest</div>
-        </a>
+<div class="home-page">
+    <div class="logo-container"><div class="logo"></div></div>
+    <div class="container-fluid">    
+        <h1 class="subtitle pad">Welcome</h1>
+        <div class="intro-text">PartyAll is an web app that allows users to collectively curate a playlist of songs. PartyAll will automatically play songs that have been requested and voted by users.</div>
+        <h3 class="subtitle pad">What type of user are you?</h3>
+        <div class="col-xs-12 col-md-6">
+            <a class="btn btn-default btn-lg option host" href="#/login/host">
+                Host
+            </a>
+            <div class="description pad">Choose Host if you're the host of your party. Music will play from your device and you have special control over the song queue.</div>
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <a class="btn btn-default btn-lg option guest" href="#/login/guest">
+                Guest
+            </a>
+            <div class="description pad">Choose Guest if you're at a party hosted by someone else. Make sure you have your party key ready!</div>
+        </div>
     </div>
 </div>
