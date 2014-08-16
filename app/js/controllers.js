@@ -25,6 +25,11 @@ angular.module('partyAll.controllers', [])
         BackendService.nextSong();
       };
 
+      $scope.stopAudio = function() {
+        audio.pause();
+        $scope.setStreamUrl("");
+      };
+
       audio.addEventListener('ended', function () {
         $scope.nextSong();
       });
@@ -194,6 +199,12 @@ angular.module('partyAll.controllers', [])
 
       $scope.playNow = function(song) {
         BackendService.playNow(song.id);
+      };
+
+      $scope.logout = function() {
+        $scope.stopAudio();
+        Session.destroy();
+        $location.path('/');
       };
       
       $scope.$on('$destroy', function() {

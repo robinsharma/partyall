@@ -8,7 +8,8 @@ angular.module('partyAll', [
   'partyAll.services',
   'partyAll.directives',
   'partyAll.constants',
-  'partyAll.controllers'
+  'partyAll.controllers',
+  'ngStorage'
 ])
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/', {
@@ -46,6 +47,7 @@ angular.module('partyAll', [
   });
 }])
 .run(['$rootScope', '$location', 'AuthService', 'Session', function ($rootScope, $location, AuthService, Session) {
+  Session.init();
   $rootScope.$on('$routeChangeStart', function (event, next) {
 
     // does page require auth?
@@ -63,4 +65,6 @@ angular.module('partyAll', [
     console.log("ALLOW: don't need auth");
 
   });
+
+
 }]);

@@ -28,7 +28,7 @@ angular.module('partyAll.services', [])
 
     searchService.search = function (query) {
       $http
-      .get(baseUrl+"?client_id=11c11021d4d8721cf1970667907f45d6&q="+query)
+      .get(baseUrl+"?client_id=11c11021d4d8721cf1970667907f45d6&streamable=true&q="+query)
       .success(function (tracks) {
         $rootScope.$broadcast(SEARCH_EVENTS.searchSuccess, tracks);
       })
@@ -210,13 +210,19 @@ angular.module('partyAll.services', [])
   Service used for managing user sessions and initiating user variables that will be used
   to determine type and permissions of users.
   */
-  .service('Session', ['$rootScope', 'AUTH_EVENTS', 'USER_TYPES', function($rootScope, AUTH_EVENTS, USER_TYPES) {
+  .service('Session', ['$rootScope', '$sessionStorage','AUTH_EVENTS', 'USER_TYPES', function($rootScope, $sessionStorage, AUTH_EVENTS, USER_TYPES) {
     this.create = function(partyKey, userId, userType, partyName, channelToken) {
       this.partyKey = partyKey;
       this.userId   = userId;
       this.userType = userType;
       this.partyName = partyName;
       this.channelToken = channelToken;
+
+      $sessionStorage.partyKey = partyKey;
+      $sessionStorage.userId   = userId;
+      $sessionStorage.userType = userType;
+      $sessionStorage.partyName = partyName;
+      $sessionStorage.channelToken = channelToken;
 
       // Broadcast login success event (since session created)
       if (userType === USER_TYPES.host) {
@@ -233,7 +239,17 @@ angular.module('partyAll.services', [])
       this.partyName = null;
       this.channelToken = null;
 
+      $sessionStorage.$reset();
+
       // todo- broadcast logout events
+    };
+
+    this.init = function () {
+      this.partyKey = $sessionStorage.partyKey;
+      this.userId   = $sessionStorage.userId;
+      this.userType = $sessionStorage.userType;
+      this.partyName = $sessionStorage.partyName;
+      this.channelToken = $sessionStorage.channelToken;
     };
 
     this.isHost = function () {
