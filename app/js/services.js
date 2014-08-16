@@ -142,6 +142,24 @@ angular.module('partyAll.services', [])
       });     
     };
 
+    backendService.playNow = function (songId) {
+      var params = {
+        party_key   : Session.partyKey,
+        user_id     : Session.userId,
+        song_id     : songId
+      };
+
+      $http
+      .post(baseUrl+'/party/song/play-now/', params)
+      .success(function (song) {
+        console.log('Play Now API: success');
+      })
+      .error(function (error) {
+        console.log('Play Now API: failure');
+        console.log(error);
+      });     
+    };
+
     return backendService;
   }])
 

@@ -162,6 +162,10 @@ angular.module('partyAll.controllers', [])
         }
       };
 
+      $scope.playNow = function(song) {
+        BackendService.playNow(song.id);
+      };
+
       //dev
       $rootScope.$on(PARTY_EVENTS.staticSongs, function (event, staticSongs) {
         $scope.staticSongs = staticSongs;

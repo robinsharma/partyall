@@ -55,6 +55,7 @@
 					<div>Voted: {{ hasVote(song) }}</div>
 					<div ng-show="{{ hasVote(song) }}" ng-click="toggleVote(song)" class="heart active"></div>
 					<div ng-hide="{{ hasVote(song) }}" ng-click="toggleVote(song)" class="heart inactive"></div>
+					<div ng-if="isHost" ng-click="playNow(song)" class="btn btn-default">Play Now</div>
 				</div>
 			</div>
 
