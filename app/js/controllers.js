@@ -147,9 +147,12 @@ angular.module('partyAll.controllers', [])
       $scope.query = "";
       $scope.isHost = Session.isHost();
       $scope.results = null;
+      $scope.disableSearchForm = false;
+
       var listenedEvents = [];
 
       $scope.search = function(query) {
+        $scope.disableSearchForm = true;
         SearchService.search(query);
       };
 
@@ -168,6 +171,7 @@ angular.module('partyAll.controllers', [])
           console.log("RESULTS SUCCESS");
           console.log(tracks);
           $scope.results = tracks;
+          $scope.disableSearchForm = false;
         })
       );
 
