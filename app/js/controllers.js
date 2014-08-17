@@ -236,8 +236,11 @@ angular.module('partyAll.controllers', [])
         }
       };
 
-      $scope.playNow = function(song) {
-        BackendService.playNow(song.id);
+      $scope.playNow = function(song, index) {
+        $scope.queue[index].disabled = true;
+        BackendService.playNow(song.id, function (error) {
+          $scope.queue[index].disabled = false;
+        });
       };
 
       $scope.logout = function() {

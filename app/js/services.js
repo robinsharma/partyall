@@ -144,7 +144,7 @@ angular.module('partyAll.services', [])
       });     
     };
 
-    backendService.playNow = function (songId) {
+    backendService.playNow = function (songId, callback) {
       var params = {
         party_key   : Session.partyKey,
         user_id     : Session.userId,
@@ -159,6 +159,7 @@ angular.module('partyAll.services', [])
       .error(function (error) {
         console.log('Play Now API: failure');
         console.log(error);
+        callback(error);
       });     
     };
 
