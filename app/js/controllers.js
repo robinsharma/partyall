@@ -160,7 +160,7 @@ angular.module('partyAll.controllers', [])
       };
 
       $scope.navBack = function() {
-        window.history.back();
+        $window.history.back();
       };
 
       listenedEvents.push(
