@@ -24,7 +24,9 @@ angular.module('partyAll.controllers', [])
       $scope.disableNextSong = false;
       $scope.nextSong = function() {
         $scope.disableNextSong = true;
-        BackendService.nextSong();
+        BackendService.nextSong(function (error) {
+          $scope.disableNextSong = false;
+        });
       };
 
       $scope.stopAudio = function() {
