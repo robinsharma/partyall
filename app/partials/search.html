@@ -19,9 +19,9 @@
             </form>
         </div>
 
-        <div ng-repeat="result in results" class="search-results">
+        <div ng-repeat="result in results" ng-if="result.stream_url" class="search-results">
         	<div ng-click="requestSong(result)" class="btn search-result">
-                <img class="result-artwork" ng-src="{{ result.artwork_url || '/img/placeholder.png' }}"></img>
+                <img class="result-artwork" ng-src="{{ result.artwork_url || '/img/placeholder.png' }}">
                 <div class="result-info">
                     <div class="result-title">{{result.title}}</div>
                     <div class="result-artist">{{result.user.username}}</div>
