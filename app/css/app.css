@@ -6,39 +6,8 @@ body {
 .pad {
   padding: 12px 0;
 }
-
-.menu {
-  list-style: none;
-  border-bottom: 0.1em solid black;
-  margin-bottom: 2em;
-  padding: 0 0 0.5em;
-}
-
-.menu:before {
-  content: "[";
-}
-
-.menu:after {
-  content: "]";
-}
-
-.menu > li {
-  display: inline;
-}
-
-.menu > li:before {
-  content: "|";
-  padding-right: 0.3em;
-}
-
-.menu > li:nth-child(1):before {
-  content: "";
-  padding: 0;
-}
-
-
 /* PARTY PAGE */
-.player {
+/*.player {
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
@@ -49,6 +18,8 @@ body {
 
 .artwork {
   display: inline-block;
+  height: 100px;
+  width: 100px;
 }
 
 .info {
@@ -75,9 +46,9 @@ body {
 .controls {
   position: absolute;
   bottom: 0;
-}
+}*/
 
-.icon {
+/*.icon {
   background-repeat: no-repeat;
   background-size: contain;
   width: 16px;
@@ -86,13 +57,14 @@ body {
 
 .icon.search {
   background-image: url(/img/search.png);
-}
+}*/
 
 .heart {
   background-repeat: no-repeat;
   background-size: contain;
   width: 16px;
   height: 16px;
+  float: right;
 }
 
 .heart.active {
@@ -103,8 +75,8 @@ body {
   background-image: url(/img/un-vote.png);
 }
 
-.icon.exit {
-  background-image: url(/img/exit.svg);
+.red-text {
+  color: #d9534f;
 }
 
 .logo-container {
@@ -114,13 +86,25 @@ body {
      -moz-box-shadow: 0px 1px 8px #D1D1D1;
           box-shadow: 0px 1px 8px #D1D1D1;
 }
+.logo-container.red-back {
+  background-color: #d9534f;
+
+}
+.logo-container.white-back {
+  background-color: white;
+
+}
 .logo-container .logo {
   margin: 0px auto;
-  background-image: url(../img/party-all-text-logo-white.png);
-  /*background-image: url(../img/party-all-text-logo-red.png);*/
   background-size: 100%;
   background-repeat: no-repeat;
   background-position: center;
+}
+.logo.white-logo {
+  background-image: url(../img/party-all-text-logo-white.png);
+}
+.logo.red-logo {
+  background-image: url(../img/party-all-text-logo-red.png);
 }
 
 @media (max-width: 500px) {

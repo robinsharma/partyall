@@ -35,10 +35,7 @@
     text-transform: uppercase;
     margin-bottom: 6px;
 }
-.home-page .option.guest {   
-    background-color: #d9534f;
-    color: white;
-}
+.home-page .option.guest {}
 .home-page .option.host {   
     color: #d9534f;
 }
