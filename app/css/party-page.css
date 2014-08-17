@@ -257,7 +257,6 @@
 @media (max-width: 991px) {
     .now-playing-container {
         position: relative;
-        border: none;
         width: 100%;
         height: 100%;
         padding: 10px;
