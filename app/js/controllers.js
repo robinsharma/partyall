@@ -53,12 +53,23 @@ angular.module('partyAll.controllers', [])
         confirmedPassword: ''
       };
 
+      $scope.formError = false;
+      $scope.errorMessage = "";
+      $scope.disableForm = false;
+
       $scope.createParty = function(formData) {
+        $scope.formError = false;
+        $scope.errorMessage = "";
+        $scope.disableForm = true;
+
         BackendService.createParty(formData, function (response) {
+          $scope.disableForm = false;
+          
           if (response.success) {
             $location.path('/create/success');
           } else {
-            // todo
+            $scope.formError = true;
+            $scope.errorMessage = response.error;
           }
         });
       };
@@ -71,12 +82,23 @@ angular.module('partyAll.controllers', [])
         password: ''
       };
 
+      $scope.formError = false;
+      $scope.errorMessage = "";
+      $scope.disableForm = false;
+
       $scope.login = function(credentials) {
+        $scope.formError = false;
+        $scope.errorMessage = "";
+        $scope.disableForm = true;
+
         BackendService.hostLogin(credentials, function (response) {
+          $scope.disableForm = false;
+
           if (response.success) {
             $location.path('/party/'+response.partyKey);
           } else {
-            // todo
+            $scope.formError = true;
+            $scope.errorMessage = response.error;
           }
         });
       };
