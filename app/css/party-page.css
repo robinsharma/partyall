@@ -197,6 +197,10 @@
     border: 2px solid #d9534f;
 }
 
+.party-page .songs .song-item .toggle-button.disabled {
+    background-color: #ccc;
+}
+
 .party-page .songs .song-item .toggle-button:active{
     opacity: 0.4;
     box-shadow: none;

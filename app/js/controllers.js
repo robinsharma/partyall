@@ -123,7 +123,7 @@ angular.module('partyAll.controllers', [])
 
         BackendService.guestLogin(credentials, function (response) {
           $scope.disableForm = false;
-          
+
           if (response.success) {
             $location.path('/party/'+response.partyKey);
           } else {
@@ -216,9 +216,12 @@ angular.module('partyAll.controllers', [])
         BackendService.addSong(song.url, song.title, song.description, song.artist, song.artwork);
       };
 
-      $scope.toggleVote = function(song) {
+      $scope.toggleVote = function(song, index) {
         console.log('vote/unvote');
-        BackendService.vote(song.id);
+        $scope.queue[index].disabled = true;
+        BackendService.vote(song.id, function (error) {
+          $scope.queue[index].disabled = false;
+        });
       };
 
       $scope.navToSearch = function() {

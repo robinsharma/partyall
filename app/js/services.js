@@ -125,7 +125,7 @@ angular.module('partyAll.services', [])
       });     
     };
 
-    backendService.vote = function (songId) {
+    backendService.vote = function (songId, callback) {
       var params = {
         party_key   : Session.partyKey,
         user_id     : Session.userId,
@@ -140,6 +140,7 @@ angular.module('partyAll.services', [])
       .error(function (error) {
         console.log('Vote Song API: failure');
         console.log(error);
+        callback(error);
       });     
     };
 

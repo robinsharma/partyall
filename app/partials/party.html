@@ -65,8 +65,9 @@
 								<div class="title">{{ song.title }}</div>
 								<div class="artist">{{ song.artist }}</div>
 								<div class="votes">Votes: <span ng-class="{'red-text': hasVote(song)}">{{ song.votes }}</span></div>
+								<div>{{song.disable}}</div>
 							</div>
-							<div ng-click="toggleVote(song)" class="toggle-button btn">
+							<div ng-click="!song.disabled && toggleVote(song, $index)" ng-class="{ 'disabled' : song.disabled }" class="toggle-button btn">
 								<div ng-class="{ 'active': hasVote(song), 'inactive' : !hasVote(song) }" class="heart"></div>
 							</div>
 							<div ng-if="isHost" ng-click="playNow(song)" class="toggle-button btn">
