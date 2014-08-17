@@ -295,6 +295,8 @@ angular.module('partyAll.controllers', [])
 
     $scope.isPlaying = QueueService.isPlaying;
     $scope.timeWidth = "0%";
+    $scope.currentTime = "-";
+    $scope.duration = "-";
     $scope.song = QueueService.nowPlaying;
     var audio = $document[0].querySelector('#audio');
 
@@ -315,8 +317,22 @@ angular.module('partyAll.controllers', [])
 
     var timeupdateListener = audio.addEventListener('timeupdate', function (event) {
       $scope.timeWidth = parseInt(audio.currentTime * 100 / audio.duration) + "%";
+      $scope.currentTime = formatTime(audio.currentTime);
       $scope.$apply();
     });
+
+    var durationchangeListener = audio.addEventListener('durationchange', function (event) {
+      $scope.timeWidth = parseInt(audio.currentTime * 100 / audio.duration) + "%";
+      $scope.duration = formatTime(audio.duration);
+      $scope.$apply();
+    });
+
+    function formatTime(time) {
+      var hours = parseInt( time / 3600 ) % 24;
+      var minutes = parseInt( time / 60 ) % 60;
+      var seconds = parseInt(time % 60, 10);
+      return (hours > 0 ? hours+":" : "") + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
+    };
 
     $scope.$on('$destroy', function() {
       // each is a function to unregister
@@ -325,6 +341,7 @@ angular.module('partyAll.controllers', [])
       }
 
       audio.removeEventListener('timeupdateListener');
+      audio.removeEventListener('durationchangeListener');
     });
 
 }]);
