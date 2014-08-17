@@ -24,7 +24,7 @@
 					<h1>Now Playing</h1>
 					<div ng-if="isHost" ng-controller="PlayerCtrl">
 						<div class="player">
-							<img class="artwork" ng-src="{{ song.artwork  || '/img/placeholder.png' }}"></img>
+							<img class="artwork" ng-src="{{ song.artwork  || '/img/placeholder.png' }}">
 							<div class="info">
 								<div class="title">{{ song.title }}</div>
 								<div class="artist">{{ song.artist }}</div>
@@ -46,7 +46,7 @@
 					</div>
 
 					<div ng-if="!isHost">
-						<img class="artwork" ng-src="{{ nowPlaying.artwork || '/img/placeholder.png' }}"></img>
+						<img class="artwork" ng-src="{{ nowPlaying.artwork || '/img/placeholder.png' }}">
 						<div class="info">
 							<div class="title">{{ nowPlaying.title }}</div>
 							<div class="artist">{{ nowPlaying.artist }}</div>
@@ -60,7 +60,7 @@
 					<h1>Up Next</h1>
 					<div class="songs">
 						<div ng-repeat="song in queue" class="song-item">
-							<img class="artwork" ng-src="{{ song.artwork || '/img/placeholder.png' }}"></img>
+							<img class="artwork" ng-src="{{ song.artwork || '/img/placeholder.png' }}">
 							<div class="info">
 								<div class="title">{{ song.title }}</div>
 								<div class="artist">{{ song.artist }}</div>
