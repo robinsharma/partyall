@@ -176,44 +176,57 @@ angular.module('partyAll.services', [])
     queueService.queue = null;
     queueService.nowPlaying = null;
     queueService.isPlaying = false;
+    var initialized = false;
+    var channel;
+    var socket;
 
-    // initialize queue
-    BackendService.getQueue(function (queue) {
-      queueService.queue = queue.slice(1);
-      queueService.nowPlaying = queue[0];
-      $rootScope.$broadcast(PARTY_EVENTS.partyQueueInit, queueService.queue, queueService.nowPlaying);
-    });
+    queueService.init = function() {
+      if (initialized) return;
 
-    var channel = new goog.appengine.Channel(Session.channelToken);
-    var socket = channel.open();
+      initialized = true;
+      BackendService.getQueue(function (queue) {
+        queueService.queue = queue.slice(1);
+        queueService.nowPlaying = queue[0];
+        $rootScope.$broadcast(PARTY_EVENTS.partyQueueInit, queueService.queue, queueService.nowPlaying);
+      });
 
-    socket.onopen = function() {
-      console.log('socket onopen');
+      channel = new goog.appengine.Channel(Session.channelToken);
+      socket = channel.open();
+
+      socket.onopen = function() {
+        console.log('socket onopen');
+      };
+
+      socket.onmessage = function (message) {
+        console.log('socket onmessage');
+        var msg = JSON.parse(message.data);
+        console.log(msg);
+        queueService.queue = msg.queue.slice(1);
+        queueService.nowPlaying = msg.queue[0];
+        if (msg.now_playing_changed) $rootScope.$broadcast(PARTY_EVENTS.nowPlayingChanged, queueService.queue, queueService.nowPlaying);
+        $rootScope.$broadcast(PARTY_EVENTS.partyQueueUpdate, queueService.queue, queueService.nowPlaying);
+      };
+
+      socket.onerror = function (error) {
+        console.log('socket onerror:' + error);
+        //todo
+      };
+
+      socket.onclose = function () {
+        console.log('socket onclose');
+        // todo -- open a new socket / reopen
+      };
     };
 
-    socket.onmessage = function (message) {
-      console.log('socket onmessage');
-      var msg = JSON.parse(message.data);
-      console.log(msg);
-      queueService.queue = msg.queue.slice(1);
-      queueService.nowPlaying = msg.queue[0];
-      if (msg.now_playing_changed) $rootScope.$broadcast(PARTY_EVENTS.nowPlayingChanged, queueService.queue, queueService.nowPlaying);
-      $rootScope.$broadcast(PARTY_EVENTS.partyQueueUpdate, queueService.queue, queueService.nowPlaying);
-    };
-
-    socket.onerror = function (error) {
-      console.log('socket onerror:' + error);
-      //todo
-    };
-
-    socket.onclose = function () {
-      console.log('socket onclose');
-      // todo -- open a new socket / reopen
-    };
-
-    queueService.closeSocket = function() {
+    queueService.destroy = function() {
       socket.close();
+      queueService.queue = null;
+      queueService.nowPlaying = null;
+      queueService.isPlaying = false;
+      initialized = false;
     };
+
+    queueService.init();
 
     return queueService;
   }])

@@ -195,6 +195,7 @@ angular.module('partyAll.controllers', [])
       console.log('QUEUE SERVICE VARS');
       console.log(QueueService.queue);
       console.log(QueueService.nowPlaying);
+      QueueService.init();
 
       listenedEvents.push(
         $rootScope.$on(PARTY_EVENTS.partyQueueInit, function (event, queue, nowPlaying) {
@@ -252,7 +253,7 @@ angular.module('partyAll.controllers', [])
 
       $scope.logout = function() {
         $scope.stopAudio();
-        QueueService.closeSocket();
+        QueueService.destroy();
         Session.destroy();
         $location.path('/');
       };
