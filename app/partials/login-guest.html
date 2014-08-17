@@ -1,20 +1,19 @@
-<link rel="stylesheet" href="../css/guest-login.css">
-<div class="guest-login-page container-fluid">
-    <div class="form">
-    <h1 class="logo-font">Access Party</h1>
-    <form ng-controller="GuestLoginCtrl" ng-submit="login(credentials)" novalidate class="form-horizontal" role="form">
-        <div class="form-group">
-            <label class="col-sm-3 control-label">Enter Party Key</label>
-            <div class="col-sm-9">
-                <input ng-model="credentials.partyKey" type="text" class="form-control" placeholder="Party Key">
+<div class="guest-login-page">
+    <div class="logo-container red-back">
+        <div class="logo white-logo"></div>
+    </div>
+    <div class="container-fluid">
+        <div class="form">
+        <h1 class="logo-font">Enter your Party Key</h1>
+        <form ng-controller="GuestLoginCtrl" ng-submit="login(credentials)" novalidate class="form-horizontal" role="form">
+            <div class="form-group">
+                <input ng-model="credentials.partyKey" type="text" class="form-control input-lg" placeholder="Party Key" maxlength="6">
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-9">
-                <button type="submit" class="btn btn-primary logo-font">Access</button>
+            <div class="form-group">
+                <button type="submit" class="btn btn-lg btn-default access-button">Access</button>
             </div>
+            {{ credentials.partyKet }}
+        </form>
         </div>
-        {{ credentials.partyKet }}
-    </form>
     </div>
 </div>
