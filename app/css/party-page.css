@@ -226,6 +226,16 @@
   background-image: url(/img/un-vote.png);
 }
 
+.party-page .nothing {
+    margin: 0 auto;
+    font-weight: 200;
+    max-width: 500px;
+    border-left: 3px solid #d9534f;
+    padding: 10px;
+    font-size: 18px;
+    text-align: center;
+}
+
 @media (max-width: 991px) {
     .now-playing-container {
         position: relative;
