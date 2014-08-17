@@ -294,12 +294,13 @@ angular.module('partyAll.controllers', [])
       }
     };
 
+    var audio = $document[0].querySelector('#audio');
     $scope.isPlaying = QueueService.isPlaying;
     $scope.timeWidth = "0%";
-    $scope.currentTime = "-";
-    $scope.duration = "-";
+    $scope.currentTime = audio.currentTime ? formatTime(audio.currentTime) : "-";
+    $scope.duration = audio.duration ? formatTime(audio.duration) : "-";
     $scope.song = QueueService.nowPlaying;
-    var audio = $document[0].querySelector('#audio');
+    
 
     listenedEvents.push(
       $rootScope.$on(PARTY_EVENTS.partyQueueInit, function (event) {
