@@ -50,7 +50,8 @@ angular.module('partyAll.services', [])
       var params = {
         party_key  : data.partyKey,
         party_name : data.partyName || "",
-        password   : data.password || ""
+        password   : data.password || "",
+        confirmed_password : data.confirmedPassword || ""
       };
 
       $http
