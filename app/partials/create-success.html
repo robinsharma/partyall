@@ -2,10 +2,12 @@
     <div class="logo-container white-back">
         <div class="logo red-logo"></div>
     </div>
-    <h1 class="logo-font header">Hurray! :) </h1>
-    <p class="lead">Your party was successfully created.<p>
-    <h3 class="logo-font header">Remember this party key: </h3>
-    <h1 class="key"><strong>{{ partyKey }}<strong></h1>
-    <p class="description">This is the key you will use to give guests access to your party so that they can vote for and request songs! So what are you waitng for? Share away!!</p>
-    <a class="btn btn-danger continue" ng-href="#/party/{{partyKey}}">Continue to Party</a>
+    <div class="container-fluid">
+        <h1 class="header">Hurray! :) </h1>
+        <p class="lead">Your party was successfully created.<p>
+        <h3 class="header">Remember this party key: </h3>
+        <h1 class="key"><strong>{{ partyKey }}</strong></h1>
+        <p class="description">This is the key you will use to give guests access to your party so that they can vote for and request songs! So what are you waitng for? Share away!!</p>
+        <a class="btn btn-danger continue" ng-href="#/party/{{partyKey}}">Continue to Party</a>
+    </div>
 </div>

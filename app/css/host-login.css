@@ -25,6 +25,10 @@
     border-right: 5px solid #d9534f;
 }
 
+.host-login-page .description {
+    padding-bottom: 10px;
+}
+
 .host-login-page .btn {
     font-weight: bold;
 }

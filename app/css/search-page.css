@@ -24,15 +24,17 @@
 
 .search-page .search-results {
     margin: 6px auto;
-    padding: 5px;
     background: white;
     max-width: 400px;
 }
 
 .search-page .search-result {
-    height: 70px;
+    height: 80px;
     background: white;
     width: 100%;
+    border: 1px solid rgb(230, 230, 230);
+    padding: 10px;
+    border-radius: 0;
 }
 
 .search-page .search-results .search-result .result-artwork {
@@ -52,7 +54,7 @@
 
 .search-page .result-info .result-title {
     font-weight: bold;
-    font-size: 16px;
+    font-size: 14px;
 }
 .search-page .result-info .result-artist {
     font-weight: 200;

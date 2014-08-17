@@ -66,12 +66,14 @@
 
 .now-playing-container {
     text-align: center;
-    height: 400px;
+    height: 420px;
     position: fixed;
     width: 38%;
     background: white;
     /*padding: 10px;*/
     margin: 0 auto;
+    border: 1px solid rgb(230, 230, 230);
+    border-top: 0px;
 }
 
 .now-playing-container .artwork {
@@ -161,6 +163,7 @@
     height: 120px;
     margin: 6px 0;
     background: white;
+    border: 1px solid rgb(230, 230, 230);
 }
 .party-page .songs .artwork {
     height: 100px;
@@ -190,8 +193,8 @@
 
 .party-page .songs .song-item .toggle-button {
     float: right;
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     margin: 0 5px -5px 0;
     border-radius: 50%;
     border: 2px solid #d9534f;
@@ -212,7 +215,7 @@
     height: 100%;
     width: 100%;
     background-image: url(/img/play-button.png);
-    background-size: 90%;
+    background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -221,7 +224,7 @@
     height: 100%;
     width: 100%;
     background-image: url(/img/play-button.png);
-    background-size: 90%;
+    background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -244,18 +247,23 @@
     text-align: center;
 }
 
+.party-page .empty-queue-message {
+    font-weight: 200;
+    border-left: 3px solid #d9534f;
+    font-size: 14px;
+    padding: 10px;
+}
+
 @media (max-width: 991px) {
     .now-playing-container {
         position: relative;
         border: none;
         width: 100%;
         height: 100%;
+        padding: 10px;
     }
     .queue-container {
         padding: 0;
-    }
-    .now-playing-container {
-        padding: 10px;
     }
 }
 
@@ -274,6 +282,42 @@
     .party-page .container-fluid {
         padding-top: 50px;
     }
+    .party-page .col-md-5, .party-page .col-md-7 {
+        padding-right: 0;
+        padding-left: 0;
+    }
 
+    .now-playing-container .artwork {
+        height: 150px;
+        width: 150px;
+    }
+    .now-playing-container .title {
+        font-size: 14px;
+    }
+    .now-playing-container .artist {
+        font-size: 12px;
+    }
+
+    .party-page .songs .song-item {
+        height: 110px;
+    }
+    .party-page .songs .artwork {
+        height: 90px;
+        width: 90px;
+    }
+    .party-page .songs .song-item .info .title {
+        font-size: 12px;
+    }
+
+    .party-page .songs .song-item .info .votes {
+        font-size: 14px;
+    }
+    .party-page .songs .song-item .toggle-button {
+        width: 40px;
+        height: 40px;
+    }
+    .party-page .songs .song-item .heart, .party-page .songs .song-item .play {
+        background-size: 100%;
+    }
 
 }
