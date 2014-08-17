@@ -70,11 +70,65 @@
     position: fixed;
     width: 38%;
     background: white;
+    /*padding: 10px;*/
+    margin: 0 auto;
 }
 
 .now-playing-container .artwork {
     height: 200px;
     width: 200px;
+}
+
+.now-playing-container .info {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 350px;
+    margin: 0 auto;
+    padding: 10px 0;
+}
+.now-playing-container .title {
+    font-weight: bold;
+    font-size: 18px;
+}
+.now-playing-container .artist {
+    font-weight: 200;
+    font-size: 18px;
+}
+
+.now-playing-container .playback-button {
+    width: 50px;
+    height: 50px;
+    margin: 10px 0px 0px 0;
+    border-radius: 50%;
+    border: 2px solid #d9534f;
+}
+
+.now-playing-container .playback-button:active{
+    opacity: 0.4;
+    box-shadow: none;
+    outline: none;
+    -webkit-box-shadow: none;
+}
+
+.now-playing-container .playback-button .control { 
+    height: 100%;
+    width: 100%;
+    background-size: 90%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.now-playing-container .play-button {
+    background-image: url(/img/play-button.png);
+
+}
+.now-playing-container .pause-button {
+    background-image: url(/img/pause-button.png);
+}
+.now-playing-container .next-button {
+    background-size: 100% !important;
+    background-image: url(/img/skip-button.png);
 }
 
 .queue-container {
@@ -182,6 +236,9 @@
     .queue-container {
         padding: 0;
     }
+    .now-playing-container {
+        padding: 10px;
+    }
 }
 
 @media(max-width: 481px) {
@@ -196,4 +253,9 @@
         height: 50px;
         width: 50px;
     }
+    .party-page .container-fluid {
+        padding-top: 50px;
+    }
+
+
 }

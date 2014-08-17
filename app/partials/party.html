@@ -26,14 +26,20 @@
 						<div class="player">
 							<img class="artwork" ng-src="{{ song.artwork  || '/img/placeholder.png' }}"></img>
 							<div class="info">
-								<div>{{ song.title }}</div>
-								<div>{{ song.artist }}</div>
-								<div class="time"><span ng-style="{ width: timeWidth }"></span></div>
+								<div class="title">{{ song.title }}</div>
+								<div class="artist">{{ song.artist }}</div>
 
 								<div class="controls">
-									<div ng-click="playerControl()" ng-show="isPlaying" class="btn btn-default">Pause</div>
-									<div ng-click="playerControl()" ng-hide="isPlaying" class="btn btn-default">Play</div>
-									<div ng-click="nextSong()" class="btn btn-default">Next</div>
+<!-- 									<div class="time"><span ng-style="{ width: timeWidth }"></span></div> -->
+									<div ng-click="playerControl()" ng-show="isPlaying" class="playback-button btn">
+										<div class="control pause-button"></div>
+									</div>
+									<div ng-click="playerControl()" ng-hide="isPlaying" class="playback-button btn">
+										<div class="control play-button"></div>
+									</div>
+									<div ng-click="nextSong()" class="playback-button btn">
+										<div class="control next-button"></div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -42,8 +48,8 @@
 					<div ng-if="!isHost">
 						<img class="artwork" ng-src="{{ nowPlaying.artwork || '/img/placeholder.png' }}"></img>
 						<div class="info">
-							<div>{{ nowPlaying.artist }}</div>
-							<div>{{ nowPlaying.title }}</div>
+							<div class="title">{{ nowPlaying.title }}</div>
+							<div class="artist">{{ nowPlaying.artist }}</div>
 						</div>
 					</div>
 				</div>
