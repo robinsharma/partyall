@@ -4,7 +4,7 @@
     </div>
     <div class="container-fluid">
         <div class="form">
-        <h1 class="logo-font">Enter your Party Key</h1>
+        <h1>Enter your Party Key</h1>
         <form ng-controller="GuestLoginCtrl" ng-submit="login(credentials)" novalidate class="form-horizontal" role="form">
             <div class="form-group">
                 <input ng-model="credentials.partyKey" type="text" class="form-control input-lg" placeholder="Party Key" maxlength="6">
@@ -12,7 +12,6 @@
             <div class="form-group">
                 <button type="submit" class="btn btn-lg btn-default access-button">Access</button>
             </div>
-            {{ credentials.partyKet }}
         </form>
         </div>
     </div>

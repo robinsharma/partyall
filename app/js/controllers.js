@@ -127,9 +127,10 @@ angular.module('partyAll.controllers', [])
       $scope.partyKey = Session.partyKey;
   }])
 
-  .controller('SearchCtrl', ['$scope', '$rootScope', '$window', 'BackendService', 'SearchService', 'SEARCH_EVENTS',
-    function($scope, $rootScope, $window, BackendService, SearchService, SEARCH_EVENTS) {
+  .controller('SearchCtrl', ['$scope', '$rootScope', '$window', 'BackendService', 'Session', 'SearchService', 'SEARCH_EVENTS',
+    function($scope, $rootScope, $window, BackendService, Session, SearchService, SEARCH_EVENTS) {
       $scope.query = "";
+      $scope.isHost = Session.isHost();
       $scope.results = null;
       var listenedEvents = [];
 
@@ -141,6 +142,10 @@ angular.module('partyAll.controllers', [])
         console.log(song);
         BackendService.addSong(song.stream_url, song.title, song.description, song.user.username, song.artwork_url);
         $window.history.back();
+      };
+
+      $scope.navBack = function() {
+        window.history.back();
       };
 
       listenedEvents.push(

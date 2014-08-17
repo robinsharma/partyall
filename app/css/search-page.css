@@ -1,0 +1,59 @@
+.search-page .form {
+    text-align: center;
+    margin: 0 auto;
+    max-width: 500px;
+    height: 150px;
+    padding: 0 20px 20px 20px;
+}
+
+.search-page .white-back-button {
+    background-image: url(/img/back-white.png);
+}
+.search-page .red-back-button {
+    background-image: url(/img/back-red.png);
+}
+
+.search-page .navigation-button.back {
+    float: left;
+}
+
+.search-page .search-button {
+    font-weight: bold;
+}
+
+
+.search-page .search-results {
+    margin: 6px auto;
+    padding: 5px;
+    background: white;
+    max-width: 400px;
+}
+
+.search-page .search-result {
+    height: 70px;
+    background: white;
+    width: 100%;
+}
+
+.search-page .search-results .search-result .result-artwork {
+    height: 60px;
+    width: 60px;
+    float: left;
+}
+
+.search-page .search-results .search-result .result-info {
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-left: 10px;
+    vertical-align: center;
+}
+
+.search-page .result-info .result-title {
+    font-weight: bold;
+    font-size: 16px;
+}
+.search-page .result-info .result-artist {
+    font-weight: 200;
+}
