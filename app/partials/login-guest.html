@@ -4,13 +4,14 @@
     </div>
     <div class="container-fluid">
         <div class="form">
-        <h1>Enter your Party Key</h1>
-        <form ng-controller="GuestLoginCtrl" ng-submit="login(credentials)" novalidate class="form-horizontal" role="form">
-            <div class="form-group">
-                <input ng-model="credentials.partyKey" type="text" class="form-control input-lg" placeholder="Party Key" maxlength="6">
+        <h1 class="logo-font">Enter your Party Key</h1>
+        <form ng-controller="GuestLoginCtrl" ng-submit="login(credentials)" novalidate class="form-horizontal" name="guestForm" role="form">
+        <div ng-show="formError" class="alert alert-danger" role="alert">{{errorMessage}}</div>
+            <div class="form-group" ng-class="{'has-success': credentials.partyKey && (credentials.partyKey.length === 6), 'has-error': credentials.partyKey && (credentials.partyKey.length !== 6)}">
+                <input ng-model="credentials.partyKey" type="text" class="form-control input-lg" placeholder="Party Key" maxlength="6" required>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-lg btn-default access-button">Access</button>
+                <button ng-disabled="disableForm || guestForm.$invalid || (credentials.partyKey.length !==6)" type="submit" class="btn btn-lg btn-default access-button">Access</button>
             </div>
         </form>
         </div>

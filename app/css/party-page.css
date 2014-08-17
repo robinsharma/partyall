@@ -119,6 +119,10 @@
     background-position: center;
 }
 
+.now-playing-container .playback-button.disabled {
+    background-color: #ccc;
+}
+
 .now-playing-container .play-button {
     background-image: url(/img/play-button.png);
 
@@ -191,6 +195,10 @@
     margin: 0 5px -5px 0;
     border-radius: 50%;
     border: 2px solid #d9534f;
+}
+
+.party-page .songs .song-item .toggle-button.disabled {
+    background-color: #ccc;
 }
 
 .party-page .songs .song-item .toggle-button:active{

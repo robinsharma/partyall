@@ -77,7 +77,7 @@ angular.module('partyAll.services', [])
       backendService.login('/party/create', USER_TYPES.host, formData, callback);
     };
 
-    backendService.nextSong = function() {
+    backendService.nextSong = function(callback) {
       var params = {
         party_key   : Session.partyKey,
         user_id     : Session.userId
@@ -91,6 +91,7 @@ angular.module('partyAll.services', [])
       .error(function (error) {
         console.log('Next Song API: failure');
         console.log(error);
+        callback(error);
       });
     };
 
@@ -125,7 +126,7 @@ angular.module('partyAll.services', [])
       });     
     };
 
-    backendService.vote = function (songId) {
+    backendService.vote = function (songId, callback) {
       var params = {
         party_key   : Session.partyKey,
         user_id     : Session.userId,
@@ -140,10 +141,11 @@ angular.module('partyAll.services', [])
       .error(function (error) {
         console.log('Vote Song API: failure');
         console.log(error);
+        callback(error);
       });     
     };
 
-    backendService.playNow = function (songId) {
+    backendService.playNow = function (songId, callback) {
       var params = {
         party_key   : Session.partyKey,
         user_id     : Session.userId,
@@ -158,6 +160,7 @@ angular.module('partyAll.services', [])
       .error(function (error) {
         console.log('Play Now API: failure');
         console.log(error);
+        callback(error);
       });     
     };
 
