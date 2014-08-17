@@ -42,7 +42,7 @@ angular.module('partyAll.services', [])
   }])
 
 
-  .factory('BackendService', ['$http', 'Session', 'USER_TYPES', function($http, Session, USER_TYPES) {
+  .factory('BackendService', ['$http', '$localStorage','Session', 'USER_TYPES', function($http, $localStorage, Session, USER_TYPES) {
     var backendService = {};
     var baseUrl = 'https://partyall-service.appspot.com';
 
@@ -51,7 +51,8 @@ angular.module('partyAll.services', [])
         party_key  : data.partyKey,
         party_name : data.partyName || "",
         password   : data.password || "",
-        confirmed_password : data.confirmedPassword || ""
+        confirmed_password : data.confirmedPassword || "",
+        user_id    : $localStorage.userId || ""
       };
 
       // encrypt
@@ -235,7 +236,7 @@ angular.module('partyAll.services', [])
   Service used for managing user sessions and initiating user variables that will be used
   to determine type and permissions of users.
   */
-  .service('Session', ['$rootScope', '$sessionStorage','AUTH_EVENTS', 'USER_TYPES', function($rootScope, $sessionStorage, AUTH_EVENTS, USER_TYPES) {
+  .service('Session', ['$rootScope', '$sessionStorage', '$localStorage','AUTH_EVENTS', 'USER_TYPES', function($rootScope, $sessionStorage, $localStorage, AUTH_EVENTS, USER_TYPES) {
     this.create = function(partyKey, userId, userType, partyName, channelToken) {
       this.partyKey = partyKey;
       this.userId   = userId;
@@ -244,7 +245,7 @@ angular.module('partyAll.services', [])
       this.channelToken = channelToken;
 
       $sessionStorage.partyKey = partyKey;
-      $sessionStorage.userId   = userId;
+      $localStorage.userId   = userId;
       $sessionStorage.userType = userType;
       $sessionStorage.partyName = partyName;
       $sessionStorage.channelToken = channelToken;
@@ -271,7 +272,7 @@ angular.module('partyAll.services', [])
 
     this.init = function () {
       this.partyKey = $sessionStorage.partyKey;
-      this.userId   = $sessionStorage.userId;
+      this.userId   = $localStorage.userId;
       this.userType = $sessionStorage.userType;
       this.partyName = $sessionStorage.partyName;
       this.channelToken = $sessionStorage.channelToken;
