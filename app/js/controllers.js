@@ -112,12 +112,23 @@ angular.module('partyAll.controllers', [])
         partyKey: ''
       };
 
+      $scope.formError = false;
+      $scope.errorMessage = "";
+      $scope.disableForm = false;
+
       $scope.login = function(credentials) {
+        $scope.formError = false;
+        $scope.errorMessage = "";
+        $scope.disableForm = true;
+
         BackendService.guestLogin(credentials, function (response) {
+          $scope.disableForm = false;
+          
           if (response.success) {
             $location.path('/party/'+response.partyKey);
           } else {
-            // todo
+            $scope.formError = true;
+            $scope.errorMessage = response.error;
           }
         });
       };
