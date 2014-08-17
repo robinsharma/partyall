@@ -203,6 +203,10 @@ angular.module('partyAll.services', [])
       // todo -- open a new socket / reopen
     };
 
+    queueService.closeSocket = function() {
+      socket.close();
+    };
+
     return queueService;
   }])
 

@@ -201,6 +201,7 @@ angular.module('partyAll.controllers', [])
 
       $scope.logout = function() {
         $scope.stopAudio();
+        QueueService.closeSocket();
         Session.destroy();
         $location.path('/');
       };
