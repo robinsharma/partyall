@@ -52,8 +52,6 @@ angular.module('partyAll.controllers', [])
         password: '',
         confirmedPassword: ''
       };
-      
-      //TODO validate passwords, provide visual feedback
 
       $scope.createParty = function(formData) {
         BackendService.createParty(formData, function (response) {

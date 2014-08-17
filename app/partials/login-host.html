@@ -6,7 +6,7 @@
       <div class="col-xs-12 col-md-6 form create">
         <h1 class="subtitle">Create a Party</h1>
         <div class="description">If you already have a Party Key, sign in by entering your credentials below.</div>
-        <form ng-controller="CreatePartyCtrl" ng-submit="createParty(formData)" novalidate class="form-horizontal" role="form">
+        <form ng-controller="CreatePartyCtrl" ng-submit="createParty(formData)" novalidate class="form-horizontal" name="createForm" role="form">
             <div class="form-group">
                 <label class="col-sm-12">Party Name</label>
                 <div class="col-sm-9">
@@ -16,19 +16,19 @@
             <div class="form-group">
                 <label class="col-sm-12">Party Password</label>
                 <div class="col-sm-9">
-                    <input ng-model="formData.password" type="password" class="form-control" placeholder="Password" maxlength="36">
+                    <input ng-model="formData.password" type="password" class="form-control" placeholder="Password" maxlength="36" required>
                 </div>
             </div>
             <div class="form-group" ng-class="{'has-success': formData.password == formData.confirmedPassword && formData.password, 'has-error': formData.password != formData.confirmedPassword && formData.password}">
                 <label class="col-sm-12">Confirm Password</label>
                 <div class="col-sm-9">
-                    <input ng-model="formData.confirmedPassword" type="password" class="form-control has-success" placeholder="Confirm Password" maxlength="36">
+                    <input ng-model="formData.confirmedPassword" type="password" class="form-control has-success" placeholder="Confirm Password" maxlength="36" required>
                     <p class="help-block">As a host, this is the password you will use to log into {{ (formData.partyName || "your party") + "." }}</p>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-9">
-                    <button type="submit" class="btn btn-danger create-button">Create</button>
+                    <button ng-disabled="createForm.$invalid || (formData.password !== formData.confirmedPassword)" type="submit" class="btn btn-danger create-button">Create</button>
                 </div>
             </div>
         </form>
@@ -36,22 +36,22 @@
       <div class="col-xs-12 col-md-6 form sign-in">
         <h1 class="subtitle">Sign In</h1>
         <div class="description">If you already have a Party Key, sign in by entering your credentials below.</div>
-        <form ng-controller="HostLoginCtrl" ng-submit="login(credentials)" novalidate class="form-horizontal" role="form">
+        <form ng-controller="HostLoginCtrl" ng-submit="login(credentials)" novalidate class="form-horizontal" name="existingForm" role="form">
             <div class="form-group">
                 <label class="col-sm-12">Party Key</label>
                 <div class="col-sm-9">
-                    <input ng-model="credentials.partyKey" type="text" class="form-control" placeholder="Party Key" maxlength="6">
+                    <input ng-model="credentials.partyKey" type="text" class="form-control" placeholder="Party Key" maxlength="6" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-12">Password</label>
                 <div class="col-sm-9">
-                    <input ng-model="credentials.password" type="password" class="form-control" placeholder="Password" maxlength="36">
+                    <input ng-model="credentials.password" type="password" class="form-control" placeholder="Password" maxlength="36" required>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-9">
-                    <button type="submit" class="btn btn-default sign-in-button">Sign in</button>
+                    <button ng-disabled="existingForm.$invalid" type="submit" class="btn btn-default sign-in-button">Sign in</button>
                 </div>
             </div>
         </form>
