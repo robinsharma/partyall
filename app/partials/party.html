@@ -21,10 +21,10 @@
 			
 			<div class="col-md-5">
 				<div class="now-playing-container">
-					<h5>Now Playing</h5>
+					<h1>Now Playing</h1>
 					<div ng-if="isHost" ng-controller="PlayerCtrl">
 						<div class="player">
-							<img class="artwork" ng-src="{{ song.artwork }}"></img>
+							<img class="artwork" ng-src="{{ song.artwork  || '/img/placeholder.png' }}"></img>
 							<div class="info">
 								<div>{{ song.title }}</div>
 								<div>{{ song.artist }}</div>
@@ -51,7 +51,7 @@
 
 			<div class="col-md-offset-5 col-md-7">
 				<div class="queue-container">
-					<h5>Up Next</h5>
+					<h1>Up Next</h1>
 					<div class="songs">
 						<div ng-repeat="song in queue" class="song-item">
 							<img class="artwork" ng-src="{{ song.artwork || '/img/placeholder.png' }}"></img>

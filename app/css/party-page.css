@@ -65,9 +65,16 @@
 }
 
 .now-playing-container {
-    height: 100%;
+    text-align: center;
+    height: 400px;
     position: fixed;
-    background-color: white;
+    width: 38%;
+    background: white;
+}
+
+.now-playing-container .artwork {
+    height: 200px;
+    width: 200px;
 }
 
 .queue-container {
@@ -169,7 +176,8 @@
     .now-playing-container {
         position: relative;
         border: none;
-        padding
+        width: 100%;
+        height: 100%;
     }
     .queue-container {
         padding: 0;
