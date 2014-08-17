@@ -114,7 +114,7 @@ angular.module('partyAll.controllers', [])
       var listenedEvents = [];
 
       $scope.search = function(query) {
-        SearchService.search(query);
+        SearchService.search(query, SearchService.rdio);
       };
 
       $scope.requestSong = function (song) {
@@ -124,8 +124,24 @@ angular.module('partyAll.controllers', [])
       };
 
       listenedEvents.push(
-        $rootScope.$on(SEARCH_EVENTS.searchSuccess, function (event, tracks) {
+        $rootScope.$on(SEARCH_EVENTS.searchSuccess, function (event, tracks, source) {
           console.log("RESULTS SUCCESS");
+          var songs = [];
+
+          if (source === SearchService.rdio) {
+            for (var i = 0; i < tracks.length; i++) {
+              if (tracks[i].canStream) {
+                songs.push({
+                  title   : track[i].name,
+                  artist  : track[i].artist,
+                  
+                });
+              }
+            };
+
+          } else {
+
+          }
           console.log(tracks);
           $scope.results = tracks;
         })

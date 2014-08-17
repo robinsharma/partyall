@@ -24,16 +24,47 @@ angular.module('partyAll.services', [])
 
   .factory('SearchService', ['$http', '$rootScope', 'SEARCH_EVENTS', function($http, $rootScope, SEARCH_EVENTS) {
     var searchService = {};
-    var baseUrl = 'http://api.soundcloud.com/tracks/';
+    searchService.rdio = 'rdio';
+    searchService.soundcloud = 'soundcloud';
 
-    searchService.search = function (query) {
+    var soundcloudBaseUrl = 'http://api.soundcloud.com/tracks/';
+
+    searchService.search = function (query, source) {
+      switch (source) {
+        case searchService.soundcloud:
+        searchSoundcloud(query);
+        break;
+
+        case searchService.rdio:
+        searchRdio(query);
+        break;
+
+        default:
+        searchSoundcloud(query);
+      }
+    };
+
+    function searchRdio (query) {
+      API.searchRdio(query, function (error, data) {
+        if (!error) {
+          console.log(error);
+          console.log(data);
+          $rootScope.$broadcast(SEARCH_EVENTS.searchSuccess, data.result.results, searchService.rdio);
+        } else {
+          console.log('Search RDIO error');
+          console.log(error);
+        }
+      });
+    };
+
+    function searchSoundcloud (query) {
       $http
-      .get(baseUrl+"?client_id=11c11021d4d8721cf1970667907f45d6&streamable=true&q="+query)
+      .get(soundcloudBaseUrl+"?client_id=11c11021d4d8721cf1970667907f45d6&streamable=true&q="+query)
       .success(function (tracks) {
-        $rootScope.$broadcast(SEARCH_EVENTS.searchSuccess, tracks);
+        $rootScope.$broadcast(SEARCH_EVENTS.searchSuccess, tracks, searchService.soundcloud);
       })
       .error(function (error) {
-        console.log('Search API error');
+        console.log('Search Soundcloud API error');
         console.log(error);
       });
     };

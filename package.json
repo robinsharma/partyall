@@ -15,7 +15,8 @@
   },
   "dependencies": {
     "bower": "^1.3.1",
-    "zerver" : "0.15.19"
+    "zerver" : "0.15.19",
+    "node-rdio"   : "0.1.1"
   },
   "scripts": {
     "postinstall": "bower install",
