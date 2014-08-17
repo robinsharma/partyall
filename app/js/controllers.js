@@ -148,18 +148,34 @@ angular.module('partyAll.controllers', [])
       $scope.isHost = Session.isHost();
       $scope.results = null;
       $scope.disableSearchForm = false;
+      $scope.searchError = false;
+      $scope.searchErrorMessage = "";
 
       var listenedEvents = [];
 
       $scope.search = function(query) {
         $scope.disableSearchForm = true;
-        SearchService.search(query);
+
+        SearchService.search(query, function (errors) {
+          console.log(errors);
+          $scope.disableSearchForm = false;
+          $scope.searchError = true;
+          $scope.searchErrorMessage = "Uh oh! There was an issue reaching SoundCloud - please try again.";
+        });
       };
 
-      $scope.requestSong = function (song) {
+      $scope.requestSong = function (song, index) {
         console.log(song);
-        BackendService.addSong(song.stream_url, song.title, song.description, song.user.username, song.artwork_url);
-        $window.history.back();
+        $scope.results[index].disabled = true;
+        BackendService.addSong(song.stream_url, song.title, song.description, song.user.username, song.artwork_url, function (error) {
+          if (error) {
+            $scope.results[index].disabled = false;
+            $scope.searchError = true;
+            $scope.searchErrorMessage = "Uh oh! There was an issue adding the song - please try again.";
+          } else {
+            $window.history.back();
+          }
+        });
       };
 
       $scope.navBack = function() {
@@ -170,6 +186,8 @@ angular.module('partyAll.controllers', [])
         $rootScope.$on(SEARCH_EVENTS.searchSuccess, function (event, tracks) {
           console.log("RESULTS SUCCESS");
           console.log(tracks);
+          $scope.searchFormError = false;
+          $scope.searchFormErrorMessage = "";
           $scope.results = tracks;
           $scope.disableSearchForm = false;
         })

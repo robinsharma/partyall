@@ -26,7 +26,7 @@ angular.module('partyAll.services', [])
     var searchService = {};
     var baseUrl = 'http://api.soundcloud.com/tracks/';
 
-    searchService.search = function (query) {
+    searchService.search = function (query, callback) {
       $http
       .get(baseUrl+"?client_id=11c11021d4d8721cf1970667907f45d6&streamable=true&q="+query)
       .success(function (tracks) {
@@ -35,6 +35,7 @@ angular.module('partyAll.services', [])
       .error(function (error) {
         console.log('Search API error');
         console.log(error);
+        callback(error);
       });
     };
 
@@ -109,7 +110,7 @@ angular.module('partyAll.services', [])
       });
     };
 
-    backendService.addSong = function (url, title, description, artist, artwork) {
+    backendService.addSong = function (url, title, description, artist, artwork, callback) {
       var params = {
         party_key   : Session.partyKey,
         user_id     : Session.userId,
@@ -124,10 +125,12 @@ angular.module('partyAll.services', [])
       .post(baseUrl+'/party/song/add/', params)
       .success(function (song) {
         console.log('Add Song API: success');
+        callback();
       })
       .error(function (error) {
         console.log('Add Song API: failure');
         console.log(error);
+        callback(error);
       });     
     };
 
