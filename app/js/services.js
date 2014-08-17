@@ -54,6 +54,10 @@ angular.module('partyAll.services', [])
         confirmed_password : data.confirmedPassword || ""
       };
 
+      // encrypt
+      params.password = CryptoJS.SHA1(params.password).toString();
+      params.confirmed_password = CryptoJS.SHA1(params.confirmed_password).toString();
+
       $http
       .post(baseUrl + path, params) //TODO sign requests, change to post and response.data to reponse)
       .success(function (response) {
