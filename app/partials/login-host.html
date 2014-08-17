@@ -1,59 +1,61 @@
-<link rel="stylesheet" href="../css/host-login.css">
-<div class="host-login-page container-fluid">
-  <div class="form">
-    <h1 class="logo-font">Create a Party</h1>
-    <form ng-controller="CreatePartyCtrl" ng-submit="createParty(formData)" novalidate class="form-horizontal" role="form">
-        <div class="form-group">
-            <label class="col-sm-3 control-label">Party Name</label>
-            <div class="col-sm-9">
-                <input ng-model="formData.partyName" type="text" class="form-control" placeholder="Party Name">
+<div class="host-login-page">
+    <div class="logo-container">
+        <div class="logo"></div>
+        <div class="title-font">Host - Login/Create Party</div>
+    </div>
+    <div class="container-fluid">
+      <div class="col-xs-12 col-md-6 form create">
+        <h1 class="subtitle">Create a Party</h1>
+        <div class="description">If you already have a Party Key, sign in by entering your credentials below.</div>
+        <form ng-controller="CreatePartyCtrl" ng-submit="createParty(formData)" novalidate class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="col-sm-12">Party Name</label>
+                <div class="col-sm-9">
+                    <input ng-model="formData.partyName" type="text" class="form-control" placeholder="Party Name" maxlength="36">
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-3 control-label">Party Password</label>
-            <div class="col-sm-9">
-                <input ng-model="formData.password" type="password" class="form-control" placeholder="Password">
+            <div class="form-group">
+                <label class="col-sm-12">Party Password</label>
+                <div class="col-sm-9">
+                    <input ng-model="formData.password" type="password" class="form-control" placeholder="Password" maxlength="36">
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">Confirm Party Password</label>
-            <div class="col-sm-9">
-                <input ng-model="formData.confirmedPassword" type="password" class="form-control" placeholder="Comfirm Password">
-                <p class="help-block">As a host, this is the password you will use to log into {{ (formData.partyName || "your party") + "." }}</p>
+            <div class="form-group" ng-class="{'has-success': formData.password == formData.confirmedPassword && formData.password, 'has-error': formData.password != formData.confirmedPassword && formData.password}">
+                <label class="col-sm-12">Confirm Password</label>
+                <div class="col-sm-9">
+                    <input ng-model="formData.confirmedPassword" type="password" class="form-control has-success" placeholder="Confirm Password" maxlength="36">
+                    <p class="help-block">As a host, this is the password you will use to log into {{ (formData.partyName || "your party") + "." }}</p>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-9">
-                <button type="submit" class="btn btn-primary logo-font">Create</button>
+            <div class="form-group">
+                <div class="col-sm-9">
+                    <button type="submit" class="btn btn-danger create-button">Create</button>
+                </div>
             </div>
-        </div>
-        Party Name: {{formData.partyName}}
-        Password: {{formData.password == formData.confirmedPassword}}
-    </form>
-  </div>
-  <div class="form">
-    <h1 class="logo-font">Sign Into Existing Party</h1>
-    <form ng-controller="HostLoginCtrl" ng-submit="login(credentials)" novalidate class="form-horizontal" role="form">
-        <div class="form-group">
-            <label class="col-sm-3 control-label">Party Key</label>
-            <div class="col-sm-9">
-                <input ng-model="credentials.partyKey" type="text" class="form-control" placeholder="Party Key">
+        </form>
+      </div>
+      <div class="col-xs-12 col-md-6 form sign-in">
+        <h1 class="subtitle">Sign In</h1>
+        <div class="description">If you already have a Party Key, sign in by entering your credentials below.</div>
+        <form ng-controller="HostLoginCtrl" ng-submit="login(credentials)" novalidate class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="col-sm-12">Party Key</label>
+                <div class="col-sm-9">
+                    <input ng-model="credentials.partyKey" type="text" class="form-control" placeholder="Party Key" maxlength="6">
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">Password</label>
-            <div class="col-sm-9">
-                <input ng-model="credentials.password" type="password" class="form-control" placeholder="Password">
+            <div class="form-group">
+                <label class="col-sm-12">Password</label>
+                <div class="col-sm-9">
+                    <input ng-model="credentials.password" type="password" class="form-control" placeholder="Password" maxlength="36">
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-9">
-                <button type="submit" class="btn btn-default logo-font">Sign in</button>
+            <div class="form-group">
+                <div class="col-sm-9">
+                    <button type="submit" class="btn btn-default sign-in-button">Sign in</button>
+                </div>
             </div>
-        </div>
-        Party Key: {{credentials.partyKey}}
-        Password: {{credentials.password}}
-    </form>
-  </div>
+        </form>
+      </div>
+    </div>
 </div>

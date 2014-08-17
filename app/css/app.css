@@ -1,4 +1,7 @@
 /* app css stylesheet */
+body {
+  background-color: #F3F4F7;
+}
 
 .pad {
   padding: 12px 0;
@@ -102,6 +105,22 @@
 
 .icon.exit {
   background-image: url(/img/exit.svg);
+}
+
+.logo-container {
+  background-color: #d9534f;
+  /*background-color: white;*/
+  -webkit-box-shadow: 0px 1px 8px #D1D1D1;
+     -moz-box-shadow: 0px 1px 8px #D1D1D1;
+          box-shadow: 0px 1px 8px #D1D1D1;
+}
+.logo-container .logo {
+  margin: 0px auto;
+  background-image: url(../img/party-all-text-logo-white.png);
+  /*background-image: url(../img/party-all-text-logo-red.png);*/
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 @media (max-width: 500px) {
