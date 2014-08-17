@@ -119,6 +119,10 @@
     background-position: center;
 }
 
+.now-playing-container .playback-button.disabled {
+    background-color: #ccc;
+}
+
 .now-playing-container .play-button {
     background-image: url(/img/play-button.png);
 

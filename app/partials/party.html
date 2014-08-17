@@ -37,7 +37,7 @@
 									<div ng-click="playerControl()" ng-hide="isPlaying" class="playback-button btn">
 										<div class="control play-button"></div>
 									</div>
-									<div ng-click="nextSong()" class="playback-button btn">
+									<div ng-click="!disableNextSong && nextSong()" ng-class="{ 'disabled': disableNextSong }" class="playback-button btn">
 										<div class="control next-button"></div>
 									</div>
 								</div>

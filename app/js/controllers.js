@@ -21,7 +21,9 @@ angular.module('partyAll.controllers', [])
         $scope.streamUrl = $sce.trustAsResourceUrl(url);
       };
 
+      $scope.disableNextSong = false;
       $scope.nextSong = function() {
+        $scope.disableNextSong = true;
         BackendService.nextSong();
       };
 
@@ -64,7 +66,7 @@ angular.module('partyAll.controllers', [])
 
         BackendService.createParty(formData, function (response) {
           $scope.disableForm = false;
-          
+
           if (response.success) {
             $location.path('/create/success');
           } else {
@@ -168,6 +170,7 @@ angular.module('partyAll.controllers', [])
       $scope.nowPlaying = QueueService.nowPlaying;
       $scope.staticSongs = null;
       $scope.isHost = Session.isHost();
+      $scope.disableNextSong = !QueueService.queue || !(QueueService.queue.length > 0);
       var listenedEvents = [];
 
       //init
@@ -180,6 +183,7 @@ angular.module('partyAll.controllers', [])
           console.log('queue init');
           $scope.queue = queue;
           $scope.nowPlaying = nowPlaying;
+          $scope.disableNextSong = !QueueService.queue || !(QueueService.queue.length > 0);
         })
       );
 
@@ -191,6 +195,7 @@ angular.module('partyAll.controllers', [])
           $scope.queue = queue;
           $scope.nowPlaying = nowPlaying;
           console.log(nowPlaying);
+          $scope.disableNextSong = !QueueService.queue || !(QueueService.queue.length > 0);
           $scope.$apply();
         })
       );
@@ -266,7 +271,6 @@ angular.module('partyAll.controllers', [])
 
     $scope.isPlaying = QueueService.isPlaying;
     $scope.timeWidth = "0%";
-    $scope.disableNext = true;
     $scope.song = QueueService.nowPlaying;
     var audio = $document[0].querySelector('#audio');
 
