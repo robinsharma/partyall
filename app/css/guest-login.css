@@ -1,17 +1,48 @@
-body {
-    background: #F3F4F7
-}
-
-.guest-login-page {
-    max-width: 600px;
-}
-
-.guest-login-page .form {
-    padding: 10px;
-    border-left: 4px solid rgb(197, 197, 197);
-    margin: 20px 0;
+.guest-login-page .container-fluid {
+    max-width: 1000px;
+    text-align: center;
+    margin: 0 auto;
 }
 
 .guest-login-page h1 {
-    padding-bottom: 10px;
+    font-weight: 200;
+}
+
+.guest-login-page input {
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.guest-login-page .logo-container {
+    width: 100%;
+    height: 120px;
+    text-align: center;
+}
+.guest-login-page .logo-container .logo {
+    height: 120px;
+    width: 300px;
+}
+
+.guest-login-page .form {
+    margin: 0 auto;
+    text-align: center;
+    max-width: 340px;
+    padding: 10px;
+}
+
+.guest-login-page .form.create {
+    border-right: 5px solid #d9534f;
+}
+
+.guest-login-page .btn {
+    font-weight: bold;
+}
+.guest-login-page .access-button {
+    color: #d9534f;
+}
+
+@media (max-width: 991px) {
+    .guest-login-page .form.create {
+        border: none;
+    }
 }
