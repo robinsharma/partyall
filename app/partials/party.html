@@ -45,7 +45,7 @@
 					</div>
 
 					<div ng-if="!isHost">
-						<img class="artwork" ng-src="{{ nowPlaying.artwork || '/img/placeholder.png' }}">
+						<img class="artwork" ng-src="{{ nowPlaying.artwork.replace('large', 't500x500') || '/img/placeholder.png' }}">
 						<div class="info">
 							<div class="title">{{ nowPlaying.title }}</div>
 							<div class="artist">{{ nowPlaying.artist }}</div>
