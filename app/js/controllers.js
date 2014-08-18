@@ -288,6 +288,10 @@ angular.module('partyAll.controllers', [])
         Session.destroy();
         $location.path('/');
       };
+
+      $scope.showPartyKey = function () {
+        window.alert('Your Party Key is: ' + $scope.partyKey);
+      }
       
       $scope.$on('$destroy', function() {
         // each is a function to unregister

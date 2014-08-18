@@ -7,7 +7,7 @@
 			<div class="btn icon" ng-click="navToSearch()" ng-class="{'red-search': isHost, 'white-search': !isHost}"></div>
 		</div>		
 		<div class="navigation-button settings">
-			<div class="btn icon" ng-class="{'red-settings': isHost, 'white-settings': !isHost}"></div>
+			<div ng-click="showPartyKey()" class="btn icon" ng-class="{'red-settings': isHost, 'white-settings': !isHost}"></div>
 		</div>
 		<div ng-class="{'red-logo': isHost, 'white-logo': !isHost}" class="logo"></div>
 		<div class="clearfix"></div>
