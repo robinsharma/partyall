@@ -62,7 +62,7 @@ body {
 
 
 .red-text {
-  color: #d9534f;
+  color: #d9534f !important;
 }
 
 .logo-container {
