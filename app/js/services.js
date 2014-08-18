@@ -105,6 +105,9 @@ angular.module('partyAll.services', [])
       .get(baseUrl+'/party/queue/?party_key='+Session.partyKey)
       .success(function (queue) {
         callback(queue);
+      })
+      .error(function (error, status) {
+        callback(null, error, status);
       });
     };
 
@@ -165,7 +168,7 @@ angular.module('partyAll.services', [])
     return backendService;
   }])
 
-  .factory('QueueService', ['$http', '$rootScope', 'AuthService','Session', 'BackendService', 'PARTY_EVENTS', function($http, $rootScope, AuthService, Session, BackendService, PARTY_EVENTS) {
+  .factory('QueueService', ['$http', '$rootScope', '$location','AuthService','Session', 'BackendService', 'PARTY_EVENTS', function($http, $rootScope, $location, AuthService, Session, BackendService, PARTY_EVENTS) {
     var queueService = {};
     queueService.queue = null;
     queueService.nowPlaying = null;
@@ -178,7 +181,12 @@ angular.module('partyAll.services', [])
       if (!AuthService.hasAuth() || initialized) return;
 
       initialized = true;
-      BackendService.getQueue(function (queue) {
+      BackendService.getQueue(function (queue, error, status) {
+        if (error) {
+          queueService.destroy();
+          Session.destroy();
+          $location.path('/');
+        }
         queueService.queue = queue.slice(1);
         queueService.nowPlaying = queue[0];
         $rootScope.$broadcast(PARTY_EVENTS.partyQueueInit, queueService.queue, queueService.nowPlaying);
@@ -193,7 +201,12 @@ angular.module('partyAll.services', [])
       socket.onmessage = function (message) {
         var msg = JSON.parse(message.data);
 
-        BackendService.getQueue(function (queue) {
+        BackendService.getQueue(function (queue, error, status) {
+          if (error) {
+            queueService.destroy();
+            Session.destroy();
+            $location.path('/');
+          }
           queueService.queue = queue.slice(1);
           queueService.nowPlaying = queue[0];
           if (msg.now_playing_changed) $rootScope.$broadcast(PARTY_EVENTS.nowPlayingChanged, queueService.queue, queueService.nowPlaying);
