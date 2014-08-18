@@ -32,7 +32,7 @@ angular.module('partyAll.services', [])
 
     searchService.search = function (query, callback) {
       $http
-      .get(baseUrl+"?client_id=11c11021d4d8721cf1970667907f45d6&streamable=true&q="+query)
+      .get(baseUrl+"?client_id=11c11021d4d8721cf1970667907f45d6&filter=streamable&q="+query)
       .success(function (tracks) {
         $rootScope.$broadcast(SEARCH_EVENTS.searchSuccess, tracks);
       })
