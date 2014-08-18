@@ -14,12 +14,14 @@
     text-align: center;
     text-transform: uppercase;
     font-weight: bold;
-    margin-top: -15px;
+    margin-top: -25px;
     color: white;
+    float: left;
+    width: 100%;
 }
 
 .party-page .navigation-button {
-    height: 75px;
+    height: 85px;
     width: 75px;
 }
 
@@ -301,14 +303,14 @@
     }
     .party-page .logo-container .logo {
         height: 50px;
-        width: 100px;
+        width: 150px;
     }
     .party-page .logo-container .logo-title-font {
-        margin-top: -12px;
+        margin-top: -17px;
         font-size: 11px;
     }
     .party-page .navigation-button {
-        height: 50px;
+        height: 55px;
         width: 50px;
     }
     .party-page .container-fluid {
