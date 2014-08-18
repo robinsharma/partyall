@@ -6,60 +6,6 @@ body {
 .pad {
   padding: 12px 0;
 }
-/* PARTY PAGE */
-/*.player {
-  width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  padding-bottom: 6px;
-  border-bottom: solid 1px #ccc;
-  margin-bottom: 12px;
-}
-
-.artwork {
-  display: inline-block;
-  height: 100px;
-  width: 100px;
-}
-
-.info {
-  display: inline-block;
-  padding-left: 10px;
-  vertical-align: top;
-  position: relative;
-  height: 150px;
-}
-
-.time {
-  vertical-align: top;
-  width: 100%;
-  height: 3px;
-  background-color: #CCC;
-}
-
-.time > span {
-  display: block;
-  height: 100%;
-  background-color: #00ADFF;
-}
-
-.controls {
-  position: absolute;
-  bottom: 0;
-}*/
-
-/*.icon {
-  background-repeat: no-repeat;
-  background-size: contain;
-  width: 16px;
-  height: 16px;
-}
-
-.icon.search {
-  background-image: url(/img/search.png);
-}*/
-
-
 
 .red-text {
   color: #d9534f !important;

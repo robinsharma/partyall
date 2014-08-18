@@ -13,9 +13,6 @@
 		<div class="clearfix"></div>
 		<div ng-class="{'red-text' : isHost}" class="logo-title-font">{{ partyName || "Party Key" }} - {{partyKey}}</div>
 	</div>
-<!-- {{ party.name || "Party" }}
- -->
-
 
 	<div class="container-fluid">
 		<div ng-show="!!nowPlaying">
@@ -32,7 +29,6 @@
 								<div>Time: {{currentTime}} / {{duration}}</div>
 								<div ng-click="navToSoundcloud(song)" class="soundcloud no-float"></div>
 								<div class="controls">
-<!-- 									<div class="time"><span ng-style="{ width: timeWidth }"></span></div> -->
 									<div ng-click="playerControl()" ng-show="isPlaying" class="playback-button btn">
 										<div class="control pause-button"></div>
 									</div>
