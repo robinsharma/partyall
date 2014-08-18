@@ -13,7 +13,7 @@
             <div ng-show="searchError" class="alert alert-danger" role="alert">{{searchErrorMessage}}</div>
             <form ng-submit="search(query)" novalidate class="form-horizontal" name="searchForm" role="form">
                 <div class="form-group">
-                    <input ng-model="query" type="text" class="form-control" placeholder="Search for a song..." required>
+                    <input ng-model="query" id="query" type="text" class="form-control" placeholder="Search for a song..." autofocus="autofocus" required>
                 </div>
                 <div class="form-group">
                     <button ng-disabled="disableSearchForm || searchForm.$invalid" type="submit" class="btn btn-danger search-button">Search</button>

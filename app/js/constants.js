@@ -16,7 +16,8 @@ angular.module('partyAll.constants', [])
     partyQueueUpdate:   'party-queue-update',
     partyQueueInit:   'party-queue-init',
     staticSongs: 'static-songs',
-    nowPlayingChanged: 'nowplaying-changed'
+    nowPlayingChanged: 'nowplaying-changed',
+    hostChanged: 'host-changed'
   })
 
   .constant('SEARCH_EVENTS', {
