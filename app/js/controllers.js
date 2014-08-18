@@ -243,7 +243,6 @@ angular.module('partyAll.controllers', [])
           $scope.nowPlaying = nowPlaying;
           console.log(nowPlaying);
           $scope.disableNextSong = !QueueService.queue || !(QueueService.queue.length > 0);
-          $scope.$apply();
         })
       );
 
