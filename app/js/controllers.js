@@ -41,6 +41,7 @@ angular.module('partyAll.controllers', [])
 
       $scope.audio.addEventListener('error', function (error) {
         console.log('Audio Tag error event');
+        console.log(error);
         $scope.nextSong();
       });
   }])
@@ -368,6 +369,11 @@ angular.module('partyAll.controllers', [])
       $scope.$apply();
     });
 
+    var stalledListener = $scope.audio.addEventListener('stalled', function (event) {
+      $scope.loading = true;
+      $scope.$apply();
+    });
+
     var playingListener = $scope.audio.addEventListener('playing', function (event) {
       $scope.loading = false;
       $scope.$apply();
@@ -390,6 +396,7 @@ angular.module('partyAll.controllers', [])
       $scope.audio.removeEventListener('durationchangeListener');
       $scope.audio.removeEventListener('waitingListener');
       $scope.audio.removeEventListener('playingListener');
+      $scope.audio.removeEventListener('stalledListener');
 
       QueueService.isPlaying = $scope.isPlaying;
     });
