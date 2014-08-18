@@ -3,8 +3,8 @@
 /* Controllers */
 
 angular.module('partyAll.controllers', [])
-  .controller('MainAppCtrl', ['$scope', '$sce', '$document', 'BackendService', 'USER_TYPES', 'AuthService', 'Session',
-    function($scope, $sce, $document, BackendService, USER_TYPES, AuthService, Session) {
+  .controller('MainAppCtrl', ['$scope', '$rootScope','$sce', '$location', '$document', 'QueueService', 'BackendService', 'PARTY_EVENTS','USER_TYPES', 'AuthService', 'Session',
+    function($scope, $rootScope, $sce, $location, $document, QueueService, BackendService, PARTY_EVENTS, USER_TYPES, AuthService, Session) {
       $scope.currentUserData = null;
       //following two are for providing easy access to USER_TYPES and isAuthorized
       $scope.userTypes = USER_TYPES;
@@ -29,9 +29,21 @@ angular.module('partyAll.controllers', [])
       };
 
       $scope.stopAudio = function() {
-        audio.pause();
+        $scope.audio.pause();
         $scope.setStreamUrl("");
       };
+
+      $scope.logout = function() {
+        $scope.stopAudio();
+        QueueService.destroy();
+        Session.destroy();
+        $location.path('/');
+      };
+
+      $rootScope.$on(PARTY_EVENTS.hostChanged, function (event) {
+        console.log('event');
+        $scope.logout();
+      });
 
       $scope.audio.addEventListener('ended', function () {
         $scope.setStreamUrl("");
@@ -261,13 +273,6 @@ angular.module('partyAll.controllers', [])
         BackendService.playNow(song.id, function (error) {
           $scope.queue[index].disabled = false;
         });
-      };
-
-      $scope.logout = function() {
-        $scope.stopAudio();
-        QueueService.destroy();
-        Session.destroy();
-        $location.path('/');
       };
 
       $scope.showPartyKey = function () {

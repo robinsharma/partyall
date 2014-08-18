@@ -200,12 +200,18 @@ angular.module('partyAll.services', [])
 
       socket.onmessage = function (message) {
         var msg = JSON.parse(message.data);
+        if (msg.host_changed) {
+          console.log('host_changed');
+          $rootScope.$broadcast(PARTY_EVENTS.hostChanged);
+          return;
+        }
 
         BackendService.getQueue(function (queue, error, status) {
           if (error) {
             queueService.destroy();
             Session.destroy();
             $location.path('/');
+            return;
           }
           queueService.queue = queue.slice(1);
           queueService.nowPlaying = queue[0];
