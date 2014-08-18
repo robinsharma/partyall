@@ -1,0 +1,35 @@
+<div class="party-page search-page">
+    <div ng-class="{'white-back': isHost, 'red-back': !isHost}" class="logo-container">
+        <div class="navigation-button back">
+            <div class="btn icon" ng-click="navBack()" ng-class="{'red-back-button': isHost, 'white-back-button': !isHost}"></div>
+        </div>
+        <div ng-class="{'red-logo': isHost, 'white-logo': !isHost}" class="logo"></div>
+        <div class="clearfix"></div>
+        <div ng-class="{'red-text' : isHost}"class="logo-title-font">{{ partyName || "Party Key" }} - {{partyKey}}</div>
+    </div>
+    <div class="container-fluid">
+        <div class="form">
+            <h1>Search</h1>
+            <div ng-show="searchError" class="alert alert-danger" role="alert">{{searchErrorMessage}}</div>
+            <form ng-submit="search(query)" novalidate class="form-horizontal" name="searchForm" role="form">
+                <div class="form-group">
+                    <input ng-model="query" id="query" type="text" class="form-control" placeholder="Search for a song..." autofocus="autofocus" required>
+                </div>
+                <div class="form-group">
+                    <button ng-disabled="disableSearchForm || searchForm.$invalid" type="submit" class="btn btn-danger search-button">Search</button>
+                </div>
+            </form>
+        </div>
+
+        <div ng-repeat="result in results" ng-if="result.stream_url" class="fade-in search-results">
+        	<div ng-click="!result.disabled && requestSong(result, $index)" class="btn search-result">
+                <img class="result-artwork" ng-src="{{ result.artwork_url || '/img/placeholder.png' }}">
+                <div class="result-info">
+                    <div class="result-title">{{result.title}}</div>
+                    <div class="result-artist">{{result.user.username}}</div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>

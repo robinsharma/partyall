@@ -1,0 +1,43 @@
+.host-login-page .container-fluid {
+    max-width: 1000px;
+}
+
+.host-login-page h1 {
+    font-weight: 200;
+}
+
+.host-login-page .logo-container {
+    width: 100%;
+    height: 120px;
+    text-align: center;
+}
+.host-login-page .logo-container .logo {
+    height: 120px;
+    width: 300px;
+}
+
+.host-login-page .form {
+    margin: 0 auto;
+    text-align: left;
+}
+
+.host-login-page .form.create {
+    border-right: 5px solid #d9534f;
+}
+
+.host-login-page .description {
+    padding-bottom: 10px;
+}
+
+.host-login-page .btn {
+    font-weight: bold;
+}
+.host-login-page .sign-in-button {
+    color: #d9534f;
+}
+
+@media (max-width: 991px) {
+    .host-login-page .form.create {
+        border: none;
+    }
+}

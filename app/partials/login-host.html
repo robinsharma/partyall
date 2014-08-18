@@ -1,53 +1,62 @@
-<div>
-  <h1>Create a Party</h1>
-  <form ng-controller="CreatePartyCtrl" ng-submit="createParty(credentials)" novalidate class="form-horizontal" role="form">
-      <div class="form-group">
-          <label class="col-sm-2 control-label">Party Name</label>
-          <div class="col-sm-10">
-              <input ng-model="credentials.partyName" type="text" class="form-control" placeholder="Party Name">
-          </div>
+<div class="host-login-page">
+    <div class="logo-container white-back">
+        <div class="logo red-logo"></div>
+    </div>
+    <div class="container-fluid">
+      <div class="col-xs-12 col-md-6 form create">
+        <h1 class="subtitle">Create a Party</h1>
+        <div class="description">If you are new to PartyAll or simply wanting to create a party, enter an optional party name and confirm your password below.</div>
+        <form ng-controller="CreatePartyCtrl" ng-submit="createParty(formData)" novalidate class="form-horizontal" name="createForm" role="form">
+            <div ng-show="formError" class="alert alert-danger" role="alert">{{errorMessage}}</div>
+            <div class="form-group">
+                <label class="col-sm-12">Party Name</label>
+                <div class="col-sm-9">
+                    <input ng-model="formData.partyName" type="text" class="form-control" placeholder="Party Name" maxlength="20">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-12">Party Password</label>
+                <div class="col-sm-9">
+                    <input ng-model="formData.password" type="password" class="form-control" placeholder="Password" maxlength="36" required>
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-success': formData.password == formData.confirmedPassword && formData.password, 'has-error': formData.password != formData.confirmedPassword && formData.password}">
+                <label class="col-sm-12">Confirm Password</label>
+                <div class="col-sm-9">
+                    <input ng-model="formData.confirmedPassword" type="password" class="form-control has-success" placeholder="Confirm Password" maxlength="36" required>
+                    <p class="help-block">As a host, this is the password you will use to log into {{ (formData.partyName || "your party") + "," }} using the party key that you'll be given on the next page.</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-9">
+                    <button ng-disabled="disableForm || createForm.$invalid || (formData.password !== formData.confirmedPassword)" type="submit" class="btn btn-danger create-button">Create</button>
+                </div>
+            </div>
+        </form>
       </div>
-
-      <div class="form-group">
-          <label class="col-sm-2 control-label">Party Password</label>
-          <div class="col-sm-10">
-              <input ng-model="credentials.password" type="password" class="form-control" placeholder="Password">
-          </div>
+      <div class="col-xs-12 col-md-6 form sign-in">
+        <h1 class="subtitle">Sign In</h1>
+        <div class="description">If you already have a Party Key, sign in by entering your credentials below.</div>
+        <form ng-controller="HostLoginCtrl" ng-submit="login(credentials)" novalidate class="form-horizontal" name="existingForm" role="form">
+            <div ng-show="formError" class="alert alert-danger" role="alert">{{errorMessage}}</div>
+            <div class="form-group" ng-class="{'has-success': credentials.partyKey && (credentials.partyKey.length === 6), 'has-error': credentials.partyKey && (credentials.partyKey.length !== 6)}">
+                <label class="col-sm-12">Party Key</label>
+                <div class="col-sm-9">
+                    <input ng-model="credentials.partyKey" type="text" class="form-control" placeholder="Party Key" maxlength="6" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-12">Password</label>
+                <div class="col-sm-9">
+                    <input ng-model="credentials.password" type="password" class="form-control" placeholder="Password" maxlength="36" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-9">
+                    <button ng-disabled="disableForm || existingForm.$invalid || (credentials.partyKey.length !==6)" type="submit" class="btn btn-default sign-in-button">Sign in</button>
+                </div>
+            </div>
+        </form>
       </div>
-      <div class="form-group">
-          <label class="col-sm-2 control-label">Confirm Party Password</label>
-          <div class="col-sm-10">
-              <input ng-model="credentials.confirmedPassword" type="password" class="form-control" placeholder="Comfirm Password">
-              <p class="help-block">As a host, this is the password you will use to log into {{ (credentials.partyName || "your party") + "." }}</p>
-          </div>
-      </div>
-      <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-              <button type="submit" class="btn btn-primary">Create</button>
-          </div>
-      </div>
-      Party Name: {{credentials.partyName}}
-      Password: {{credentials.password == credentials.confirmedPassword}}
-  </form>
-
-  <h1>Sign Into Existing Party</h1>
-  <form ng-controller="HostLoginCtrl" ng-submit="login(credentials)" novalidate class="form-horizontal" role="form">
-      <div class="form-group">
-          <label class="col-sm-2 control-label">Party Key</label>
-          <div class="col-sm-10">
-              <input ng-model="credentials.partyKey" type="text" class="form-control" placeholder="Party Key">
-          </div>
-      </div>
-      <div class="form-group">
-          <label class="col-sm-2 control-label">Password</label>
-          <div class="col-sm-10">
-              <input ng-model="credentials.password" type="password" class="form-control" placeholder="Password">
-          </div>
-      </div>
-      <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-              <button type="submit" class="btn btn-default">Sign in</button>
-          </div>
-      </div>
-  </form>
+    </div>
 </div>

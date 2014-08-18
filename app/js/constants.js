@@ -12,7 +12,16 @@ angular.module('partyAll.constants', [])
 
   .constant('PARTY_EVENTS', {
     partyCreateSuccess: 'party-create-success',
-    partyCreateFailure: 'party-create-failure'
+    partyCreateFailure: 'party-create-failure',
+    partyQueueUpdate:   'party-queue-update',
+    partyQueueInit:   'party-queue-init',
+    staticSongs: 'static-songs',
+    nowPlayingChanged: 'nowplaying-changed',
+    hostChanged: 'host-changed'
+  })
+
+  .constant('SEARCH_EVENTS', {
+    searchSuccess: 'search-success'
   })
 
   .constant('USER_TYPES', {

@@ -1,16 +1,19 @@
-<div>
-    <h1>Access Party</h1>
-    <form ng-controller="GuestLoginCtrl" novalidate class="form-horizontal" role="form">
-        <div class="form-group">
-            <label for="partyKey" class="col-sm-2 control-label">Enter Party Key</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" placeholder="Party Key">
+<div class="guest-login-page">
+    <div class="logo-container red-back">
+        <div class="logo white-logo"></div>
+    </div>
+    <div class="container-fluid">
+        <div class="form">
+        <h1 class="logo-font">Enter your Party Key</h1>
+        <form ng-controller="GuestLoginCtrl" ng-submit="login(credentials)" novalidate class="form-horizontal" name="guestForm" role="form">
+        <div ng-show="formError" class="alert alert-danger" role="alert">{{errorMessage}}</div>
+            <div class="form-group" ng-class="{'has-success': credentials.partyKey && (credentials.partyKey.length === 6), 'has-error': credentials.partyKey && (credentials.partyKey.length !== 6)}">
+                <input ng-model="credentials.partyKey" type="text" class="form-control input-lg" placeholder="Party Key" maxlength="6" required>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-primary">Access</button>
+            <div class="form-group">
+                <button ng-disabled="disableForm || guestForm.$invalid || (credentials.partyKey.length !==6)" type="submit" class="btn btn-lg btn-default access-button">Access</button>
             </div>
+        </form>
         </div>
-    </form>
+    </div>
 </div>

@@ -1,57 +1,84 @@
 /* app css stylesheet */
-
-.menu {
-  list-style: none;
-  border-bottom: 0.1em solid black;
-  margin-bottom: 2em;
-  padding: 0 0 0.5em;
+body {
+  background-color: #F3F4F7;
 }
 
-.menu:before {
-  content: "[";
+.pad {
+  padding: 12px 0;
 }
 
-.menu:after {
-  content: "]";
+.red-text {
+  color: #d9534f !important;
 }
 
-.menu > li {
-  display: inline;
+.logo-container {
+  background-color: #d9534f;
+  /*background-color: white;*/
+  -webkit-box-shadow: 0px 1px 8px #D1D1D1;
+     -moz-box-shadow: 0px 1px 8px #D1D1D1;
+          box-shadow: 0px 1px 8px #D1D1D1;
+}
+.logo-container.red-back {
+  background-color: #d9534f;
+
+}
+.logo-container.white-back {
+  background-color: white;
+
+}
+.logo-container .logo {
+  margin: 0px auto;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.logo.white-logo {
+  background-image: url(/img/party-all-text-logo-white.png?inline=1);
+}
+.logo.red-logo {
+  background-image: url(/img/party-all-text-logo-red.png?inline=1);
 }
 
-.menu > li:before {
-  content: "|";
-  padding-right: 0.3em;
+@media (max-width: 500px) {
+  .pad {
+    padding: 6px 0;
+  }
 }
 
-.menu > li:nth-child(1):before {
-  content: "";
-  padding: 0;
-}
-
-.player {
-  width: 100%;
-}
-
-.artwork {
-  display: inline-block;
-}
-
-.info {
-  display: inline-block;
-  padding-left: 10px;
-}
-
-.time {
-  display: inline-block;
-  vertical-align: top;
-  width: 100%;
-  height: 3px;
-  background-color: #CCC;
-}
-
-.time > span {
-  display: block;
+.page-fade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
   height: 100%;
-  background-color: #00ADFF;
+  opacity: 1;
+}
+.page-fade.ng-enter,
+.page-fade.ng-leave {
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+.page-fade.ng-enter {
+  opacity: 0;
+}
+.page-fade.ng-enter-active {
+  opacity: 1;
+}
+.page-fade.ng-leave {
+  opacity: 1;
+}
+.page-fade.ng-leave-active {
+  opacity: 0;
+}
+
+.fade-in.ng-enter {
+  -webkit-transition: 0.5s linear all;
+  transition: 0.5s linear all;
+  opacity: 0;
+}
+ 
+.fade-in.ng-enter-active {
+  opacity: 1;
 }

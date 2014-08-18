@@ -1,41 +1,88 @@
-<div>
-	<div class="navbar navbar-inverse navbar-static-top">
-		<div class="container">
-			<div class="navbar-brand">{{ party.name || "Party" }}</div>
+<div class="party-page">
+	<div ng-class="{'white-back': isHost, 'red-back': !isHost}" class="logo-container">
+		<div class="navigation-button exit">
+			<div class="btn icon" ng-click="logout()" ng-class="{'red-exit': isHost, 'white-exit': !isHost}"></div>
 		</div>
+		<div class="navigation-button search">
+			<div class="btn icon" ng-click="navToSearch()" ng-class="{'red-search': isHost, 'white-search': !isHost}"></div>
+		</div>		
+		<div class="navigation-button settings">
+			<div ng-click="showPartyKey()" class="btn icon" ng-class="{'red-settings': isHost, 'white-settings': !isHost}"></div>
+		</div>
+		<div ng-class="{'red-logo': isHost, 'white-logo': !isHost}" class="logo"></div>
+		<div class="clearfix"></div>
+		<div ng-class="{'red-text' : isHost}" class="logo-title-font">{{ partyName || "Party Key" }} - {{partyKey}}</div>
 	</div>
 
-	<div class="container">
-		<div ng-if="songPlaying()">
+	<div class="container-fluid">
+		<div ng-show="!!nowPlaying">
 			
-			<h5>Now Playing</h5>
-			
-			<div ng-if="isHost()">
-				<div ng-controller="PlayerCtrl">
-					<audio id="player"></audio>
-
-					<div class="player">
-						<img class="artwork" ng-src="{{artwork}}"></img>
-						<div class="info">
-							<div>{{ artist }}</div>
-							<div>{{ title }}</div>
-							<div class="time"><span ng-style="{ width: timeWidth }"></span></div>
+			<div class="col-md-5">
+				<div class="now-playing-container">
+					<h1>Now Playing</h1>
+					<div ng-if="isHost" ng-controller="PlayerCtrl">
+						<div class="player">
+							<img class="artwork" ng-src="{{ song.artwork.replace('large', 't500x500')  || '/img/placeholder.png' }}">
+							<div class="info">
+								<div class="title">{{ song.title }}</div>
+								<div class="artist">{{ song.artist }}</div>
+								<div>{{currentTime}} / {{duration}}</div>
+								<div ng-click="navToSoundcloud(song)" class="soundcloud no-float"></div>
+								<div class="controls">
+									<div ng-click="playerControl()" ng-show="isPlaying" class="playback-button btn">
+										<div ng-hide="loading" class="control pause-button"></div>
+										<div ng-show="loading" class="control load-button"></div>
+									</div>
+									<div ng-click="playerControl()" ng-hide="isPlaying" class="playback-button btn">
+										<div class="control play-button"></div>
+									</div>
+									<div ng-click="!disableNextSong && nextSong()" ng-class="{ 'disabled': disableNextSong }" class="playback-button btn">
+										<div class="control next-button"></div>
+									</div>
+								</div>
+							</div>
 						</div>
-
 					</div>
-					
-					<span ng-click="playerControl()" ng-show="isPlaying">Playing</span>
-					<span ng-click="playerControl()" ng-hide="isPlaying">Paused</span>
-					<span ng-click="nextSong()">Next</span>
 
+					<div ng-if="!isHost">
+						<img class="artwork" ng-src="{{ nowPlaying.artwork || '/img/placeholder.png' }}">
+						<div class="info">
+							<div class="title">{{ nowPlaying.title }}</div>
+							<div class="artist">{{ nowPlaying.artist }}</div>
+							<div ng-click="navToSoundcloud(song)" class="soundcloud no-float"></div>
+						</div>
+					</div>
 				</div>
-
-				<div ng-if="!isHost()">
-					<!-- song icon and title and artists -->
-				</div>	
 			</div>
 
+			<div class="col-md-offset-5 col-md-7">
+				<div class="queue-container">
+					<h1>Up Next</h1>
+					<div class="songs">
+						<div ng-hide="queue.length" class="empty-queue-message">There is nothing in the queue. Hit the search icon in the top right corner to queue up a song!</div>
+						<div ng-repeat="song in queue" class="song-item">
+							<img class="artwork" ng-src="{{ song.artwork || '/img/placeholder.png' }}">
+							<div class="info">
+								<div class="title">{{ song.title }}</div>
+								<div class="artist">{{ song.artist }}</div>
+								<div class="votes">Votes: <span ng-class="{'red-text': hasVote(song)}">{{ song.votes }}</span></div>
+								<div ng-click="navToSoundcloud(song)" class="soundcloud"></div>
+								<div ng-click="!song.disabled && toggleVote(song, $index)" ng-class="{ 'disabled' : song.disabled }" class="toggle-button btn">
+									<div ng-class="{ 'active': hasVote(song), 'inactive' : !hasVote(song) }" class="heart"></div>
+								</div>
+								<div ng-if="isHost" ng-click="!song.disabled && playNow(song, $index)" ng-class="{ 'disabled' : song.disabled }" class="toggle-button btn">
+									<div class="play"></div>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
+		<div class="nothing" ng-hide="!!nowPlaying">
+			Looks like there are no songs in the queue! Hit the search icon in the top corner and queue up a song to get this party started :)
 		</div>
 	</div>
 </div>
