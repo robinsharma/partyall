@@ -1,0 +1,33 @@
+CACHE MANIFEST
+
+# zerver:css/main.min.css
+/bower_components/html5-boilerplate/css/normalize.css
+/bower_components/html5-boilerplate/css/main.css
+/css/bootstrap.min.css
+/css/app.css
+/css/home.css
+/css/host-login.css
+/css/guest-login.css
+/css/success.css
+/css/party-page.css
+/css/search-page.css
+# /zerver
+
+# zerver:js/main.min.js
+/bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js
+/bower_components/angular/angular.js
+/bower_components/angular-route/angular-route.js
+/bower_components/ngstorage/ngStorage.js
+//crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js
+/js/app.js
+/js/services.js
+/js/constants.js
+/js/controllers.js
+/js/filters.js
+/js/directives.js
+# /zerver
+
+/zerver/API.js
+
+NETWORK:
+*

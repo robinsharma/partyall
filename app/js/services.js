@@ -37,8 +37,6 @@ angular.module('partyAll.services', [])
         $rootScope.$broadcast(SEARCH_EVENTS.searchSuccess, tracks);
       })
       .error(function (error) {
-        console.log('Search API error');
-        console.log(error);
         callback(error);
       });
     };
@@ -96,11 +94,8 @@ angular.module('partyAll.services', [])
       $http
       .post(baseUrl+'/party/song/next/', params)
       .success(function (song) {
-        console.log('Next Song API: success');
       })
       .error(function (error) {
-        console.log('Next Song API: failure');
-        console.log(error);
         callback(error);
       });
     };
@@ -109,8 +104,10 @@ angular.module('partyAll.services', [])
       $http
       .get(baseUrl+'/party/queue/?party_key='+Session.partyKey)
       .success(function (queue) {
-        console.log('sucessfully get queue');
         callback(queue);
+      })
+      .error(function (error, status) {
+        callback(null, error, status);
       });
     };
 
@@ -129,12 +126,9 @@ angular.module('partyAll.services', [])
       $http
       .post(baseUrl+'/party/song/add/', params)
       .success(function (song) {
-        console.log('Add Song API: success');
         callback();
       })
       .error(function (error) {
-        console.log('Add Song API: failure');
-        console.log(error);
         callback(error);
       });     
     };
@@ -149,11 +143,8 @@ angular.module('partyAll.services', [])
       $http
       .post(baseUrl+'/party/song/vote/', params)
       .success(function (song) {
-        console.log('Vote Song API: success');
       })
       .error(function (error) {
-        console.log('Vote Song API: failure');
-        console.log(error);
         callback(error);
       });     
     };
@@ -168,11 +159,8 @@ angular.module('partyAll.services', [])
       $http
       .post(baseUrl+'/party/song/play-now/', params)
       .success(function (song) {
-        console.log('Play Now API: success');
       })
       .error(function (error) {
-        console.log('Play Now API: failure');
-        console.log(error);
         callback(error);
       });     
     };
@@ -180,7 +168,7 @@ angular.module('partyAll.services', [])
     return backendService;
   }])
 
-  .factory('QueueService', ['$http', '$rootScope', 'AuthService','Session', 'BackendService', 'PARTY_EVENTS', function($http, $rootScope, AuthService, Session, BackendService, PARTY_EVENTS) {
+  .factory('QueueService', ['$http', '$rootScope', '$location','AuthService','Session', 'BackendService', 'PARTY_EVENTS', function($http, $rootScope, $location, AuthService, Session, BackendService, PARTY_EVENTS) {
     var queueService = {};
     queueService.queue = null;
     queueService.nowPlaying = null;
@@ -193,7 +181,12 @@ angular.module('partyAll.services', [])
       if (!AuthService.hasAuth() || initialized) return;
 
       initialized = true;
-      BackendService.getQueue(function (queue) {
+      BackendService.getQueue(function (queue, error, status) {
+        if (error) {
+          queueService.destroy();
+          Session.destroy();
+          $location.path('/');
+        }
         queueService.queue = queue.slice(1);
         queueService.nowPlaying = queue[0];
         $rootScope.$broadcast(PARTY_EVENTS.partyQueueInit, queueService.queue, queueService.nowPlaying);
@@ -203,17 +196,17 @@ angular.module('partyAll.services', [])
       socket = channel.open();
 
       socket.onopen = function() {
-        console.log('socket onopen');
       };
 
       socket.onmessage = function (message) {
-        console.log('socket onmessage');
         var msg = JSON.parse(message.data);
-        console.log(msg);
 
-        BackendService.getQueue(function (queue) {
-          console.log('got queue on socket message');
-          console.log(queue);
+        BackendService.getQueue(function (queue, error, status) {
+          if (error) {
+            queueService.destroy();
+            Session.destroy();
+            $location.path('/');
+          }
           queueService.queue = queue.slice(1);
           queueService.nowPlaying = queue[0];
           if (msg.now_playing_changed) $rootScope.$broadcast(PARTY_EVENTS.nowPlayingChanged, queueService.queue, queueService.nowPlaying);
@@ -223,7 +216,8 @@ angular.module('partyAll.services', [])
       };
 
       socket.onerror = function (error) {
-        console.log('socket onerror:' + error);
+        console.log('socket onerror:');
+        console.log(error);
         //todo
       };
 
