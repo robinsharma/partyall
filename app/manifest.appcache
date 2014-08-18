@@ -29,5 +29,25 @@ CACHE MANIFEST
 
 /zerver/API.js
 
+/img/party-all-text-logo-white.png?inline=1
+/img/party-all-text-logo-red.png?inline=1
+/img/settings-red.png?inline=1
+/img/settings-white.png?inline=1
+/img/search-red.png?inline=1
+/img/search-white.png?inline=1
+/img/exit-red.svg?inline=1
+/img/exit-white.svg?inline=1
+/img/play-button.png?inline=1
+/img/pause-button.png?inline=1
+/img/loading.gif?inline=1
+/img/skip-button.png?inline=1
+/img/soundcloud-logo-black.png?inline=1
+/img/play-button.png?inline=1
+/img/play-button.png?inline=1
+/img/vote.png?inline=1
+/img/un-vote.png?inline=1
+/img/back-white.png?inline=1
+/img/back-red.png?inline=1
+
 NETWORK:
 *

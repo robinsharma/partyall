@@ -33,10 +33,10 @@ body {
   background-position: center;
 }
 .logo.white-logo {
-  background-image: url(../img/party-all-text-logo-white.png);
+  background-image: url(/img/party-all-text-logo-white.png?inline=1);
 }
 .logo.red-logo {
-  background-image: url(../img/party-all-text-logo-red.png);
+  background-image: url(/img/party-all-text-logo-red.png?inline=1);
 }
 
 @media (max-width: 500px) {

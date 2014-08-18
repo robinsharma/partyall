@@ -6,10 +6,10 @@
 }
 
 .search-page .white-back-button {
-    background-image: url(/img/back-white.png);
+    background-image: url(/img/back-white.png?inline=1);
 }
 .search-page .red-back-button {
-    background-image: url(/img/back-red.png);
+    background-image: url(/img/back-red.png?inline=1);
 }
 
 .search-page .navigation-button.back {

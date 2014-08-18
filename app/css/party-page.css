@@ -54,24 +54,24 @@
 }
 
 .party-page .red-settings {
-    background-image: url(/img/settings-red.png);
+    background-image: url(/img/settings-red.png?inline=1);
 }
 .party-page .white-settings {
-    background-image: url(/img/settings-white.png);
+    background-image: url(/img/settings-white.png?inline=1);
 }
 
 .party-page .red-search {
-    background-image: url(/img/search-red.png);
+    background-image: url(/img/search-red.png?inline=1);
 }
 .party-page .white-search {
-    background-image: url(/img/search-white.png);
+    background-image: url(/img/search-white.png?inline=1);
 }
 
 .party-page .red-exit {
-    background-image: url(/img/exit-red.svg);
+    background-image: url(/img/exit-red.svg?inline=1);
 }
 .party-page .white-exit {
-    background-image: url(/img/exit-white.svg);
+    background-image: url(/img/exit-white.svg?inline=1);
 }
 
 .now-playing-container {
@@ -134,20 +134,20 @@
 }
 
 .now-playing-container .play-button {
-    background-image: url(/img/play-button.png);
+    background-image: url(/img/play-button.png?inline=1);
 
 }
 .now-playing-container .pause-button {
-    background-image: url(/img/pause-button.png);
+    background-image: url(/img/pause-button.png?inline=1);
 }
 
 .now-playing-container .load-button {
-    background-image: url(/img/loading.gif);
+    background-image: url(/img/loading.gif?inline=1);
 }
 
 .now-playing-container .next-button {
     background-size: 100% !important;
-    background-image: url(/img/skip-button.png);
+    background-image: url(/img/skip-button.png?inline=1);
 }
 
 .queue-container {
@@ -196,7 +196,7 @@
     float: left;
     height: 40px;
     width: 40px;
-    background-image: url(/img/soundcloud-logo-black.png);
+    background-image: url(/img/soundcloud-logo-black.png?inline=1);
     background-size: 100%;
     background-repeat: no-repeat;
 }
@@ -244,7 +244,7 @@
 .party-page .songs .song-item .play {
     height: 100%;
     width: 100%;
-    background-image: url(/img/play-button.png);
+    background-image: url(/img/play-button.png?inline=1);
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
@@ -253,18 +253,18 @@
 .party-page .songs .song-item .heart {
     height: 100%;
     width: 100%;
-    background-image: url(/img/play-button.png);
+    background-image: url(/img/play-button.png?inline=1);
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .party-page .songs .song-item .heart.active {
-  background-image: url(/img/vote.png);
+  background-image: url(/img/vote.png?inline=1);
 }
 
 .party-page .songs .song-item .heart.inactive {
-  background-image: url(/img/un-vote.png);
+  background-image: url(/img/un-vote.png?inline=1);
 }
 
 .party-page .nothing {
