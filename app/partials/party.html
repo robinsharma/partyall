@@ -48,7 +48,7 @@
 						<div class="info">
 							<div class="title">{{ nowPlaying.title }}</div>
 							<div class="artist">{{ nowPlaying.artist }}</div>
-							<div class="soundcloud no-float"></div>
+							<div ng-click="navToSoundcloud(song)" class="soundcloud no-float"></div>
 						</div>
 					</div>
 				</div>
@@ -65,7 +65,7 @@
 								<div class="title">{{ song.title }}</div>
 								<div class="artist">{{ song.artist }}</div>
 								<div class="votes">Votes: <span ng-class="{'red-text': hasVote(song)}">{{ song.votes }}</span></div>
-								<div class="soundcloud"></div>
+								<div ng-click="navToSoundcloud(song)" class="soundcloud"></div>
 								<div ng-click="!song.disabled && toggleVote(song, $index)" ng-class="{ 'disabled' : song.disabled }" class="toggle-button btn">
 									<div ng-class="{ 'active': hasVote(song), 'inactive' : !hasVote(song) }" class="heart"></div>
 								</div>
@@ -81,7 +81,7 @@
 		</div>
 
 		<div class="nothing" ng-hide="!!nowPlaying">
-			Looks like there are no songs in the queue! Hit the search icon in the top corner and queue up a song to get this party going :)
+			Looks like there are no songs in the queue! Hit the search icon in the top corner and queue up a song to get this party started :)
 		</div>
 	</div>
 </div>
