@@ -167,7 +167,7 @@ angular.module('partyAll.controllers', [])
       $scope.requestSong = function (song, index) {
         console.log(song);
         $scope.results[index].disabled = true;
-        BackendService.addSong(song.stream_url, song.title, song.description, song.user.username, song.artwork_url, function (error) {
+        BackendService.addSong(song.stream_url, song.title, song.description, song.user.username, song.artwork_url, song.permalink_url, function (error) {
           if (error) {
             $scope.results[index].disabled = false;
             $scope.searchError = true;
@@ -202,8 +202,8 @@ angular.module('partyAll.controllers', [])
 
   }])
 
-  .controller('PartyCtrl', ['$scope', '$rootScope', '$location', 'QueueService', 'Session', 'PARTY_EVENTS', 'BackendService',
-    function($scope, $rootScope, $location, QueueService, Session, PARTY_EVENTS, BackendService){
+  .controller('PartyCtrl', ['$scope', '$rootScope', '$location', '$window','QueueService', 'Session', 'PARTY_EVENTS', 'BackendService',
+    function($scope, $rootScope, $location, $window, QueueService, Session, PARTY_EVENTS, BackendService){
       console.log("party controller");
       $scope.partyName = Session.partyName;
       $scope.queue = QueueService.queue;
@@ -217,7 +217,7 @@ angular.module('partyAll.controllers', [])
       console.log('QUEUE SERVICE VARS');
       console.log(QueueService.queue);
       console.log(QueueService.nowPlaying);
-      
+
       QueueService.init();
 
       listenedEvents.push(
@@ -257,6 +257,10 @@ angular.module('partyAll.controllers', [])
 
       $scope.navToSearch = function() {
         $location.path('/party/'+Session.partyKey+'/search');
+      };
+
+      $scope.navToSoundcloud = function(song) {
+        $window.open(song.source, '_blank');
       };
 
       $scope.hasVote = function(song) {

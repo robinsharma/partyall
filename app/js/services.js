@@ -114,7 +114,7 @@ angular.module('partyAll.services', [])
       });
     };
 
-    backendService.addSong = function (url, title, description, artist, artwork, callback) {
+    backendService.addSong = function (url, title, description, artist, artwork, permalinkUrl, callback) {
       var params = {
         party_key   : Session.partyKey,
         user_id     : Session.userId,
@@ -122,7 +122,8 @@ angular.module('partyAll.services', [])
         title       : title,
         description : description,
         artist      : artist,
-        artwork     : artwork
+        artwork     : artwork,
+        source      : permalinkUrl
       };
 
       $http

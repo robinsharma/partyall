@@ -29,7 +29,7 @@
 								<div class="title">{{ song.title }}</div>
 								<div class="artist">{{ song.artist }}</div>
 								<div>Time: {{currentTime}} / {{duration}}</div>
-								<div class="soundcloud no-float"></div>
+								<div ng-click="navToSoundcloud(song)" class="soundcloud no-float"></div>
 								<div class="controls">
 <!-- 									<div class="time"><span ng-style="{ width: timeWidth }"></span></div> -->
 									<div ng-click="playerControl()" ng-show="isPlaying" class="playback-button btn">
