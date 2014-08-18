@@ -15,11 +15,11 @@
 
 .guest-login-page .logo-container {
     width: 100%;
-    height: 120px;
+    height: 100px;
     text-align: center;
 }
 .guest-login-page .logo-container .logo {
-    height: 120px;
+    height: 100px;
     width: 300px;
 }
 
