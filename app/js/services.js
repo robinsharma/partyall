@@ -210,10 +210,16 @@ angular.module('partyAll.services', [])
         console.log('socket onmessage');
         var msg = JSON.parse(message.data);
         console.log(msg);
-        queueService.queue = msg.queue.slice(1);
-        queueService.nowPlaying = msg.queue[0];
-        if (msg.now_playing_changed) $rootScope.$broadcast(PARTY_EVENTS.nowPlayingChanged, queueService.queue, queueService.nowPlaying);
-        $rootScope.$broadcast(PARTY_EVENTS.partyQueueUpdate, queueService.queue, queueService.nowPlaying);
+
+        BackendService.getQueue(function (queue) {
+          console.log('got queue on socket message');
+          console.log(queue);
+          queueService.queue = queue.slice(1);
+          queueService.nowPlaying = queue[0];
+          if (msg.now_playing_changed) $rootScope.$broadcast(PARTY_EVENTS.nowPlayingChanged, queueService.queue, queueService.nowPlaying);
+          $rootScope.$broadcast(PARTY_EVENTS.partyQueueUpdate, queueService.queue, queueService.nowPlaying);
+        });
+        
       };
 
       socket.onerror = function (error) {
