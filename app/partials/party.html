@@ -22,7 +22,7 @@
 					<h1>Now Playing</h1>
 					<div ng-if="isHost" ng-controller="PlayerCtrl">
 						<div class="player">
-							<img class="artwork" ng-src="{{ song.artwork  || '/img/placeholder.png' }}">
+							<img class="artwork" ng-src="{{ song.artwork.replace('large', 't500x500')  || '/img/placeholder.png' }}">
 							<div class="info">
 								<div class="title">{{ song.title }}</div>
 								<div class="artist">{{ song.artist }}</div>
