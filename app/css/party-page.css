@@ -1,6 +1,6 @@
 .party-page .logo-container {
     width: 100%;
-    height: 75px;
+    height: 85px;
     position: fixed;
     top: 0;
     z-index: 5000;
@@ -10,8 +10,18 @@
     width: 200px;
 }
 
+.party-page .logo-container .logo-title-font {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: -25px;
+    color: white;
+    float: left;
+    width: 100%;
+}
+
 .party-page .navigation-button {
-    height: 75px;
+    height: 85px;
     width: 75px;
 }
 
@@ -70,7 +80,6 @@
     position: fixed;
     width: 38%;
     background: white;
-    /*padding: 10px;*/
     margin: 0 auto;
     border: 1px solid rgb(230, 230, 230);
     border-top: 0px;
@@ -295,15 +304,19 @@
         font-weight: bold;
     }
     .party-page .logo-container {
-        height: 50px;
+        height: 55px;
     }
     .party-page .logo-container .logo {
         height: 50px;
-        width: 100px;
+        width: 150px;
+    }
+    .party-page .logo-container .logo-title-font {
+        margin-top: -17px;
+        font-size: 11px;
     }
     .party-page .navigation-button {
-        height: 50px;
-        width: 50px;
+        height: 55px;
+        width: 45px;
     }
     .party-page .container-fluid {
         padding-top: 50px;
@@ -346,4 +359,14 @@
         background-size: 100%;
     }
 
+}
+
+@media(max-width: 340px) {
+    .party-page .logo-container .logo {
+        width: 110px;
+    }
+
+    .party-page .navigation-button {
+        width: 40px;
+    }
 }

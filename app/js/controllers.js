@@ -147,6 +147,8 @@ angular.module('partyAll.controllers', [])
     function($scope, $rootScope, $window, BackendService, Session, SearchService, SEARCH_EVENTS) {
       $scope.query = "";
       $scope.isHost = Session.isHost();
+      $scope.partyKey = Session.partyKey;
+      $scope.partyName = Session.partyName;
       $scope.results = null;
       $scope.disableSearchForm = false;
       $scope.searchError = false;
@@ -207,6 +209,7 @@ angular.module('partyAll.controllers', [])
     function($scope, $rootScope, $location, $window, QueueService, Session, PARTY_EVENTS, BackendService){
       console.log("party controller");
       $scope.partyName = Session.partyName;
+      $scope.partyKey  = Session.partyKey;
       $scope.queue = QueueService.queue;
       $scope.nowPlaying = QueueService.nowPlaying;
       $scope.staticSongs = null;
@@ -285,6 +288,10 @@ angular.module('partyAll.controllers', [])
         Session.destroy();
         $location.path('/');
       };
+
+      $scope.showPartyKey = function () {
+        window.alert('Your Party Key is: ' + $scope.partyKey);
+      }
       
       $scope.$on('$destroy', function() {
         // each is a function to unregister
