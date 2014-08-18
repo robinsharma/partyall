@@ -324,8 +324,8 @@ angular.module('partyAll.controllers', [])
     $scope.currentTime = $scope.audio.currentTime ? formatTime($scope.audio.currentTime) : "-";
     $scope.duration = $scope.audio.duration ? formatTime($scope.audio.duration) : "-";
     $scope.song = QueueService.nowPlaying;
-    // See w3 schools for networkState refernece: http://www.w3schools.com/tags/av_prop_networkstate.asp
-    $scope.loading = (($scope.audio.networkState === 0) || ($scope.audio.networkState === 2)) ? true : false;
+    // See w3 schools for readyState refernece: http://www.w3schools.com/tags/av_prop_readystate.asp
+    $scope.loading = ($scope.audio.readyState !== 4) ? true : false;
 
     listenedEvents.push(
       $rootScope.$on(PARTY_EVENTS.partyQueueInit, function (event) {
