@@ -33,7 +33,8 @@
 								<div class="controls">
 <!-- 									<div class="time"><span ng-style="{ width: timeWidth }"></span></div> -->
 									<div ng-click="playerControl()" ng-show="isPlaying" class="playback-button btn">
-										<div class="control pause-button"></div>
+										<div ng-hide="loading" class="control pause-button"></div>
+										<div ng-show="loading" class="control load-button"></div>
 									</div>
 									<div ng-click="playerControl()" ng-hide="isPlaying" class="playback-button btn">
 										<div class="control play-button"></div>

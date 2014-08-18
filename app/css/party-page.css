@@ -131,6 +131,11 @@
 .now-playing-container .pause-button {
     background-image: url(/img/pause-button.png);
 }
+
+.now-playing-container .load-button {
+    background-image: url(/img/loading.gif);
+}
+
 .now-playing-container .next-button {
     background-size: 100% !important;
     background-image: url(/img/skip-button.png);

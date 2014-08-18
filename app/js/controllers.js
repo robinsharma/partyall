@@ -9,7 +9,7 @@ angular.module('partyAll.controllers', [])
       //following two are for providing easy access to USER_TYPES and isAuthorized
       $scope.userTypes = USER_TYPES;
       $scope.isAuthorized = AuthService.isAuthorized;
-      var audio = $document[0].querySelector('#audio');
+      $scope.audio = $document[0].querySelector('#audio');
 
       $scope.setCurrentUserData = function (user) {
         $scope.currentUserData = user;
@@ -34,12 +34,12 @@ angular.module('partyAll.controllers', [])
         $scope.setStreamUrl("");
       };
 
-      audio.addEventListener('ended', function () {
+      $scope.audio.addEventListener('ended', function () {
         $scope.setStreamUrl("");
         $scope.nextSong();
       });
 
-      audio.addEventListener('error', function (error) {
+      $scope.audio.addEventListener('error', function (error) {
         console.log('Audio Tag error event');
         $scope.nextSong();
       });
@@ -303,10 +303,10 @@ angular.module('partyAll.controllers', [])
 
     $scope.playerControl = function () {
       if (!$scope.isPlaying) {
-        audio.play();
+        $scope.audio.play();
         $scope.isPlaying = true;
       } else {
-        audio.pause();
+        $scope.audio.pause();
         $scope.isPlaying = false;
       }
     };
@@ -319,13 +319,13 @@ angular.module('partyAll.controllers', [])
       }
     };
 
-    var audio = $document[0].querySelector('#audio');
     $scope.isPlaying = QueueService.isPlaying;
     $scope.timeWidth = "0%";
-    $scope.currentTime = audio.currentTime ? formatTime(audio.currentTime) : "-";
-    $scope.duration = audio.duration ? formatTime(audio.duration) : "-";
+    $scope.currentTime = $scope.audio.currentTime ? formatTime($scope.audio.currentTime) : "-";
+    $scope.duration = $scope.audio.duration ? formatTime($scope.audio.duration) : "-";
     $scope.song = QueueService.nowPlaying;
-    
+    // See w3 schools for networkState refernece: http://www.w3schools.com/tags/av_prop_networkstate.asp
+    $scope.loading = (($scope.audio.networkState === 0) || ($scope.audio.networkState === 2)) ? true : false;
 
     listenedEvents.push(
       $rootScope.$on(PARTY_EVENTS.partyQueueInit, function (event) {
@@ -344,15 +344,25 @@ angular.module('partyAll.controllers', [])
 
     setPlayer();
 
-    var timeupdateListener = audio.addEventListener('timeupdate', function (event) {
-      $scope.timeWidth = parseInt(audio.currentTime * 100 / audio.duration) + "%";
-      $scope.currentTime = formatTime(audio.currentTime);
+    var timeupdateListener = $scope.audio.addEventListener('timeupdate', function (event) {
+      $scope.timeWidth = parseInt($scope.audio.currentTime * 100 / $scope.audio.duration) + "%";
+      $scope.currentTime = formatTime($scope.audio.currentTime);
       $scope.$apply();
     });
 
-    var durationchangeListener = audio.addEventListener('durationchange', function (event) {
-      $scope.timeWidth = parseInt(audio.currentTime * 100 / audio.duration) + "%";
-      $scope.duration = formatTime(audio.duration);
+    var durationchangeListener = $scope.audio.addEventListener('durationchange', function (event) {
+      $scope.timeWidth = parseInt($scope.audio.currentTime * 100 / $scope.audio.duration) + "%";
+      $scope.duration = formatTime($scope.audio.duration);
+      $scope.$apply();
+    });
+
+    var waitingListener = $scope.audio.addEventListener('waiting', function (event) {
+      $scope.loading = true;
+      $scope.$apply();
+    });
+
+    var playingListener = $scope.audio.addEventListener('playing', function (event) {
+      $scope.loading = false;
       $scope.$apply();
     });
 
@@ -369,8 +379,10 @@ angular.module('partyAll.controllers', [])
         listenedEvents[event]();
       }
 
-      audio.removeEventListener('timeupdateListener');
-      audio.removeEventListener('durationchangeListener');
+      $scope.audio.removeEventListener('timeupdateListener');
+      $scope.audio.removeEventListener('durationchangeListener');
+      $scope.audio.removeEventListener('waitingListener');
+      $scope.audio.removeEventListener('playingListener');
 
       QueueService.isPlaying = $scope.isPlaying;
     });
