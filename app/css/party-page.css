@@ -66,7 +66,7 @@
 
 .now-playing-container {
     text-align: center;
-    height: 420px;
+    height: 460px;
     position: fixed;
     width: 38%;
     background: white;
@@ -101,7 +101,6 @@
 .now-playing-container .playback-button {
     width: 50px;
     height: 50px;
-    margin: 10px 0px 0px 0;
     border-radius: 50%;
     border: 2px solid #d9534f;
 }
@@ -178,6 +177,23 @@
     padding-left: 10px;
     /*float: left;*/
 }
+.party-page .soundcloud {
+    cursor: pointer;
+    float: left;
+    height: 40px;
+    width: 40px;
+    background-image: url(/img/soundcloud-logo-black.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+.party-page .soundcloud.no-float {
+    float: none;
+    margin: 0 auto;
+}
+
+.party-page .soundcloud:active {
+    opacity: 0.4;
+}
 .party-page .songs .song-item .info .title {
     font-weight: bold;
     font-size: 14px;
@@ -195,7 +211,7 @@
     float: right;
     width: 45px;
     height: 45px;
-    margin: 0 5px -5px 0;
+    margin: 0 5px 0 0;
     border-radius: 50%;
     border: 2px solid #d9534f;
 }

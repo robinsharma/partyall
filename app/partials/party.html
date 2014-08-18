@@ -29,7 +29,7 @@
 								<div class="title">{{ song.title }}</div>
 								<div class="artist">{{ song.artist }}</div>
 								<div>Time: {{currentTime}} / {{duration}}</div>
-
+								<div class="soundcloud no-float"></div>
 								<div class="controls">
 <!-- 									<div class="time"><span ng-style="{ width: timeWidth }"></span></div> -->
 									<div ng-click="playerControl()" ng-show="isPlaying" class="playback-button btn">
@@ -67,14 +67,15 @@
 								<div class="title">{{ song.title }}</div>
 								<div class="artist">{{ song.artist }}</div>
 								<div class="votes">Votes: <span ng-class="{'red-text': hasVote(song)}">{{ song.votes }}</span></div>
+								<div class="soundcloud"></div>
+								<div ng-click="!song.disabled && toggleVote(song, $index)" ng-class="{ 'disabled' : song.disabled }" class="toggle-button btn">
+									<div ng-class="{ 'active': hasVote(song), 'inactive' : !hasVote(song) }" class="heart"></div>
+								</div>
+								<div ng-if="isHost" ng-click="!song.disabled && playNow(song, $index)" ng-class="{ 'disabled' : song.disabled }" class="toggle-button btn">
+									<div class="play"></div>
+								</div>
+								<div class="clearfix"></div>
 							</div>
-							<div ng-click="!song.disabled && toggleVote(song, $index)" ng-class="{ 'disabled' : song.disabled }" class="toggle-button btn">
-								<div ng-class="{ 'active': hasVote(song), 'inactive' : !hasVote(song) }" class="heart"></div>
-							</div>
-							<div ng-if="isHost" ng-click="!song.disabled && playNow(song, $index)" ng-class="{ 'disabled' : song.disabled }" class="toggle-button btn">
-								<div class="play"></div>
-							</div>
-							<div class="clearfix"></div>
 						</div>
 					</div>
 				</div>
