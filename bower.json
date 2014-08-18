@@ -9,7 +9,7 @@
     "angular-mocks": "~1.2.x"
   },
   "dependencies": {
-    "angular": "1.2.x",
+    "angular": "1.2.22",
     "angular-route": "1.2.x",
     "html5-boilerplate": "~4.3.0",
     "ngstorage": "~0.3.0",

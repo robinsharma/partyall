@@ -16,6 +16,7 @@ CACHE MANIFEST
 # zerver:js/main.min.js
 /bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js
 /bower_components/angular/angular.js
+/bower_components/angular-animate/angular-animate.js
 /bower_components/angular-route/angular-route.js
 /bower_components/ngstorage/ngStorage.js
 /js/sha1.js
