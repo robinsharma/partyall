@@ -271,7 +271,7 @@ angular.module('partyAll.controllers', [])
       };
 
       $scope.showPartyKey = function () {
-        window.alert('Your Party Key is: ' + $scope.partyKey);
+        $window.alert('Your Party Key is: ' + $scope.partyKey);
       }
       
       $scope.$on('$destroy', function() {
