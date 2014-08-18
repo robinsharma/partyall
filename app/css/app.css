@@ -74,8 +74,8 @@ body {
 }
 
 .fade-in.ng-enter {
-  -webkit-transition: 0.25s linear all; /* Chrome */
-  transition: 0.25s linear all;
+  -webkit-transition: 0.5s linear all;
+  transition: 0.5s linear all;
   opacity: 0;
 }
  
