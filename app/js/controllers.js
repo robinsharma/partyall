@@ -304,11 +304,9 @@ angular.module('partyAll.controllers', [])
       if (!$scope.isPlaying) {
         audio.play();
         $scope.isPlaying = true;
-        QueueService.isPlaying = true;
       } else {
         audio.pause();
         $scope.isPlaying = false;
-        QueueService.isPlaying = false;
       }
     };
 
@@ -316,8 +314,7 @@ angular.module('partyAll.controllers', [])
       if ($scope.song = QueueService.nowPlaying) {
         $scope.timeWidth = "0%";
         $scope.setStreamUrl($scope.song.url + clientIdParam);
-        $scope.isPlaying = true;
-        QueueService.isPlaying = true;
+        $scope.isPlaying = QueueService.isPlaying;
       }
     };
 
@@ -331,6 +328,7 @@ angular.module('partyAll.controllers', [])
 
     listenedEvents.push(
       $rootScope.$on(PARTY_EVENTS.partyQueueInit, function (event) {
+        if (QueueService.nowPlaying) QueueService.isPlaying = true;
         setPlayer();
       })
     );
@@ -338,6 +336,7 @@ angular.module('partyAll.controllers', [])
     listenedEvents.push(
       $rootScope.$on(PARTY_EVENTS.nowPlayingChanged, function (event, queue) {
         console.log('now playing changed event');
+        if (QueueService.nowPlaying) QueueService.isPlaying = true;
         setPlayer();  
       })
     );
@@ -371,6 +370,8 @@ angular.module('partyAll.controllers', [])
 
       audio.removeEventListener('timeupdateListener');
       audio.removeEventListener('durationchangeListener');
+
+      QueueService.isPlaying = $scope.isPlaying;
     });
 
 }]);
