@@ -17,7 +17,6 @@ angular.module('partyAll.controllers', [])
       $scope.streamUrl = null;
 
       $scope.setStreamUrl = function(url) {
-        console.log('set stream url');
         $scope.streamUrl = $sce.trustAsResourceUrl(url);
       };
 
@@ -40,8 +39,6 @@ angular.module('partyAll.controllers', [])
       });
 
       $scope.audio.addEventListener('error', function (error) {
-        console.log('Audio Tag error event');
-        console.log(error);
         $scope.nextSong();
       });
   }])
@@ -161,7 +158,6 @@ angular.module('partyAll.controllers', [])
         $scope.disableSearchForm = true;
 
         SearchService.search(query, function (errors) {
-          console.log(errors);
           $scope.disableSearchForm = false;
           $scope.searchError = true;
           $scope.searchErrorMessage = "Uh oh! There was an issue reaching SoundCloud - please try again.";
@@ -169,7 +165,6 @@ angular.module('partyAll.controllers', [])
       };
 
       $scope.requestSong = function (song, index) {
-        console.log(song);
         $scope.results[index].disabled = true;
         BackendService.addSong(song.stream_url, song.title, song.description, song.user.username, song.artwork_url, song.permalink_url, function (error) {
           if (error) {
@@ -188,8 +183,6 @@ angular.module('partyAll.controllers', [])
 
       listenedEvents.push(
         $rootScope.$on(SEARCH_EVENTS.searchSuccess, function (event, tracks) {
-          console.log("RESULTS SUCCESS");
-          console.log(tracks);
           $scope.searchFormError = false;
           $scope.searchFormErrorMessage = "";
           $scope.results = tracks;
@@ -208,7 +201,6 @@ angular.module('partyAll.controllers', [])
 
   .controller('PartyCtrl', ['$scope', '$rootScope', '$location', '$window','QueueService', 'Session', 'PARTY_EVENTS', 'BackendService',
     function($scope, $rootScope, $location, $window, QueueService, Session, PARTY_EVENTS, BackendService){
-      console.log("party controller");
       $scope.partyName = Session.partyName;
       $scope.partyKey  = Session.partyKey;
       $scope.queue = QueueService.queue;
@@ -218,16 +210,10 @@ angular.module('partyAll.controllers', [])
       $scope.disableNextSong = !QueueService.queue || !(QueueService.queue.length > 0);
       var listenedEvents = [];
 
-      //init
-      console.log('QUEUE SERVICE VARS');
-      console.log(QueueService.queue);
-      console.log(QueueService.nowPlaying);
-
       QueueService.init();
 
       listenedEvents.push(
         $rootScope.$on(PARTY_EVENTS.partyQueueInit, function (event, queue, nowPlaying) {
-          console.log('queue init');
           $scope.queue = queue;
           $scope.nowPlaying = nowPlaying;
           $scope.disableNextSong = !QueueService.queue || !(QueueService.queue.length > 0);
@@ -237,22 +223,17 @@ angular.module('partyAll.controllers', [])
       //update
       listenedEvents.push(
         $rootScope.$on(PARTY_EVENTS.partyQueueUpdate, function (event, queue, nowPlaying) {
-          console.log('update event in party ctrl');
-          console.log(queue);
           $scope.queue = queue;
           $scope.nowPlaying = nowPlaying;
-          console.log(nowPlaying);
           $scope.disableNextSong = !QueueService.queue || !(QueueService.queue.length > 0);
         })
       );
 
       $scope.addSong = function(song) {
-        console.log(song);
         BackendService.addSong(song.url, song.title, song.description, song.artist, song.artwork);
       };
 
       $scope.toggleVote = function(song, index) {
-        console.log('vote/unvote');
         $scope.queue[index].disabled = true;
         BackendService.vote(song.id, function (error) {
           $scope.queue[index].disabled = false;
@@ -343,7 +324,6 @@ angular.module('partyAll.controllers', [])
 
     listenedEvents.push(
       $rootScope.$on(PARTY_EVENTS.nowPlayingChanged, function (event, queue) {
-        console.log('now playing changed event');
         if (QueueService.nowPlaying) QueueService.isPlaying = true;
         setPlayer();  
       })
