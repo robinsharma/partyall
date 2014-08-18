@@ -311,7 +311,7 @@
     }
     .party-page .navigation-button {
         height: 55px;
-        width: 50px;
+        width: 45px;
     }
     .party-page .container-fluid {
         padding-top: 50px;
@@ -354,4 +354,14 @@
         background-size: 100%;
     }
 
+}
+
+@media(max-width: 340px) {
+    .party-page .logo-container .logo {
+        width: 110px;
+    }
+
+    .party-page .navigation-button {
+        width: 40px;
+    }
 }
