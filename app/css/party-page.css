@@ -122,7 +122,7 @@
 }
 
 .now-playing-container .playback-button.disabled {
-    background-color: #ccc;
+    opacity: 0.4;
 }
 
 .now-playing-container .play-button {
@@ -149,7 +149,7 @@
   vertical-align: top;
   width: 100%;
   height: 3px;
-  background-color: #CCC;
+  opacity: 0.4;
 }
 
 .time > span {
@@ -201,7 +201,7 @@
 }
 
 .party-page .songs .song-item .toggle-button.disabled {
-    background-color: #ccc;
+    opacity: 0.4;
 }
 
 .party-page .songs .song-item .toggle-button:active{
@@ -257,7 +257,6 @@
 @media (max-width: 991px) {
     .now-playing-container {
         position: relative;
-        border: none;
         width: 100%;
         height: 100%;
         padding: 10px;
@@ -265,9 +264,15 @@
     .queue-container {
         padding: 0;
     }
+    .party-page .container-fluid h1 {
+        text-align: center;
+    }
 }
 
 @media(max-width: 481px) {
+    .party-page .container-fluid h1 {
+        font-weight: bold;
+    }
     .party-page .logo-container {
         height: 50px;
     }
