@@ -19,25 +19,23 @@ angular.module('partyAll', [
   });
   $routeProvider.when('/login/host', {
     templateUrl: 'partials/login-host.html',
-    authRequired: false,
-    denyLoggedInUsers: true
+    authRequired: false
   });
   $routeProvider.when('/login/guest', {
     templateUrl: 'partials/login-guest.html',
-    authRequired: false,
-    denyLoggedInUsers: true
+    authRequired: false
   });
-  $routeProvider.when('/create/success', {
+  $routeProvider.when('/party/:partyKey/success', {
     templateUrl: 'partials/create-success.html', 
     controller: 'CreateSuccessCtrl',
     authRequired: true
   });
-  $routeProvider.when('/party/:partyId', {
+  $routeProvider.when('/party/:partyKey', {
     templateUrl: 'partials/party.html', 
     controller: 'PartyCtrl',
     authRequired: true
   });
-  $routeProvider.when('/party/:partyId/search', {
+  $routeProvider.when('/party/:partyKey/search', {
     templateUrl: 'partials/search.html',
     controller: 'SearchCtrl',
     authRequired: true
@@ -46,23 +44,28 @@ angular.module('partyAll', [
     redirectTo: '/'
   });
 }])
-.run(['$rootScope', '$location', 'AuthService', 'Session', function ($rootScope, $location, AuthService, Session) {
+.run(['$rootScope', '$location', '$routeParams', 'AuthService', 'Session', function($rootScope, $location, $routeParams, AuthService, Session) {
   Session.init();
+  
   $rootScope.$on('$routeChangeStart', function (event, next) {
 
-    // does page require auth?
-    // if (next.authRequired && !AuthService.hasAuth()) {
-    //     console.log("DISALLOW: auth required but not logged in");
-    //     event.preventDefault();
-    //     $location.path('/');
-      
-    // } else if (next.denyLoggedInUsers && AuthService.hasAuth()) {
-    //   console.log("DISALLOW: users logged in are denied")
-    //   event.preventDefault();
-    //   $location.path('/party/' + Session.partyKey);
-    // }
+    // Requires auth but not logged in
+    if (next.authRequired && !AuthService.hasAuth()) {
+        event.preventDefault();
+        $location.path('/');
     
-    console.log("ALLOW: don't need auth");
+    // Requires auth but you don't have access
+    } else if (next.authRequired && !AuthService.hasAccess(next.params.partyKey)) {
+      event.preventDefault();
+      $location.path('/party/' + Session.partyKey);
+
+    // Does not require auth and you are already logged in (i.e. home or login pages)
+    } else if (!next.authRequired && AuthService.hasAuth()) {
+      event.preventDefault();
+      $location.path('/party/' + Session.partyKey);
+    }
+
+    // else don't intercept default action
 
   });
 

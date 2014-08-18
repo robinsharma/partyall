@@ -70,7 +70,7 @@ angular.module('partyAll.controllers', [])
           $scope.disableForm = false;
 
           if (response.success) {
-            $location.path('/create/success');
+            $location.path('/party/' + response.partyKey + '/success');
           } else {
             $scope.formError = true;
             $scope.errorMessage = response.error;

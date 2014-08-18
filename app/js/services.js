@@ -19,6 +19,10 @@ angular.module('partyAll.services', [])
       return (authService.hasAuth() && authType === Session.userType); // Check if user is authorized and has that level of permission
     };
 
+    authService.hasAccess = function (partyKey) {
+      return (authService.hasAuth() && partyKey === Session.partyKey);
+    };
+
     return authService;
   }])
 
