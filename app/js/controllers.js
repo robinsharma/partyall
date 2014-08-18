@@ -35,6 +35,7 @@ angular.module('partyAll.controllers', [])
       };
 
       audio.addEventListener('ended', function () {
+        $scope.setStreamUrl("");
         $scope.nextSong();
       });
 
