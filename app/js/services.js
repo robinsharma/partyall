@@ -13,7 +13,7 @@ angular.module('partyAll.services', [])
     var authService = {};
 
     authService.hasAuth = function () {
-      return !!Session.userId;
+      return !!Session.userId && !!Session.partyKey;
     };
     authService.isAuthorized = function (authType) { //TODO change to hasPermission()??
       return (authService.hasAuth() && authType === Session.userType); // Check if user is authorized and has that level of permission
@@ -179,7 +179,7 @@ angular.module('partyAll.services', [])
     return backendService;
   }])
 
-  .factory('QueueService', ['$http', '$rootScope', 'Session', 'BackendService', 'PARTY_EVENTS', function($http, $rootScope, Session, BackendService, PARTY_EVENTS) {
+  .factory('QueueService', ['$http', '$rootScope', 'AuthService','Session', 'BackendService', 'PARTY_EVENTS', function($http, $rootScope, AuthService, Session, BackendService, PARTY_EVENTS) {
     var queueService = {};
     queueService.queue = null;
     queueService.nowPlaying = null;
@@ -189,7 +189,7 @@ angular.module('partyAll.services', [])
     var socket;
 
     queueService.init = function() {
-      if (initialized) return;
+      if (!AuthService.hasAuth() || initialized) return;
 
       initialized = true;
       BackendService.getQueue(function (queue) {

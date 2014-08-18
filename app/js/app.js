@@ -44,7 +44,7 @@ angular.module('partyAll', [
     redirectTo: '/'
   });
 }])
-.run(['$rootScope', '$location', '$routeParams', 'AuthService', 'Session', function($rootScope, $location, $routeParams, AuthService, Session) {
+.run(['$rootScope', '$location','AuthService', 'Session', function($rootScope, $location, AuthService, Session) {
   Session.init();
   
   $rootScope.$on('$routeChangeStart', function (event, next) {
@@ -68,6 +68,5 @@ angular.module('partyAll', [
     // else don't intercept default action
 
   });
-
 
 }]);
