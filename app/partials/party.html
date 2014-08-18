@@ -60,7 +60,7 @@
 					<h1>Up Next</h1>
 					<div class="songs">
 						<div ng-hide="queue.length" class="empty-queue-message">There is nothing in the queue. Hit the search icon in the top right corner to queue up a song!</div>
-						<div ng-repeat="song in queue" class="song-item">
+						<div ng-repeat="song in queue" class="fade-in song-item">
 							<img class="artwork" ng-src="{{ song.artwork || '/img/placeholder.png' }}">
 							<div class="info">
 								<div class="title">{{ song.title }}</div>

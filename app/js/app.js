@@ -9,7 +9,8 @@ angular.module('partyAll', [
   'partyAll.directives',
   'partyAll.constants',
   'partyAll.controllers',
-  'ngStorage'
+  'ngStorage',
+  'ngAnimate'
 ])
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/', {

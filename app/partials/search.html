@@ -21,7 +21,7 @@
             </form>
         </div>
 
-        <div ng-repeat="result in results" ng-if="result.stream_url" class="search-results">
+        <div ng-repeat="result in results" ng-if="result.stream_url" class="fade-in search-results">
         	<div ng-click="!result.disabled && requestSong(result, $index)" class="btn search-result">
                 <img class="result-artwork" ng-src="{{ result.artwork_url || '/img/placeholder.png' }}">
                 <div class="result-info">
