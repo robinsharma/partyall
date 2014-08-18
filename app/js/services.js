@@ -201,7 +201,6 @@ angular.module('partyAll.services', [])
       socket.onmessage = function (message) {
         var msg = JSON.parse(message.data);
         if (msg.host_changed) {
-          console.log('host_changed');
           $rootScope.$broadcast(PARTY_EVENTS.hostChanged);
           return;
         }

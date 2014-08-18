@@ -3,8 +3,8 @@
 /* Controllers */
 
 angular.module('partyAll.controllers', [])
-  .controller('MainAppCtrl', ['$scope', '$rootScope','$sce', '$location', '$document', 'QueueService', 'BackendService', 'PARTY_EVENTS','USER_TYPES', 'AuthService', 'Session',
-    function($scope, $rootScope, $sce, $location, $document, QueueService, BackendService, PARTY_EVENTS, USER_TYPES, AuthService, Session) {
+  .controller('MainAppCtrl', ['$scope', '$rootScope','$sce', '$location', '$document', '$window', 'QueueService', 'BackendService', 'PARTY_EVENTS','USER_TYPES', 'AuthService', 'Session',
+    function($scope, $rootScope, $sce, $location, $document, $window, QueueService, BackendService, PARTY_EVENTS, USER_TYPES, AuthService, Session) {
       $scope.currentUserData = null;
       //following two are for providing easy access to USER_TYPES and isAuthorized
       $scope.userTypes = USER_TYPES;
@@ -41,8 +41,9 @@ angular.module('partyAll.controllers', [])
       };
 
       $rootScope.$on(PARTY_EVENTS.hostChanged, function (event) {
-        console.log('event');
+        $window.alert("We signed you out because you logged into a different device.");
         $scope.logout();
+        $scope.$apply();
       });
 
       $scope.audio.addEventListener('ended', function () {
